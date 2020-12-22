@@ -15,3 +15,42 @@ func min(x, y int) int {
 	}
 	return y
 }
+
+// LCP 22. 黑白方格画
+func PaintingPlan(n int, k int) int {
+	if k == n*n {
+		return 1
+	}
+	if k == 0 {
+		return 1
+	}
+	if k < n {
+		return 0
+	}
+
+	res := 0
+
+	// 2. 普通情况 : 假设涂了i行,j列 那么一共涂的方块数应该是 in + j(n - i), 那么k = in + j(n - i) 可以得到 j = (k-in)/(n - i)
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if n*i+j*(n-i) == k {
+				res += C(n, i) * C(n, j)
+			}
+		}
+	}
+
+	return res
+}
+
+func C(base, up int) int {
+	a := 1
+	for i := 0; i < up; i++ {
+		a *= base - i
+	}
+
+	b := 1
+	for i := 1; i <= up; i++ {
+		b *= i
+	}
+	return a / b
+}
