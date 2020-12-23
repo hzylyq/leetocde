@@ -42,3 +42,19 @@ func Interpret(command string) string {
 
 	return result
 }
+
+//
+func FirstUniqChar(s string) int {
+	var res [26]int
+
+	for _, ch := range s {
+		res[ch-'a']++
+	}
+
+	for i, ch := range s {
+		if res[ch-'a'] == 1 {
+			return i
+		}
+	}
+	return -1
+}
