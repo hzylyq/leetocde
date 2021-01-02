@@ -90,3 +90,62 @@ func sortedArrayToBST(numList []int) *TreeNode {
 	}
 	return node
 }
+
+// 二叉树的层序遍历
+func LevelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
+	}
+
+	queue := []*TreeNode{root}
+	res := make([][]int, 0)
+	for len(queue) > 0 {
+		n := len(queue)
+		r := make([]int, 0)
+		for i := 0; i < n; i++ {
+			r = append(r, queue[0].Val)
+			if queue[0].Left != nil {
+				queue = append(queue, queue[0].Left)
+			}
+			if queue[0].Right != nil {
+				queue = append(queue, queue[0].Right)
+			}
+			queue = queue[1:]
+		}
+		res = append(res, r)
+	}
+	return res
+}
+
+/**
+ * Definition for a Node.
+ * type Node struct {
+ *     Val int
+ *     Children []*Node
+ * }
+ */
+type Node struct {
+	Val      int
+	Children []*Node
+}
+
+// 429. N 叉树的层序遍历
+func ChildLevelOrder(root *Node) [][]int {
+	if root == nil {
+		return nil
+	}
+	queue := []*Node{root}
+	res := make([][]int, 0)
+
+	for len(queue) > 0 {
+		n := len(queue)
+		r := make([]int, 0)
+		for i := 0; i < n; i++ {
+			r = append(r, queue[0].Val)
+			queue = append(queue, queue[0].Children...)
+			queue = queue[1:]
+		}
+		res = append(res, r)
+	}
+	return res
+}
