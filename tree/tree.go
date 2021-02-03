@@ -221,11 +221,6 @@ func listOfDepth(tree *TreeNode) []*ListNode {
 }
 
 // 589. N叉树的前序遍历
-type Node struct {
-	Val      int
-	Children []*Node
-}
-
 func preorder(root *Node) []int {
 	if root == nil {
 		return []int{}
@@ -237,4 +232,85 @@ func preorder(root *Node) []int {
 		res = append(res, preorder(child)...)
 	}
 	return res
+}
+
+// 剑指 Offer 32 - II. 从上到下打印二叉树 II
+func levelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return [][]int{}
+	}
+
+	var list []*TreeNode
+	list = append(list, root)
+
+	res := make([][]int, 0)
+	for len(list) > 0 {
+		size := len(list)
+		var data []int
+		for i := 0; i < size; i++ {
+			data = append(data, list[i].Val)
+
+			if list[i].Left != nil {
+				list = append(list, list[i].Left)
+			}
+			if list[i].Right != nil {
+				list = append(list, list[i].Right)
+			}
+		}
+		res = append(res, data)
+		list = list[size:]
+	}
+	return res
+}
+
+// 897. 递增顺序查找树
+func IncreasingBST(root *TreeNode) *TreeNode {
+	list := inOrder(root)
+	res := new(TreeNode)
+	curr := new(TreeNode)
+	curr = res
+	for _, val := range list {
+		curr.Right = new(TreeNode)
+		curr.Right.Val = val
+		curr = curr.Right
+	}
+	return res.Right
+}
+
+func inOrder(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	res := make([]int, 0)
+	res = append(res, inOrder(root.Left)...)
+	res = append(res, root.Val)
+	res = append(res, inOrder(root.Right)...)
+	return res
+}
+
+// 剑指 Offer 54. 二叉搜索树的第k大节点
+func KthLargest(root *TreeNode, k int) int {
+	var ans, count int
+
+	type helperFunc func(*TreeNode, int)
+	var helper helperFunc
+	helper = func(root *TreeNode, k int) {
+		if root.Right != nil {
+			helper(root.Right, k)
+		}
+		count++
+
+		if count == k {
+			ans = root.Val
+			return
+		}
+		if root.Left != nil {
+			helper(root.Left, k)
+		}
+
+		return
+	}
+	helper(root, k)
+	return ans
 }
