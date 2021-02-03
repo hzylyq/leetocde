@@ -91,6 +91,30 @@ func sortedArrayToBST(numList []int) *TreeNode {
 	return node
 }
 
+// 129. 求根到叶子节点数字之和
+func SumNumbers(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	return helper(0, root)
+}
+
+func helper(num int, node *TreeNode) int {
+	var res int
+	num = num*10 + node.Val
+	if node.Left == nil && node.Right == nil {
+		return num
+	}
+	if node.Left != nil {
+		res += helper(num, node.Left)
+	}
+	if node.Right != nil {
+		res += helper(num, node.Right)
+	}
+	return res
+}
+
 // 二叉树的层序遍历
 func LevelOrder(root *TreeNode) [][]int {
 	if root == nil {
@@ -146,6 +170,71 @@ func ChildLevelOrder(root *Node) [][]int {
 			queue = queue[1:]
 		}
 		res = append(res, r)
+	}
+	return res
+}
+
+// 面试题 04.03. 特定深度节点链表
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func listOfDepth(tree *TreeNode) []*ListNode {
+	if tree == nil {
+		return nil
+	}
+
+	res := make([]*ListNode, 0)
+	list := make([]*TreeNode, 0)
+	list = append(list, tree)
+
+	for len(list) > 0 {
+		size := len(list)
+
+		var node, head *ListNode
+		for i := 0; i < size; i++ {
+			if i == 0 {
+				node = &ListNode{
+					Val: list[i].Val,
+				}
+				head = node
+			} else {
+				node.Next = &ListNode{
+					Val: list[i].Val,
+				}
+				node = node.Next
+			}
+			if list[i].Left != nil {
+				list = append(list, list[i].Left)
+			}
+			if list[i].Right != nil {
+				list = append(list, list[i].Right)
+			}
+		}
+		if head != nil {
+			res = append(res, head)
+		}
+		list = list[size:]
+	}
+	return res
+}
+
+// 589. N叉树的前序遍历
+type Node struct {
+	Val      int
+	Children []*Node
+}
+
+func preorder(root *Node) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	var res []int
+	res = append(res, root.Val)
+	for _, child := range root.Children {
+		res = append(res, preorder(child)...)
 	}
 	return res
 }
