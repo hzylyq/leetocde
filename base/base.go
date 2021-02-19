@@ -109,3 +109,52 @@ func NonConstructibleChange(coins []int) int {
 
 	return currentChangeCreated + 1
 }
+
+func GetNthFib(n int) int {
+	// Write your code here.
+	if n < 0 {
+		return -1
+	}
+
+	if n == 1 {
+		return 0
+	}
+	if n == 2 {
+		return 1
+	}
+
+	return GetNthFib(n-1) + GetNthFib(n-2)
+}
+
+func GetNthFib2(n int) int {
+	// Write your code here.
+	memoize := map[int]int{
+		1: 0,
+		2: 1,
+	}
+
+	return helper(n, memoize)
+}
+
+func helper(n int, memoize map[int]int) int {
+	if val, ok := memoize[n]; ok {
+		return val
+	}
+	memoize[n] = helper(n-1, memoize) + helper(n-2, memoize)
+	return memoize[n]
+}
+
+func GetNthFib3(n int) int {
+	// Write your code here.
+	lastTwo := []int{0, 1}
+	counter := 3
+	for counter <= n {
+		nextFib := lastTwo[0] + lastTwo[1]
+		lastTwo = []int{lastTwo[1], nextFib}
+		counter++
+	}
+	if n > 1 {
+		return lastTwo[1]
+	}
+	return lastTwo[0]
+}

@@ -34,3 +34,13 @@ func TestBinarySearch(t *testing.T) {
 
 	t.Log(BinarySearch(array, 33))
 }
+
+func TestGetNthFib(t *testing.T) {
+	t.Log(GetNthFib(2))
+	t.Log(GetNthFib(3))
+	t.Log(GetNthFib(6))
+}
+
+func TestGetNthFib2(t *testing.T) {
+	t.Log(GetNthFib2(6))
+}
