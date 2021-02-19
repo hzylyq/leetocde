@@ -391,3 +391,37 @@ func NodeDepths(root *BinaryTree) int {
 	// Write your code here.
 	return sum
 }
+
+func BranchSums(root *BinaryTree) []int {
+	// Write your code here.
+	var sums []int
+	calculationBranchSums(root,0, &sums)
+	return sums
+}
+
+func calculationBranchSums(node *BinaryTree, runningSum int, sums *[]int) {
+	if node == nil {
+		return
+	}
+
+	newRunningSum := runningSum+node.Value
+	if node.Left == nil && node.Right == nil {
+		*sums = append(*sums, newRunningSum)
+	}
+	calculationBranchSums(node.Left, newRunningSum, sums)
+	calculationBranchSums(node.Right, newRunningSum, sums)
+}
+
+type ChildNode struct {
+	Name     string
+	Children []*ChildNode
+}
+
+func (n *ChildNode) DepthFirstSearch(array []string) []string {
+	// Write your code here.
+	array = append(array, n.Name)
+	for _, node := range n.Children {
+		array = append(array, node.DepthFirstSearch(array)...)
+	}
+	return nil
+}
