@@ -314,3 +314,80 @@ func KthLargest(root *TreeNode, k int) int {
 	helper(root, k)
 	return ans
 }
+
+// find closest val in BST
+type BST struct {
+	Value int
+
+	Left  *BST
+	Right *BST
+}
+
+func (tree *BST) FindClosestValue(target int) int {
+	// Write your code here.
+	if tree == nil {
+		return -1
+	}
+
+	return tree.findCloseValue(target, tree.Value)
+}
+
+func (tree *BST) findCloseValue(target, closest int) int {
+	currentNode := tree
+
+	for currentNode != nil {
+		if abs(target, closest) > abs(target, currentNode.Value) {
+			closest = currentNode.Value
+		}
+		if target < currentNode.Value {
+			currentNode = currentNode.Left
+		} else if target > currentNode.Value {
+			currentNode = currentNode.Right
+		} else {
+			break
+		}
+	}
+
+	return closest
+}
+
+func abs(a, b int) int {
+	if a > b {
+		return a - b
+	}
+	return b - a
+}
+
+type BinaryTree struct {
+	Value       int
+	Left, Right *BinaryTree
+}
+
+func NodeDepths(root *BinaryTree) int {
+	if root == nil {
+		return -1
+	}
+
+	var sum, depth int
+	queue := []*BinaryTree{
+		root,
+	}
+
+	for len(queue) > 0 {
+		length := len(queue)
+		sum += len(queue)*depth
+		for _, node := range queue {
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+		queue = queue[length:]
+		depth++
+	}
+
+	// Write your code here.
+	return sum
+}
