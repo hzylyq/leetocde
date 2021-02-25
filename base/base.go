@@ -3,8 +3,6 @@ package base
 import (
 	"math"
 	"sort"
-
-	"google.golang.org/genproto/googleapis/firestore/admin/v1"
 )
 
 // O(n^2) time
