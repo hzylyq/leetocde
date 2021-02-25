@@ -1,6 +1,11 @@
 package base
 
-import "sort"
+import (
+	"math"
+	"sort"
+
+	"google.golang.org/genproto/googleapis/firestore/admin/v1"
+)
 
 // O(n^2) time
 // O(1) space
@@ -157,4 +162,44 @@ func GetNthFib3(n int) int {
 		return lastTwo[1]
 	}
 	return lastTwo[0]
+}
+
+func FindThreeLargestNumbers(array []int) []int {
+	// Write your code here.
+	three := []int{math.MinInt32, math.MinInt32, math.MinInt32}
+	for _, num := range array {
+		updateLargest(three, num)
+	}
+	return three
+}
+
+func updateLargest(three []int, num int) {
+	if num > three[2] {
+		shiftAndUpdate(three, num, 2)
+	} else if num > three[1] {
+		shiftAndUpdate(three, num, 1)
+	} else if num > three[0] {
+		shiftAndUpdate(three, num, 0)
+	}
+}
+
+func shiftAndUpdate(array []int, num int, idx int) {
+	for i := 0; i < idx+1; i++ {
+		if i == idx {
+			array[i] = num
+		} else {
+			array[i] = array[i+1]
+		}
+	}
+}
+
+func IsPalindrome(str string) bool {
+	// Write your code here.
+	for i := 0; i <= len(str)/2; i++ {
+		if str[i] == str[len(str)-1-i] {
+			continue
+		}
+		return false
+	}
+	return true
 }

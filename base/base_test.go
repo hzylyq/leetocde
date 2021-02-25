@@ -44,3 +44,7 @@ func TestGetNthFib(t *testing.T) {
 func TestGetNthFib2(t *testing.T) {
 	t.Log(GetNthFib2(6))
 }
+
+func TestFindThreeLargestNumbers(t *testing.T) {
+	t.Log(FindThreeLargestNumbers([]int{1,2,3,5,1,23}))
+}
