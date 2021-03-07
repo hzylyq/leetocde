@@ -7,3 +7,7 @@ func TestBubbleSort(t *testing.T) {
 	BubbleSort(arr)
 	t.Log(arr)
 }
+
+func TestMaxArea(t *testing.T) {
+	MaxArea()
+}
