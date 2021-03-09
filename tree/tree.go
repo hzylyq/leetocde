@@ -7,6 +7,38 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+func (tree *BST) InOrderTraverse(array []int) []int {
+	if tree == nil {
+		return array
+	}
+	array = tree.Left.InOrderTraverse(array)
+	array = append(array, tree.Value)
+	array = tree.Right.InOrderTraverse(array)
+	return array
+}
+
+func (tree *BST) PreOrderTraverse(array []int) []int {
+	if tree == nil {
+		return array
+	}
+	array = append(array, tree.Value)
+	array = tree.Left.PreOrderTraverse(array)
+	array = tree.Right.PreOrderTraverse(array)
+
+	return array
+}
+
+func (tree *BST) PostOrderTraverse(array []int) []int {
+	if tree == nil {
+		return array
+	}
+	array = tree.Left.PostOrderTraverse(array)
+	array = tree.Right.PostOrderTraverse(array)
+	array = append(array, tree.Value)
+
+	return array
+}
+
 // 树的遍历
 func Traversal(root *TreeNode) []int {
 	var res []int
@@ -375,7 +407,7 @@ func NodeDepths(root *BinaryTree) int {
 
 	for len(queue) > 0 {
 		length := len(queue)
-		sum += len(queue)*depth
+		sum += len(queue) * depth
 		for _, node := range queue {
 			if node.Left != nil {
 				queue = append(queue, node.Left)
@@ -395,7 +427,7 @@ func NodeDepths(root *BinaryTree) int {
 func BranchSums(root *BinaryTree) []int {
 	// Write your code here.
 	var sums []int
-	calculationBranchSums(root,0, &sums)
+	calculationBranchSums(root, 0, &sums)
 	return sums
 }
 
@@ -404,7 +436,7 @@ func calculationBranchSums(node *BinaryTree, runningSum int, sums *[]int) {
 		return
 	}
 
-	newRunningSum := runningSum+node.Value
+	newRunningSum := runningSum + node.Value
 	if node.Left == nil && node.Right == nil {
 		*sums = append(*sums, newRunningSum)
 	}

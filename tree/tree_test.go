@@ -92,12 +92,12 @@ func TestIncreasingBST(t *testing.T) {
 
 func TestKthLargest(t *testing.T) {
 	root := &TreeNode{
-		Val:   5,
-		Left:  &TreeNode{
-			Val:   3,
-			Left:  &TreeNode{
-				Val:   2,
-				Left:  &TreeNode{
+		Val: 5,
+		Left: &TreeNode{
+			Val: 3,
+			Left: &TreeNode{
+				Val: 2,
+				Left: &TreeNode{
 					Val:   1,
 					Left:  nil,
 					Right: nil,
@@ -117,4 +117,8 @@ func TestKthLargest(t *testing.T) {
 		},
 	}
 	KthLargest(root, 1)
+}
+
+func TestBST_InOrderTraverse(t *testing.T) {
+	tree
 }
