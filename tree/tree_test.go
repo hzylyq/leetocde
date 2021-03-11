@@ -121,7 +121,7 @@ func TestKthLargest(t *testing.T) {
 }
 
 func NewBST(val int) *BST {
-	return &BST{Value:val}
+	return &BST{Value: val}
 }
 
 func TestBST_Insert(t *testing.T) {
@@ -145,4 +145,10 @@ func TestBST_Insert(t *testing.T) {
 	require.True(t, root.Contains(15))
 }
 
-
+func TestRangeSumBST(t *testing.T) {
+	node := &BinaryTree{
+		Value: 1,
+		Left:  nil,
+		Right: nil,
+	}
+}

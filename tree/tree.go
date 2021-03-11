@@ -553,3 +553,22 @@ func (tree *BST) getMinValue() int {
 	}
 	return tree.Left.getMinValue()
 }
+
+func RangeSumBST(root *TreeNode, low int, high int) int {
+	if root == nil {
+		return 0
+	}
+	var sum int
+	if root.Val >= low && root.Val <= high {
+		sum += root.Val
+	}
+
+	if root.Val > low {
+		sum += RangeSumBST(root.Left, low, high)
+	}
+	if root.Val < high {
+		sum += RangeSumBST(root.Right, low, high)
+	}
+
+	return sum
+}
