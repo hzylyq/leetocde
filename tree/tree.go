@@ -1,5 +1,7 @@
 package tree
 
+import "math"
+
 // 树节点
 type TreeNode struct {
 	Val   int
@@ -571,4 +573,32 @@ func RangeSumBST(root *TreeNode, low int, high int) int {
 	}
 
 	return sum
+}
+
+func MinDiffInBST(root *TreeNode) int {
+	list := inOrder(root)
+
+	res := math.MaxInt32
+	for i := 1; i < len(list); i++ {
+		mini := list[i] - list[i-1]
+		if mini < res {
+			res = mini
+		}
+	}
+	return res
+}
+
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	return max(maxDepth(root.Left)+1, maxDepth(root.Right)+1)
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }

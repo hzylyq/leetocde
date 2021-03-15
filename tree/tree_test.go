@@ -145,10 +145,29 @@ func TestBST_Insert(t *testing.T) {
 	require.True(t, root.Contains(15))
 }
 
-func TestRangeSumBST(t *testing.T) {
-	node := &BinaryTree{
-		Value: 1,
-		Left:  nil,
-		Right: nil,
+func TestMinDiffInBST(t *testing.T) {
+	tree := &TreeNode{
+		Val: 4,
+		Left: &TreeNode{
+			Val: 2,
+			Left: &TreeNode{
+				Val:   1,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val:   3,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+		Right: &TreeNode{
+			Val:   6,
+			Left:  nil,
+			Right: nil,
+		},
 	}
+
+	res := MinDiffInBST(tree)
+	t.Log(res)
 }
