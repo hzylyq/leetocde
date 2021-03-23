@@ -602,3 +602,37 @@ func max(a, b int) int {
 	}
 	return b
 }
+
+func averageOfLevels(root *TreeNode) []float64 {
+	if root == nil {
+		return nil
+	}
+
+	var res []float64
+	queue := []*TreeNode{root}
+
+	currNum, nextLevelNum, count, sum := 1, 0, 1, 0
+
+	for len(queue) > 0 {
+		if currNum > 0 {
+			node := queue[0]
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+				nextLevelNum++
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+				nextLevelNum++
+			}
+			currNum--
+			sum += node.Val
+			queue = queue[1:]
+		}
+		if currNum == 0 {
+			res = append(res, float64(sum)/float64(count))
+			currNum, count, sum, nextLevelNum = nextLevelNum, nextLevelNum, 0, 0
+		}
+	}
+
+	return res
+}
