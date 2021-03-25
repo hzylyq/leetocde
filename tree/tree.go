@@ -1,6 +1,8 @@
 package tree
 
-import "math"
+import (
+	"math"
+)
 
 // 树节点
 type TreeNode struct {
@@ -635,4 +637,40 @@ func averageOfLevels(root *TreeNode) []float64 {
 	}
 
 	return res
+}
+
+// 530. Minimum Absolute Difference in BST
+func getMinimumDifference(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	res := inOrder(root)
+	tmp := math.MaxInt32
+	for i := 1; i <= len(res)-1; i++ {
+		min := res[i] - res[i-1]
+		if min < tmp {
+			tmp = min
+		}
+	}
+	return tmp
+}
+
+func isBalanced(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+
+	height := Height(root)
+	return height > 0
+}
+
+func Height(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if abs(Height(root.Left), Height(root.Right)) > 1 {
+		return -1
+	}
+	return max(Height(root.Left), Height(root.Right)) + 1
 }
