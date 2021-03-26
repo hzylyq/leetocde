@@ -171,3 +171,37 @@ func TestMinDiffInBST(t *testing.T) {
 	res := MinDiffInBST(tree)
 	t.Log(res)
 }
+
+func TestIsBalanced(t *testing.T) {
+	node := &TreeNode{
+		Val: 1,
+		Left: &TreeNode{
+			Val: 2,
+			Left: &TreeNode{
+				Val: 3,
+				Left: &TreeNode{
+					Val:   4,
+					Left:  nil,
+					Right: nil,
+				},
+				Right: nil,
+			},
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val:  2,
+			Left: nil,
+			Right: &TreeNode{
+				Val:  3,
+				Left: nil,
+				Right: &TreeNode{
+					Val:   4,
+					Left:  nil,
+					Right: nil,
+				},
+			},
+		},
+	}
+
+	IsBalanced(node)
+}

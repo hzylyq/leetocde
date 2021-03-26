@@ -656,21 +656,25 @@ func getMinimumDifference(root *TreeNode) int {
 	return tmp
 }
 
-func isBalanced(root *TreeNode) bool {
-	if root == nil {
-		return true
-	}
-
-	height := Height(root)
-	return height > 0
+// 110. Balanced Binary Tree
+func IsBalanced(root *TreeNode) bool {
+	_, isBalanced := HeightAndIsBalanced(root)
+	return isBalanced
 }
 
-func Height(root *TreeNode) int {
+func HeightAndIsBalanced(root *TreeNode) (int, bool) {
 	if root == nil {
-		return 0
+		return 0, true
 	}
-	if abs(Height(root.Left), Height(root.Right)) > 1 {
-		return -1
+
+	lf, bf := HeightAndIsBalanced(root.Left)
+	if !bf {
+		return 0, false
 	}
-	return max(Height(root.Left), Height(root.Right)) + 1
+	lr, br := HeightAndIsBalanced(root.Right)
+	if !br {
+		return 0, false
+	}
+
+	return max(lf, lr) + 1, abs(lf, lr) <= 1
 }
