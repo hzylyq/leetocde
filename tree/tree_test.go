@@ -205,3 +205,11 @@ func TestIsBalanced(t *testing.T) {
 
 	IsBalanced(node)
 }
+
+func TestMinDepth(t *testing.T) {
+	root := &TreeNode{
+		Val:   2,
+		Left:  nil,
+		Right: &,
+	}
+}
