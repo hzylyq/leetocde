@@ -693,9 +693,76 @@ func MinDepth(root *TreeNode) int {
 	}
 	if root.Right == nil {
 		return MinDepth(root.Left) + 1
+
 	}
 
 	return min(MinDepth(root.Left), MinDepth(root.Right)) + 1
+}
+
+// 404. Sum of Left Leaves
+func sumOfLeftLeaves(root *TreeNode) int {
+	queue := []*TreeNode{root}
+	var res int
+	for len(queue) > 0 {
+		node := queue[0]
+		queue = queue[1:]
+		if node == nil {
+			continue
+		}
+
+		if node.Left != nil {
+			queue = append(queue, node.Left)
+			if node.Left.Left == nil && node.Left.Right == nil {
+				res += node.Left.Val
+			}
+		}
+		if node.Right != nil {
+			queue = append(queue, node.Right)
+		}
+	}
+	return res
+}
+
+// 617. 合并二叉树
+func mergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
+	if root1 == nil {
+		return root2
+	}
+	if root2 == nil {
+		return root1
+	}
+
+	tree := &TreeNode{
+		Val: root1.Val + root2.Val,
+	}
+	tree.Left = mergeTrees(root1.Left, root2.Left)
+	tree.Right = mergeTrees(root1.Right, root2.Right)
+	return tree
+}
+
+type TreeInfo struct {
+	Height   int
+	Diameter int
+}
+
+func diameterOfBinaryTree(root *TreeNode) int {
+	return getTreeInfo(root).Diameter
+}
+
+func getTreeInfo(node *TreeNode) TreeInfo {
+	if node == nil {
+		return TreeInfo{}
+	}
+
+	leftTreeInfo := getTreeInfo(node.Left)
+	rightTreeInfo := getTreeInfo(node.Right)
+
+	longPath := leftTreeInfo.Height + rightTreeInfo.Height
+	maxDiameter := max(leftTreeInfo.Diameter, rightTreeInfo.Diameter)
+	currentMaxDiameter := max(maxDiameter, longPath)
+	currentHeight := max(leftTreeInfo.Height, rightTreeInfo.Height) + 1
+
+	return TreeInfo{Diameter: currentMaxDiameter, Height: currentHeight}
 }
 
 func min(a, b int) int {
@@ -703,4 +770,23 @@ func min(a, b int) int {
 		return a
 	}
 	return b
+}
+
+// 1022. 从根到叶的二进制数之和
+func sumRootToLeaf(root *TreeNode) int {
+	type helperFunc func(root *TreeNode, sum int) int
+	var helper helperFunc
+
+	helper = func(root *TreeNode, sum int) int {
+		if root == nil {
+			return 0
+		}
+		sum = sum<<1 + root.Val
+		if root.Left == nil && root.Right == nil {
+			return sum
+		}
+		return helper(root.Left, sum) + helper(root.Right, sum)
+	}
+
+	return helper(root, 0)
 }
