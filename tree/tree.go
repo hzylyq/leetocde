@@ -112,6 +112,37 @@ func dfs(left, right int) []*TreeNode {
 	return res
 }
 
+// 100. 相同的树
+func isSameTree(p *TreeNode, q *TreeNode) bool {
+	if p == nil && q == nil {
+		return true
+	}
+	if p != nil && q != nil {
+		return p.Val == q.Val && isSameTree(p.Left, q.Left) && isSameTree(p.Right, q.Right)
+	}
+	return false
+}
+
+// 101. 对称二叉树
+func isSymmetric(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+
+	type helperFunc func(*TreeNode, *TreeNode) bool
+	var helper helperFunc
+	helper = func(p *TreeNode, q *TreeNode) bool {
+		if p == nil && q == nil {
+			return true
+		}
+		if p != nil && q != nil {
+			return p.Val == q.Val && helper(p.Left, q.Right) && helper(p.Right, q.Left)
+		}
+		return false
+	}
+	return helper(root.Left, root.Right)
+}
+
 // 108有序数组转化为二叉搜索数
 func sortedArrayToBST(numList []int) *TreeNode {
 	if len(numList) == 0 {
@@ -175,6 +206,17 @@ func LevelOrder(root *TreeNode) [][]int {
 		res = append(res, r)
 	}
 	return res
+}
+
+// 226. 翻转二叉树
+func invertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	root.Left, root.Right = root.Right, root.Left
+	invertTree(root.Left)
+	invertTree(root.Right)
+	return root
 }
 
 /**
@@ -590,6 +632,7 @@ func MinDiffInBST(root *TreeNode) int {
 	return res
 }
 
+// 剑指 Offer 55 - I. 二叉树的深度
 func maxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
