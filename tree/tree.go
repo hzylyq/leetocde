@@ -682,27 +682,31 @@ func averageOfLevels(root *TreeNode) []float64 {
 	return res
 }
 
-// 530. Minimum Absolute Difference in BST
-func getMinimumDifference(root *TreeNode) int {
-	if root == nil {
-		return 0
-	}
-
-	res := inOrder(root)
-	tmp := math.MaxInt32
-	for i := 1; i <= len(res)-1; i++ {
-		min := res[i] - res[i-1]
-		if min < tmp {
-			tmp = min
-		}
-	}
-	return tmp
-}
-
 // 110. Balanced Binary Tree
 func IsBalanced(root *TreeNode) bool {
 	_, isBalanced := HeightAndIsBalanced(root)
 	return isBalanced
+}
+
+func minDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	if root.Left == nil && root.Right == nil {
+		return 1
+	}
+
+	miniDepth := math.MaxInt32
+	if root.Left != nil {
+		miniDepth = min(minDepth(root.Left), miniDepth)
+	}
+	if root.Right != nil {
+		miniDepth = min(minDepth(root.Right), miniDepth)
+
+	}
+
+	return miniDepth + 1
 }
 
 func HeightAndIsBalanced(root *TreeNode) (int, bool) {
@@ -766,6 +770,43 @@ func sumOfLeftLeaves(root *TreeNode) int {
 	return res
 }
 
+func sumOfLeftLeaves2(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	var res int
+	if root.Left != nil {
+		if root.Left.Left == nil && root.Left.Right == nil {
+			res += root.Left.Val
+		} else {
+			res += sumOfLeftLeaves2(root.Left)
+		}
+	}
+	if root.Right != nil && !(root.Right.Left == nil && root.Right.Right == nil) {
+		res += sumOfLeftLeaves2(root.Right)
+	}
+
+	return res
+}
+
+// 530. Minimum Absolute Difference in BST
+func getMinimumDifference(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	res := inOrder(root)
+	tmp := math.MaxInt32
+	for i := 1; i <= len(res)-1; i++ {
+		min := res[i] - res[i-1]
+		if min < tmp {
+			tmp = min
+		}
+	}
+	return tmp
+}
+
 // 617. 合并二叉树
 func mergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
 	if root1 == nil {
@@ -806,6 +847,25 @@ func getTreeInfo(node *TreeNode) TreeInfo {
 	currentHeight := max(leftTreeInfo.Height, rightTreeInfo.Height) + 1
 
 	return TreeInfo{Diameter: currentMaxDiameter, Height: currentHeight}
+}
+
+// 965. 单值二叉树
+func isUnivalTree(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	if root.Left != nil {
+		if root.Val != root.Left.Val {
+			return false
+		}
+	}
+	if root.Right != nil {
+		if root.Val != root.Right.Val {
+			return false
+		}
+	}
+
+	return isUnivalTree(root.Left) && isUnivalTree(root.Right)
 }
 
 func min(a, b int) int {
