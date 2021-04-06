@@ -221,7 +221,16 @@ func invertTree(root *TreeNode) *TreeNode {
 
 // 235. 二叉搜索树的最近公共祖先
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
-
+	res := root
+	for {
+		if p.Val < res.Val && q.Val < res.Val {
+			res = res.Left
+		} else if p.Val > res.Val && q.Val > res.Val {
+			res = res.Right
+		} else {
+			return res
+		}
+	}
 }
 
 
