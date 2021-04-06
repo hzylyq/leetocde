@@ -219,6 +219,13 @@ func invertTree(root *TreeNode) *TreeNode {
 	return root
 }
 
+// 235. 二叉搜索树的最近公共祖先
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+
+}
+
+
+
 /**
  * Definition for a Node.
  * type Node struct {
@@ -294,6 +301,48 @@ func listOfDepth(tree *TreeNode) []*ListNode {
 			res = append(res, head)
 		}
 		list = list[size:]
+	}
+	return res
+}
+
+// 501. 二叉搜索树中的众数
+// todo
+func findMode(root *TreeNode) []int {
+	var base, count, maxCount int
+	var res []int
+	update := func(x int) {
+		if x == base {
+			count++
+		} else {
+			base, count = x, 1
+		}
+		if count == maxCount {
+			res = append(res, base)
+		} else if count > maxCount {
+			maxCount = count
+			res = []int{base}
+		}
+	}
+
+	curr := root
+	for curr != nil {
+		if curr.Left == nil {
+			update(curr.Val)
+			curr = curr.Right
+			continue
+		}
+		pre := curr.Left
+		if pre.Right != nil && pre.Right != curr {
+			pre = pre.Right
+		}
+		if pre.Right == nil {
+			pre.Right = curr
+			curr = curr.Right
+		} else {
+			pre.Right = nil
+			update(curr.Val)
+			curr = curr.Right
+		}
 	}
 	return res
 }
