@@ -9,11 +9,11 @@ func searchMatrix(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {
 		return false
 	}
-
+	
 	// 二分查找
 	m := len(matrix)
 	n := len(matrix[0])
-
+	
 	i := sort.Search(m*n, func(i int) bool {
 		return matrix[i/n][i%n] >= target
 	})
@@ -27,7 +27,7 @@ func removeDuplicates(nums []int) int {
 	if length <= 2 {
 		return length
 	}
-
+	
 	fast, slow := 2, 2
 	for fast < length {
 		if nums[slow-2] != nums[fast] {
@@ -37,6 +37,32 @@ func removeDuplicates(nums []int) int {
 		fast++
 	}
 	return slow
+}
+
+// 88. 合并两个有序数组
+func merge(nums1 []int, m int, nums2 []int, n int) {
+	sorted := make([]int, 0, m+n)
+	p, q := 0, 0
+	for {
+		if p == m {
+			sorted = append(sorted, nums2[q:]...)
+			break
+		}
+		if q == n {
+			sorted = append(sorted, nums1[p:]...)
+			break
+		}
+		
+		if nums1[p] < nums2[q] {
+			sorted = append(sorted, nums1[p])
+			p++
+		} else {
+			sorted = append(sorted, nums2[q])
+			q++
+		}
+	}
+	
+	copy(nums1, sorted)
 }
 
 // 1480. Running Sum of 1d Array
