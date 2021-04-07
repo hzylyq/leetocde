@@ -65,6 +65,18 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 	copy(nums1, sorted)
 }
 
+// 217. 存在重复元素
+func containsDuplicate(nums []int) bool {
+	set := make(map[int]bool, len(nums))
+	for _, num:= range nums {
+		if _, ok := set[num]; ok {
+			return true
+		}
+		set[num] = true
+	}
+	return false
+}
+
 // 1480. Running Sum of 1d Array
 func runningSum(nums []int) []int {
 	res := make([]int, len(nums))
