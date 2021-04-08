@@ -1,5 +1,10 @@
 package string
 
+//
+func longestCommonPrefix(strs []string) string {
+
+}
+
 // 1576. 替换所有的问号
 func ModifyString(s string) string {
 	temp := make([]byte, len(s))

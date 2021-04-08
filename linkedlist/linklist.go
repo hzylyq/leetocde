@@ -2,8 +2,8 @@ package linkedlist
 
 // This is an input struct. Do not edit.
 type ListNode struct {
-	Val int
-	Next  *ListNode
+	Val  int
+	Next *ListNode
 }
 
 func RemoveDuplicatesFromLinkedList(linkedList *ListNode) *ListNode {
@@ -14,7 +14,7 @@ func RemoveDuplicatesFromLinkedList(linkedList *ListNode) *ListNode {
 		for nextNode != nil && currentNode.Val == nextNode.Val {
 			nextNode = nextNode.Next
 		}
-		
+
 		currentNode.Next = nextNode
 		currentNode = nextNode
 	}
@@ -51,8 +51,60 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 	}
 	if carry > 0 {
-		tail.Next = &ListNode{Val:carry}
+		tail.Next = &ListNode{Val: carry}
 	}
 	return head
 }
 
+// 141. 环形链表
+// hash表
+func hasCycle(head *ListNode) bool {
+	listNodeMap := make(map[*ListNode]struct{}, 0)
+	for head != nil {
+		if _, ok := listNodeMap[head]; ok {
+			return true
+		}
+
+		listNodeMap[head] = struct{}{}
+		head = head.Next
+	}
+	return false
+}
+
+// 快慢指针
+func HasCycle2(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return false
+	}
+
+	slow, fast := head, head.Next
+	for fast != slow {
+		if fast == nil || fast.Next == nil {
+			return false
+		}
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+	return true
+}
+
+// 160. 相交链表
+// 快慢指针
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	pA := headA
+	pB := headB
+
+	for pA != pB {
+		if pA == nil {
+			pA = headB
+		} else {
+			pA = pA.Next
+		}
+		if pB == nil {
+			pB = headA
+		} else {
+			pB = pB.Next
+		}
+	}
+	return pA
+}

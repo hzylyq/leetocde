@@ -1,41 +1,22 @@
 package linkedlist
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestRemoveDuplicatesFromLinkedList(t *testing.T) {
-	list := &LinkedList{Value:1,
-		Next:&LinkedList{
-		Value:1,
-		Next:&LinkedList{
-			Value: 1,
-			Next:  &LinkedList{
-				Value: 1,
-				Next:  &LinkedList{
-					Value: 3,
-					Next:  &LinkedList{
-						Value: 4,
-						Next:  &LinkedList{
-							Value: 4,
-							Next:  &LinkedList{
-								Value: 4,
-								Next:  &LinkedList{
-									Value: 5,
-									Next:  &LinkedList{
-										Value: 6,
-										Next:  &LinkedList{
-											Value: 6,
-											Next:  nil,
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-		}}
-	RemoveDuplicatesFromLinkedList(list)
-	t.Log(list)
 
+}
+
+func TestHasCycle2(t *testing.T) {
+	list := &ListNode{
+		Val: 1,
+		Next: &ListNode{
+			Val: 2,
+		},
+	}
+
+	assert.Equal(t, false, HasCycle2(list))
 }
