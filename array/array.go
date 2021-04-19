@@ -4,16 +4,30 @@ import (
 	"sort"
 )
 
+// 27. 移除元素
+func removeElement(nums []int, val int) int {
+	left, right := 0, len(nums)
+ 	for left < right {
+ 		if nums[left] == val {
+ 			nums[left] = nums[right-1]
+ 			right--
+		} else {
+			left++
+		}
+	}
+	return left
+}
+
 // 74. 搜索二维矩阵
 func searchMatrix(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {
 		return false
 	}
-	
+
 	// 二分查找
 	m := len(matrix)
 	n := len(matrix[0])
-	
+
 	i := sort.Search(m*n, func(i int) bool {
 		return matrix[i/n][i%n] >= target
 	})
@@ -27,7 +41,7 @@ func removeDuplicates(nums []int) int {
 	if length <= 2 {
 		return length
 	}
-	
+
 	fast, slow := 2, 2
 	for fast < length {
 		if nums[slow-2] != nums[fast] {
@@ -52,7 +66,7 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 			sorted = append(sorted, nums1[p:]...)
 			break
 		}
-		
+
 		if nums1[p] < nums2[q] {
 			sorted = append(sorted, nums1[p])
 			p++
@@ -61,14 +75,14 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 			q++
 		}
 	}
-	
+
 	copy(nums1, sorted)
 }
 
 // 217. 存在重复元素
 func containsDuplicate(nums []int) bool {
 	set := make(map[int]bool, len(nums))
-	for _, num:= range nums {
+	for _, num := range nums {
 		if _, ok := set[num]; ok {
 			return true
 		}
