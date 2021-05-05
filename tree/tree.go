@@ -233,8 +233,6 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	}
 }
 
-
-
 /**
  * Definition for a Node.
  * type Node struct {
@@ -802,6 +800,30 @@ func MinDepth(root *TreeNode) int {
 	}
 
 	return min(MinDepth(root.Left), MinDepth(root.Right)) + 1
+}
+
+// 230. 二叉搜索树中第K小的元素
+func kthSmallest(root *TreeNode, k int) int {
+	var count, res int
+
+	type helperFunc func(root *TreeNode, k int)
+	var helper helperFunc
+	helper = func(root *TreeNode, k int) {
+		if root == nil {
+			return
+		}
+
+		helper(root.Left, k)
+
+		count++
+		if count == k {
+			res = root.Val
+			return
+		}
+		helper(root.Right, k)
+	}
+	helper(root, k)
+	return res
 }
 
 // 404. Sum of Left Leaves

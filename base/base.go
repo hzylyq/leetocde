@@ -270,7 +270,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 		return float64(getKthElement(nums1, nums2, midIdx+1))
 	} else {
 		midIdx1, midIdx2 := totalLength/2-1, totalLength/2
-		return float64(getKthElement(nums1, nums2, midIdx1+1)+getKthElement(nums1, nums2, midIdx2+1)/2)
+		return float64(getKthElement(nums1, nums2, midIdx1+1) + getKthElement(nums1, nums2, midIdx2+1)/2)
 	}
 }
 
@@ -290,4 +290,13 @@ func reverse(x int) int {
 		rev = rev*10 + pop
 	}
 	return rev
+}
+
+// 231. 2的幂
+func isPowerOfTwo(n int) bool {
+	if n == 0 {
+		return false
+	}
+
+	return n&(n-1) == 0
 }
