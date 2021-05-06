@@ -930,17 +930,17 @@ func getTreeInfo(node *TreeNode) TreeInfo {
 }
 
 func minDiffInBST(root *TreeNode) int {
-	var mini = math.MaxInt32
-	var pre *TreeNode
-	
-	
-	
-	inOrder:= func(root *TreeNode) {
-		if root == nil {
-			return
-		}
-	}
-	
+	// var mini = math.MaxInt32
+	// var pre *TreeNode
+	//
+	//
+	//
+	// inOrder:= func(root *TreeNode) {
+	// 	if root == nil {
+	// 		return
+	// 	}
+	// }
+	return 0
 }
 
 // 965. 单值二叉树
