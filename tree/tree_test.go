@@ -209,3 +209,20 @@ func TestIsBalanced(t *testing.T) {
 func TestMinDepth(t *testing.T) {
 
 }
+
+func TestIsCousins(t *testing.T) {
+	IsCousins(&TreeNode{
+		Val: 1,
+		Left: &TreeNode{
+			Val: 2,
+			Left: &TreeNode{
+				Val: 4,
+			},
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val: 4,
+		},
+	}, 3, 4)
+
+}
