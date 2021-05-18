@@ -31,3 +31,20 @@ func isDescendant(node, target *BST) bool {
 	}
 	return isDescendant(node.Right, target)
 }
+
+// isDescendant 判断target是否为node的后继节点
+func isDescendant2(node, target *BST) bool {
+	currentNode := node
+	for currentNode != nil {
+		if currentNode == target {
+			return true
+		}
+		if currentNode.Value > target.Value {
+			currentNode = currentNode.Left
+		} else {
+			currentNode = currentNode.Right
+		}
+	}
+
+	return false
+}
