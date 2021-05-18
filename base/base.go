@@ -60,7 +60,7 @@ func IsValidSubsequence(array []int, sequence []int) bool {
 			arrIndex++
 		}
 	}
-	
+
 	return seqIndex == len(sequence)
 }
 
@@ -75,7 +75,7 @@ func IsValidSubsequence2(array []int, sequence []int) bool {
 			seqIndex++
 		}
 	}
-	
+
 	return seqIndex == len(sequence)
 }
 
@@ -88,14 +88,14 @@ func BinarySearch(array []int, target int) int {
 		if target == numMid {
 			return mid
 		}
-		
+
 		if target < numMid {
 			high = mid
 		} else {
 			low = mid
 		}
 	}
-	
+
 	return -1
 }
 
@@ -109,7 +109,7 @@ func NonConstructibleChange(coins []int) int {
 		}
 		currentChangeCreated += coin
 	}
-	
+
 	return currentChangeCreated + 1
 }
 
@@ -118,14 +118,14 @@ func GetNthFib(n int) int {
 	if n < 0 {
 		return -1
 	}
-	
+
 	if n == 1 {
 		return 0
 	}
 	if n == 2 {
 		return 1
 	}
-	
+
 	return GetNthFib(n-1) + GetNthFib(n-2)
 }
 
@@ -135,7 +135,7 @@ func GetNthFib2(n int) int {
 		1: 0,
 		2: 1,
 	}
-	
+
 	return helper(n, memoize)
 }
 
@@ -213,14 +213,14 @@ func SortedSquaredArray(array []int) []int {
 
 func SortedSquaredArray2(array []int) []int {
 	res := make([]int, 0)
-	
+
 	smallValIdx := 0
 	largerValIdx := len(array) - 1
-	
+
 	for idx := len(array) - 1; idx >= 0; idx-- {
 		smallVal := array[smallValIdx]
 		largeVal := array[largerValIdx]
-		
+
 		if abs(smallVal) > abs(largeVal) {
 			res[idx] = smallVal * smallVal
 			smallValIdx++
@@ -229,7 +229,7 @@ func SortedSquaredArray2(array []int) []int {
 			largerValIdx--
 		}
 	}
-	
+
 	return res
 }
 
@@ -256,9 +256,9 @@ func TournamentWinner(competitions [][]string, results []int) string {
 		if points[winner] > points[currentBestTeam] {
 			currentBestTeam = winner
 		}
-		
+
 	}
-	
+
 	return currentBestTeam
 }
 
@@ -297,8 +297,15 @@ func isPowerOfTwo(n int) bool {
 	if n == 0 {
 		return false
 	}
-	
+
 	return n&(n-1) == 0
+}
+
+// 1442. 形成两个异或相等数组的三元组数目
+func countTriplets(arr []int) int {
+
+	
+	return 0
 }
 
 // 1720. 解码异或后的数组
