@@ -1,6 +1,9 @@
 package base
 
-import "testing"
+import (
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
 
 func TestTwoNumberSum(t *testing.T) {
 	array := []int{3, 5, -4, 8, 11, 1, -1, 6}
@@ -46,5 +49,9 @@ func TestGetNthFib2(t *testing.T) {
 }
 
 func TestFindThreeLargestNumbers(t *testing.T) {
-	t.Log(FindThreeLargestNumbers([]int{1,2,3,5,1,23}))
+	t.Log(FindThreeLargestNumbers([]int{1, 2, 3, 5, 1, 23}))
+}
+
+func TestHammingDistance(t *testing.T) {
+	assert.Equal(t, hammingDistance(1, 4), 2)
 }

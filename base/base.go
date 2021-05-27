@@ -304,8 +304,17 @@ func isPowerOfTwo(n int) bool {
 // 1442. 形成两个异或相等数组的三元组数目
 func countTriplets(arr []int) int {
 
-	
 	return 0
+}
+
+// hammingDistance 461. 汉明距离
+func hammingDistance(x int, y int) int {
+	var res int
+	for s := x ^ y; s > 0; s >>= 1 {
+		res += s & 1
+	}
+
+	return res
 }
 
 // 1720. 解码异或后的数组
