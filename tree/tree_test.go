@@ -224,5 +224,4 @@ func TestIsCousins(t *testing.T) {
 			Val: 4,
 		},
 	}, 3, 4)
-
 }
