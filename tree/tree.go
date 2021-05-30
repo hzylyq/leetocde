@@ -80,6 +80,20 @@ func preorderTraversal(root *TreeNode) []int {
 	return res
 }
 
+// 94. Binary Tree Inorder Traversal
+func inorderTraversal(root *TreeNode) []int {
+	array := make([]int, 0)
+
+	if root == nil {
+		return array
+	}
+	array = append(array, inorderTraversal(root.Left)...)
+	array = append(array, root.Val)
+	array = append(array, inorderTraversal(root.Right)...)
+
+	return array
+}
+
 // 95. 不同的二叉搜索树 II
 func GenerateTrees(n int) []*TreeNode {
 	if n <= 0 {
