@@ -126,6 +126,22 @@ func dfs(left, right int) []*TreeNode {
 	return res
 }
 
+// isValidBST 98. 验证二叉搜索树
+func isValidBST(root *TreeNode) bool {
+	return isHelperValidBST(root, math.MinInt32, math.MaxInt32)
+}
+
+func isHelperValidBST(node *TreeNode, lower, upper int) bool {
+	if node == nil {
+		return true
+	}
+	if node.Val <= lower || node.Val >= upper {
+		return false
+	}
+
+	return isHelperValidBST(node.Left, lower, node.Val) && isHelperValidBST(node.Right, node.Val, upper)
+}
+
 // 100. 相同的树
 func isSameTree(p *TreeNode, q *TreeNode) bool {
 	if p == nil && q == nil {
