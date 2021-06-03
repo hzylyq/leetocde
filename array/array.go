@@ -113,6 +113,28 @@ func checkSubarraySum(nums []int, k int) bool {
 	return false
 }
 
+// 525. 连续数组 前缀和 + 哈希表
+func findMaxLength(nums []int) int {
+	counter := 0
+	
+	mp := map[int]int{0: -1}
+	var maxLength int
+	for i, num := range nums {
+		if num == 0 {
+			counter--
+		} else {
+			counter++
+		}
+		
+		if preIdx, ok := mp[counter]; ok {
+			maxLength = max(maxLength, i-preIdx)
+		} else {
+			mp[counter] = i
+		}
+	}
+	return maxLength
+}
+
 // 1480. Running Sum of 1d Array
 func runningSum(nums []int) []int {
 	res := make([]int, len(nums))
@@ -122,4 +144,11 @@ func runningSum(nums []int) []int {
 		total += v
 	}
 	return res
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
