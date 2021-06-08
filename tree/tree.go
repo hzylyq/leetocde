@@ -173,6 +173,67 @@ func isSymmetric(root *TreeNode) bool {
 	return helper(root.Left, root.Right)
 }
 
+// 105. 从前序与中序遍历序列构造二叉树
+func buildTree(preorder []int, inorder []int) *TreeNode {
+	if len(preorder) < 1 {
+		return nil
+	}
+
+	root := &TreeNode{
+		Val: preorder[0],
+	}
+
+	var index int
+	// 记录下第一个val的idx
+	for idx, val := range inorder {
+		if val == root.Val {
+			index = idx
+			break
+		}
+	}
+	root.Left = buildTree(preorder[1:index+1], inorder[:index])
+	root.Right = buildTree(preorder[index+1:], inorder[index+1:])
+	return root
+}
+
+// 非递归
+func buildTree2(preorder []int, inorder []int) *TreeNode {
+	if len(preorder) == 0 {
+		return nil
+	}
+
+	root := &TreeNode{
+		Val: preorder[0],
+	}
+
+	stack := []*TreeNode{root}
+	var inorderIndex int
+
+	for i := 1; i < len(preorder); i++ {
+		preOrderVal := preorder[i]
+		node := stack[len(stack)-1]
+		if node.Val != inorder[inorderIndex] {
+			node.Left = &TreeNode{
+				Val:   preOrderVal,
+				Left:  nil,
+				Right: nil,
+			}
+			stack = append(stack, node.Left)
+		} else {
+			for len(stack) != 0 && stack[len(stack)-1].Val == inorder[inorderIndex] {
+				node = stack[len(stack)-1]
+				stack = stack[:len(stack)-1]
+				inorderIndex++
+			}
+			node.Right = &TreeNode{
+				preOrderVal, nil, nil,
+			}
+			stack = append(stack, node.Right)
+		}
+	}
+	return root
+}
+
 // 108有序数组转化为二叉搜索数
 func sortedArrayToBST(numList []int) *TreeNode {
 	if len(numList) == 0 {
