@@ -18,3 +18,7 @@ func TestFirstUniqChar(t *testing.T) {
 	assert.Equal(t, FirstUniqChar("leetcode"), 0)
 	assert.Equal(t, FirstUniqChar("loveleetcode"), 2)
 }
+
+func TestIsValid(t *testing.T) {
+	assert.Equal(t, isValid("()"), true)
+}

@@ -1,8 +1,35 @@
 package string
 
+// 20. 有效的括号
+func isValid(s string) bool {
+	if len(s)%2 != 0 {
+		return false
+	}
+
+	pair := map[rune]rune{
+		'(': ')',
+		'[': ']',
+		'{': '}',
+	}
+
+	stack := []rune{}
+	for _, ch := range s {
+		if _, ok := pair[ch]; ok {
+			stack = append(stack, ch)
+		} else {
+			if len(stack) == 0 || ch != pair[stack[len(stack)-1]] {
+				return false
+			}
+			stack = stack[:len(stack)-1]
+		}
+	}
+
+	return len(stack) == 0
+}
+
 //
 func longestCommonPrefix(strs []string) string {
-
+	return ""
 }
 
 // 1576. 替换所有的问号
