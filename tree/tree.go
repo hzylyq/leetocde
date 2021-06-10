@@ -1020,6 +1020,28 @@ func getTreeInfo(node *TreeNode) TreeInfo {
 	return TreeInfo{Diameter: currentMaxDiameter, Height: currentHeight}
 }
 
+func diameterOfBinaryTree2(root *TreeNode) int {
+	var ans int
+	type helperFunc func(node *TreeNode) int
+	var helper helperFunc
+
+	helper = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+
+		l := helper(node.Left)
+		r := helper(node.Right)
+
+		ans = max(ans, l+r+1)
+
+		return max(l, r) + 1
+	}
+	helper(root)
+
+	return helper(root)
+}
+
 func minDiffInBST(root *TreeNode) int {
 	// var mini = math.MaxInt32
 	// var pre *TreeNode
