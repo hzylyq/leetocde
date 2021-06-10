@@ -18,16 +18,34 @@ func removeElement(nums []int, val int) int {
 	return left
 }
 
+// 53. 最大子序和
+func maxSubArray(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+
+	max := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if nums[i]+nums[i-1] > nums[i] {
+			nums[i] += nums[i-1]
+		}
+		if nums[i] > max {
+			max = nums[i]
+		}
+	}
+	return max
+}
+
 // 74. 搜索二维矩阵
 func searchMatrix(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {
 		return false
 	}
-	
+
 	// 二分查找
 	m := len(matrix)
 	n := len(matrix[0])
-	
+
 	i := sort.Search(m*n, func(i int) bool {
 		return matrix[i/n][i%n] >= target
 	})
@@ -41,7 +59,7 @@ func removeDuplicates(nums []int) int {
 	if length <= 2 {
 		return length
 	}
-	
+
 	fast, slow := 2, 2
 	for fast < length {
 		if nums[slow-2] != nums[fast] {
@@ -66,7 +84,7 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 			sorted = append(sorted, nums1[p:]...)
 			break
 		}
-		
+
 		if nums1[p] < nums2[q] {
 			sorted = append(sorted, nums1[p])
 			p++
@@ -75,7 +93,7 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 			q++
 		}
 	}
-	
+
 	copy(nums1, sorted)
 }
 
@@ -96,10 +114,10 @@ func checkSubarraySum(nums []int, k int) bool {
 	if len(nums) < 2 {
 		return false
 	}
-	
+
 	mp := map[int]int{0: -1}
 	remainer := 0
-	
+
 	for i, num := range nums {
 		remainer = (remainer + num) % k
 		if prevIdx, ok := mp[remainer]; ok {
@@ -116,7 +134,7 @@ func checkSubarraySum(nums []int, k int) bool {
 // 525. 连续数组 前缀和 + 哈希表
 func findMaxLength(nums []int) int {
 	counter := 0
-	
+
 	mp := map[int]int{0: -1}
 	var maxLength int
 	for i, num := range nums {
@@ -125,7 +143,7 @@ func findMaxLength(nums []int) int {
 		} else {
 			counter++
 		}
-		
+
 		if preIdx, ok := mp[counter]; ok {
 			maxLength = max(maxLength, i-preIdx)
 		} else {
