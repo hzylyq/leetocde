@@ -56,6 +56,19 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	return head
 }
 
+// 206. 反转链表
+func reverseList(head *ListNode) *ListNode {
+	var prev *ListNode
+	curr := head
+	for curr != nil {
+		next := curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = next
+	}
+	return prev
+}
+
 // 141. 环形链表
 // hash表
 func hasCycle(head *ListNode) bool {
