@@ -4,6 +4,26 @@ import (
 	"sort"
 )
 
+// 11. 盛最多水的容器
+func maxArea(height []int) int {
+	i, j := 0, len(height)-1
+
+	var ans int
+	for i < j {
+		width := j - i
+		length := min(height[i], height[j])
+
+		ans = max(ans, width*length)
+		if height[i] > height[j] {
+			j--
+		} else {
+			i++
+		}
+	}
+
+	return ans
+}
+
 // 27. 移除元素
 func removeElement(nums []int, val int) int {
 	left, right := 0, len(nums)
@@ -191,4 +211,11 @@ func max(a, b int) int {
 		return a
 	}
 	return b
+}
+
+func min(x, y int) int {
+	if x > y {
+		return y
+	}
+	return x
 }
