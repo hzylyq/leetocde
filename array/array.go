@@ -164,6 +164,28 @@ func runningSum(nums []int) []int {
 	return res
 }
 
+// 1711. 大餐计数
+func countPairs(deliciousness []int) int {
+	maxVal := deliciousness[0]
+	for _, val := range deliciousness {
+		if val > maxVal {
+			maxVal = val
+		}
+	}
+
+	maxSum := maxVal * 2
+	cnt := make(map[int]int)
+
+	var res int
+	for _, val := range deliciousness {
+		for sum := 1; sum <= maxSum; sum <<= 1 {
+			res += cnt[val]
+		}
+		cnt[val]++
+	}
+	return res % (1e9 + 7)
+}
+
 func max(a, b int) int {
 	if a > b {
 		return a
