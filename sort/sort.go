@@ -1,5 +1,6 @@
 package sort
 
+// BubbleSort 冒泡排序
 func BubbleSort(array []int) []int {
 	// Write your code here.
 	for i := 0; i < len(array); i++ {
@@ -13,14 +14,33 @@ func BubbleSort(array []int) []int {
 	return array
 }
 
-// func InsertionSort(array []int) []int {
-// 	// Write your code here.
-// 	for i := 0; i < len(array); i++ {
-// 		for j :=
-//
-// 	}
-// 	return nil
-// }
+// InsertionSort 插入排序
+func InsertionSort(array []int) []int {
+	for i := range array {
+		for j := i; j > 0 && array[j] < array[j-1]; j-- {
+			array[j], array[j-1] = array[j-1], array[j]
+		}
+	}
+	return array
+}
+
+// SelectionSort 选择排序
+func SelectionSort(array []int64) []int64 {
+	var smallest int
+	for i := 0; i < len(array); i++ {
+		smallest = i
+		for j := i + 1; j < len(array); j++ {
+			if array[j] < array[i] {
+				smallest = j
+			}
+		}
+
+		if array[i] != array[smallest] {
+			array[i], array[smallest] = array[smallest], array[i]
+		}
+	}
+	return array
+}
 
 func MaxArea(num [][]int) int {
 	if len(num) == 0 {
@@ -53,8 +73,8 @@ func MaxArea(num [][]int) int {
 			width := left[i][j]
 			area := width
 			for k := i - 1; k >= 0; k-- {
-				width = min(width,left[k][j])
-				area = max(area,(i-k+1)*width/2)
+				width = min(width, left[k][j])
+				area = max(area, (i-k+1)*width/2)
 			}
 			ans = max(ans, area)
 		}
