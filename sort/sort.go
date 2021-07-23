@@ -44,7 +44,12 @@ func SelectionSort(array []int64) []int64 {
 
 // QuickSort 快速排序
 func QuickSort(array []int64) []int64 {
+
 	return nil
+}
+
+func helperQuickSort(array []int64, low int, high int) {
+
 }
 
 func MaxArea(num [][]int) int {
