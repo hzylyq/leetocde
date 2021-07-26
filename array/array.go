@@ -24,6 +24,35 @@ func maxArea(height []int) int {
 	return ans
 }
 
+// 15. 三数之和
+func threeSum(nums []int) [][]int {
+	sort.Ints(nums)
+	res := make([][]int, 0)
+	for i := 0; i < len(nums)-2; i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		left, right := i+1, len(nums)-1
+		for left < right {
+			if nums[left] == nums[left-1] && left > i+1 {
+				left++
+				continue
+			}
+			currentSum := nums[i] + nums[left] + nums[right]
+			if currentSum == 0 {
+				res = append(res, []int{nums[i], nums[left], nums[right]})
+				left++
+				right--
+			} else if currentSum < 0 {
+				left++
+			} else {
+				right--
+			}
+		}
+	}
+	return res
+}
+
 // 27. 移除元素
 func removeElement(nums []int, val int) int {
 	left, right := 0, len(nums)
