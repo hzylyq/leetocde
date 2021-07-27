@@ -357,6 +357,29 @@ func ChildLevelOrder(root *Node) [][]int {
 	return res
 }
 
+// 671. 二叉树中第二小的节点
+func findSecondMinimumValue(root *TreeNode) int {
+	if root == nil {
+		return -1
+	}
+	ans := -1
+	rootVal := root.Val
+
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil || ans != -1 && node.Val >= ans {
+			return
+		}
+		if node.Val > rootVal {
+			ans = node.Val
+		}
+		dfs(node.Left)
+		dfs(node.Right)
+	}
+	dfs(root)
+	return ans
+}
+
 // 面试题 04.03. 特定深度节点链表
 type ListNode struct {
 	Val  int
