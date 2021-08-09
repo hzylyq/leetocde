@@ -32,7 +32,7 @@ func ArrayOfProduct2(array []int) []int {
 	}
 
 	rightRunningProduct := 1
-	for i := range array {
+	for i := len(array) - 1; i >= 0; i-- {
 		rightProduct[i] = rightRunningProduct
 		rightRunningProduct *= array[i]
 	}

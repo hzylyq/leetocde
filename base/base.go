@@ -315,6 +315,26 @@ func hammingDistance(x int, y int) int {
 	return res
 }
 
+// tribonacci 1137. 第 N 个泰波那契数
+func tribonacci(n int) int {
+	if n == 0 {
+		return 0
+	}
+
+	if n <= 2 {
+		return 1
+	}
+
+	first, second, third, s := 0, 0, 1, 1
+	for i := 3; i <= n; i++ {
+		first = second
+		second = third
+		third = s
+		s = first + second + third
+	}
+	return s
+}
+
 // 1442. 形成两个异或相等数组的三元组数目
 func countTriplets(arr []int) int {
 
