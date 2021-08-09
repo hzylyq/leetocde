@@ -249,6 +249,24 @@ func sortedArrayToBST(numList []int) *TreeNode {
 	return node
 }
 
+// flatten 114. 二叉树展开为链表
+func flatten(root *TreeNode) {
+	list := helperFlatten(root)
+
+}
+
+func helperFlatten(root *TreeNode) []*TreeNode {
+	if root == nil {
+		return nil
+	}
+
+	res := make([]*TreeNode, 0)
+	res = append(res, root)
+	res = append(res, helperFlatten(root.Left)...)
+	res = append(res, helperFlatten(root.Right)...)
+	return res
+}
+
 // 129. 求根到叶子节点数字之和
 func SumNumbers(root *TreeNode) int {
 	if root == nil {
