@@ -301,6 +301,22 @@ func isPowerOfTwo(n int) bool {
 	return n&(n-1) == 0
 }
 
+// countBits 338. 比特位计数
+func countBits(n int) []int {
+	var res []int
+	for i := 0; i <= n; i++ {
+		res = append(res, onesCount(i))
+	}
+	return res
+}
+
+func onesCount(x int) (ones int) {
+	for ; x > 0; x &= x - 1 {
+		ones++
+	}
+	return
+}
+
 func IsPowerOfFour(n int) bool {
 	return n > 0 && ((n & (n - 1)) > 0) && n%3 == 1
 }
