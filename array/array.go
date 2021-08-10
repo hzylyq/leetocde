@@ -158,6 +158,27 @@ func containsDuplicate(nums []int) bool {
 	return false
 }
 
+// numberOfArithmeticSlices 413. 等差数列划分
+func numberOfArithmeticSlices(nums []int) int {
+	n := len(nums)
+	if n <= 1 {
+		return 0
+	}
+
+	d, t := nums[0]-nums[1], 0
+
+	res := 0
+	for i := 2; i < len(nums); i++ {
+		if nums[i-1]-nums[i] == d {
+			t++
+		} else {
+			d, t = nums[i-1]-nums[i], 0
+		}
+		res += t
+	}
+	return res
+}
+
 // 523. 连续的子数组和 前缀和加求余
 func checkSubarraySum(nums []int, k int) bool {
 	if len(nums) < 2 {
