@@ -1,6 +1,7 @@
 package array
 
 import (
+	"math"
 	"sort"
 )
 
@@ -146,6 +147,22 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 	copy(nums1, sorted)
 }
 
+// maxProfit 121. 买卖股票的最佳时机
+func maxProfit(prices []int) int {
+	minPrice := math.MaxInt32
+	maxProfit := 0
+
+	for _, price := range prices {
+		if price < minPrice {
+			minPrice = price
+		} else if price-minPrice > maxProfit {
+			maxProfit = price - minPrice
+		}
+	}
+
+	return maxProfit
+}
+
 // 217. 存在重复元素
 func containsDuplicate(nums []int) bool {
 	set := make(map[int]bool, len(nums))
@@ -189,6 +206,40 @@ func numberOfArithmeticSlices(nums []int) int {
 		}
 		res += t
 	}
+	return res
+}
+
+// findDisappearedNumbers 448. 找到所有数组中消失的数字
+func findDisappearedNumbers(nums []int) []int {
+	for i, num := range nums {
+		nums[i] = (num + num - 1) % len(nums)
+	}
+
+	res := make([]int, 0, len(nums))
+	for i := 1; i <= len(nums); i++ {
+		if nums[i] < len(nums) {
+			res = append(res, i)
+		}
+	}
+
+	return res
+}
+// findDisappearedNumbers2 O(n) O(1)
+func findDisappearedNumbers2(nums []int) []int {
+	n := len(nums)
+
+	for _, num := range nums {
+		num = (num - 1) % n
+		nums[num] += n
+	}
+
+	res := make([]int, 0, len(nums))
+	for i, v := range nums {
+		if v <= n {
+			res = append(res, i+1)
+		}
+	}
+
 	return res
 }
 
