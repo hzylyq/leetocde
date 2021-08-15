@@ -249,6 +249,24 @@ func sortedArrayToBST(numList []int) *TreeNode {
 	return node
 }
 
+// flatten 114. 二叉树展开为链表
+func flatten(root *TreeNode) {
+	list := helperFlatten(root)
+
+}
+
+func helperFlatten(root *TreeNode) []*TreeNode {
+	if root == nil {
+		return nil
+	}
+
+	res := make([]*TreeNode, 0)
+	res = append(res, root)
+	res = append(res, helperFlatten(root.Left)...)
+	res = append(res, helperFlatten(root.Right)...)
+	return res
+}
+
 // 129. 求根到叶子节点数字之和
 func SumNumbers(root *TreeNode) int {
 	if root == nil {
@@ -355,6 +373,29 @@ func ChildLevelOrder(root *Node) [][]int {
 		res = append(res, r)
 	}
 	return res
+}
+
+// 671. 二叉树中第二小的节点
+func findSecondMinimumValue(root *TreeNode) int {
+	if root == nil {
+		return -1
+	}
+	ans := -1
+	rootVal := root.Val
+
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil || ans != -1 && node.Val >= ans {
+			return
+		}
+		if node.Val > rootVal {
+			ans = node.Val
+		}
+		dfs(node.Left)
+		dfs(node.Right)
+	}
+	dfs(root)
+	return ans
 }
 
 // 面试题 04.03. 特定深度节点链表

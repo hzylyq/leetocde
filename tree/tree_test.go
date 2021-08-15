@@ -65,6 +65,33 @@ func TestSumNumbers(t *testing.T) {
 	assert.Equal(t, res, 25)
 }
 
+func TestFindSecondMinimumValue(t *testing.T) {
+	var root = &TreeNode{
+		Val: 2,
+		Left: &TreeNode{
+			Val:   2,
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val: 5,
+			Left: &TreeNode{
+				Val:   5,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val:   7,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+	}
+
+	res := findSecondMinimumValue(root)
+	assert.Equal(t, res, 5)
+}
+
 func TestIncreasingBST(t *testing.T) {
 	root := &TreeNode{
 		Val: 4,

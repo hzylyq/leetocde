@@ -301,6 +301,22 @@ func isPowerOfTwo(n int) bool {
 	return n&(n-1) == 0
 }
 
+// countBits 338. 比特位计数
+func countBits(n int) []int {
+	var res []int
+	for i := 0; i <= n; i++ {
+		res = append(res, onesCount(i))
+	}
+	return res
+}
+
+func onesCount(x int) (ones int) {
+	for ; x > 0; x &= x - 1 {
+		ones++
+	}
+	return
+}
+
 func IsPowerOfFour(n int) bool {
 	return n > 0 && ((n & (n - 1)) > 0) && n%3 == 1
 }
@@ -313,6 +329,26 @@ func hammingDistance(x int, y int) int {
 	}
 
 	return res
+}
+
+// tribonacci 1137. 第 N 个泰波那契数
+func tribonacci(n int) int {
+	if n == 0 {
+		return 0
+	}
+
+	if n <= 2 {
+		return 1
+	}
+
+	first, second, third, s := 0, 0, 1, 1
+	for i := 3; i <= n; i++ {
+		first = second
+		second = third
+		third = s
+		s = first + second + third
+	}
+	return s
 }
 
 // 1442. 形成两个异或相等数组的三元组数目

@@ -1,6 +1,5 @@
 package sort
 
-
 func QuickSort(array []int) []int {
 	// Write your code here.
 	return helper(array, 0, len(array)-1)
@@ -38,4 +37,3 @@ func helper(array []int, start, end int) []int {
 
 	return array
 }
-
