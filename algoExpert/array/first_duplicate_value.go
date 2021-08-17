@@ -1,4 +1,4 @@
-package main
+package array
 
 func FirstDuplicateValue(array []int) int {
 	seen := make(map[int]bool, len(array))
