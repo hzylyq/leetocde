@@ -32,6 +32,29 @@ func longestCommonPrefix(strs []string) string {
 	return ""
 }
 
+// checkRecord 551. 学生出勤记录 I
+func checkRecord(s string) bool {
+	a, latest := 0, 0
+	for _, val := range s {
+		if val == 'A' {
+			a++
+			if a >= 2 {
+				return false
+			}
+		}
+		if val == 'L' {
+			latest++
+			if latest >= 3 {
+				return false
+			}
+		} else {
+			latest = 0
+		}
+	}
+
+	return true
+}
+
 // 1576. 替换所有的问号
 func ModifyString(s string) string {
 	temp := make([]byte, len(s))
