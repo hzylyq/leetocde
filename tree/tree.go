@@ -421,6 +421,30 @@ func ChildLevelOrder(root *Node) [][]int {
 	return res
 }
 
+// 538. 把二叉搜索树转换为累加树
+// 给出二叉搜索树的根节点，该树的节点值各不相同，请你将其转换为累加树（Greater Sum Tree），使每个节点node的新值等于原树中大于或等于node.val的值之和。
+// 提醒一下，二叉搜索树满足下列约束条件：
+// 节点的左子树仅包含键小于节点键的节点。
+// 节点的右子树仅包含键大于节点键的节点。
+// 左右子树也必须是二叉搜索树。
+func convertBST(root *TreeNode) *TreeNode {
+	var sum int
+	// 后序遍历
+	var helperFunc func(node *TreeNode)
+	helperFunc = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		helperFunc(node.Right)
+		node.Val += sum
+		sum = node.Val
+		helperFunc(node.Left)
+	}
+	helperFunc(root)
+
+	return root
+}
+
 // 671. 二叉树中第二小的节点
 func findSecondMinimumValue(root *TreeNode) int {
 	if root == nil {
