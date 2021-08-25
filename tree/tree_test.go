@@ -252,3 +252,8 @@ func TestIsCousins(t *testing.T) {
 		},
 	}, 3, 4)
 }
+
+func TestNumTrees(t *testing.T) {
+	res := NumTrees(3)
+	assert.Equal(t, res, 5)
+}

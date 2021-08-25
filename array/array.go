@@ -224,6 +224,7 @@ func findDisappearedNumbers(nums []int) []int {
 
 	return res
 }
+
 // findDisappearedNumbers2 O(n) O(1)
 func findDisappearedNumbers2(nums []int) []int {
 	n := len(nums)
@@ -296,6 +297,27 @@ func runningSum(nums []int) []int {
 		total += v
 	}
 	return res
+}
+
+// 1646. 获取生成数组中的最大值
+func getMaximumGenerated(n int) int {
+	if n == 0 {
+		return 0
+	}
+
+	res := make([]int, n+1)
+	res[1] = 1
+
+	for i := 2; i <= n; i++ {
+		res[i] = res[i/2] + i%2*res[(i+1)/2]
+	}
+
+	var ans int
+	for _, val := range res {
+		ans = max(val, ans)
+	}
+
+	return ans
 }
 
 // 1711. 大餐计数
