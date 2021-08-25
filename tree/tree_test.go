@@ -257,3 +257,22 @@ func TestNumTrees(t *testing.T) {
 	res := NumTrees(3)
 	assert.Equal(t, res, 5)
 }
+
+func TestMaxPathSum(t *testing.T) {
+	root := &TreeNode{
+		Val:   1,
+		Left:  &TreeNode{
+			Val:   2,
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val:   3,
+			Left:  nil,
+			Right: nil,
+		},
+	}
+
+	res := MaxPathSum(root)
+	assert.Equal(t, res, 6)
+}
