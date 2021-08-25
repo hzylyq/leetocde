@@ -421,6 +421,29 @@ func ChildLevelOrder(root *Node) [][]int {
 	return res
 }
 
+// PathSum 437. 路径总和 III
+// 给定一个二叉树的根节点 root，和一个整数 targetSum ，求该二叉树里节点值之和等于 targetSum 的路径的数目。
+// 路径不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
+func PathSum(root *TreeNode, targetSum int) int {
+	if root == nil {return 0}
+	return PathSum(root.Left, targetSum) + pathSumHelperFunc(root, targetSum) + PathSum(root.Right, targetSum)
+}
+
+func pathSumHelperFunc(node *TreeNode, targetSum int) int {
+	if node == nil {
+		return 0
+	}
+
+	var sum int
+	if node.Val == targetSum {
+		sum++
+	}
+	sum += pathSumHelperFunc(node.Left, targetSum-node.Val)
+	sum += pathSumHelperFunc(node.Right, targetSum-node.Val)
+
+	return sum
+}
+
 // 538. 把二叉搜索树转换为累加树
 // 给出二叉搜索树的根节点，该树的节点值各不相同，请你将其转换为累加树（Greater Sum Tree），使每个节点node的新值等于原树中大于或等于node.val的值之和。
 // 提醒一下，二叉搜索树满足下列约束条件：
