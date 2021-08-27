@@ -304,3 +304,34 @@ func TestPathSum(t *testing.T) {
 	res := PathSum(root, 3)
 	log.Print(res)
 }
+
+func TestConstructor(t *testing.T) {
+	c := Constructor()
+
+	root := &TreeNode{
+		Val:   1,
+		Left:  &TreeNode{
+			Val:   2,
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &TreeNode{
+			Val:   3,
+			Left:  &TreeNode{
+				Val:   4,
+				Left:  nil,
+				Right: nil,
+			},
+			Right: &TreeNode{
+				Val:   5,
+				Left:  nil,
+				Right: nil,
+			},
+		},
+	}
+
+	res := c.serialize(root)
+
+	node := c.deserialize(res)
+	log.Print(node)
+}

@@ -2,6 +2,8 @@ package tree
 
 import (
 	"math"
+	"strconv"
+	"strings"
 )
 
 // 树节点
@@ -388,19 +390,79 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	}
 }
 
-/**
- * Definition for a Node.
- * type Node struct {
- *     Val int
- *     Children []*Node
- * }
- */
+type Codec struct {
+}
+
+func Constructor() Codec {
+	return Codec{}
+}
+
+// Serializes a tree to a single string.
+func (this *Codec) serialize(root *TreeNode) string {
+	// 层序遍历
+	stack := []*TreeNode{root}
+	var res string
+	for len(stack) > 0 {
+		length := len(stack)
+
+		for _, node := range stack {
+			if node == nil {
+				res += "null,"
+
+			} else {
+				res += strconv.Itoa(node.Val)
+			}
+
+			if node.Left == nil {
+				res += "null"
+			} else {
+				stack = append(stack, node.Left)
+			}
+
+			if node.Right == nil {
+				res += "null"
+			} else {
+				stack = append(stack, node.Right)
+			}
+		}
+		stack = stack[length:]
+	}
+
+	res += "]"
+	return res
+}
+
+// Deserializes your encoded data to tree.
+func (this *Codec) deserialize(data string) *TreeNode {
+	sp := strings.Split(data, ",")
+	if len(sp) == 0 {
+		return nil
+	}
+	var helper func() *TreeNode
+	helper = func() *TreeNode {
+		if sp[0] == "null" {
+			sp = sp[1:]
+			return nil
+		}
+
+		val, _ := strconv.Atoi(sp[0])
+
+		return &TreeNode{
+			Val:   val,
+			Left:  helper(),
+			Right: helper(),
+		}
+	}
+
+	return helper()
+}
+
 type Node struct {
 	Val      int
 	Children []*Node
 }
 
-// 429. N 叉树的层序遍历
+// ChildLevelOrder 429. N 叉树的层序遍历
 func ChildLevelOrder(root *Node) [][]int {
 	if root == nil {
 		return nil
@@ -425,7 +487,9 @@ func ChildLevelOrder(root *Node) [][]int {
 // 给定一个二叉树的根节点 root，和一个整数 targetSum ，求该二叉树里节点值之和等于 targetSum 的路径的数目。
 // 路径不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
 func PathSum(root *TreeNode, targetSum int) int {
-	if root == nil {return 0}
+	if root == nil {
+		return 0
+	}
 	return PathSum(root.Left, targetSum) + pathSumHelperFunc(root, targetSum) + PathSum(root.Right, targetSum)
 }
 
