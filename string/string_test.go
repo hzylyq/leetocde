@@ -22,3 +22,8 @@ func TestFirstUniqChar(t *testing.T) {
 func TestIsValid(t *testing.T) {
 	assert.Equal(t, isValid("()"), true)
 }
+
+func TestLongestPalindrome(t *testing.T) {
+	res := LongestPalindrome("ababaaaaaaa")
+	t.Log(res)
+}
