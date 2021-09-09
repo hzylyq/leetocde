@@ -54,6 +54,46 @@ func threeSum(nums []int) [][]int {
 	return res
 }
 
+// LetterCombinations 17. 电话号码的字母组合
+// 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按任意顺序返回。
+// 所有组合 回溯
+func LetterCombinations(digits string) []string {
+	if len(digits) == 0 {
+		return []string{}
+	}
+	var phoneMap = map[string]string{
+		"2": "abc",
+		"3": "def",
+		"4": "ghi",
+		"5": "jkl",
+		"6": "mno",
+		"7": "pqrs",
+		"8": "tuv",
+		"9": "wxyz",
+	}
+	var combs []string
+
+	type backtrack func(digits string, index int, comb string)
+	var helper backtrack
+	helper = func(digits string, index int, comb string) {
+		if index == len(digits) {
+			combs = append(combs, comb)
+			return
+		}
+
+		digit := string(digits[index])
+		letters := phoneMap[digit]
+
+		for i := 0; i < len(letters); i++ {
+			helper(digits, index+1, comb+string(letters[i]))
+		}
+	}
+
+	helper(digits, 0, "")
+
+	return combs
+}
+
 // 27. 移除元素
 func removeElement(nums []int, val int) int {
 	left, right := 0, len(nums)

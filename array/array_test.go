@@ -19,3 +19,8 @@ func TestCheckSubarraySum(t *testing.T) {
 	res := checkSubarraySum([]int{0, 0}, 6)
 	assert.Equal(t, res, true)
 }
+
+func TestLetterCombinations(t *testing.T) {
+	res := LetterCombinations("")
+	t.Log(res)
+}
