@@ -58,7 +58,17 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
 // 19. 删除链表的倒数第 N 个结点
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	dummy := &ListNode{0, head}
+	first, second := head, &ListNode{0, head}
 
+	for i := 0; i < n; i++ {
+		first = first.Next
+	}
+	for ; first != nil; first = first.Next {
+		second = second.Next
+	}
+	second.Next = second.Next.Next
+	return dummy.Next
 }
 
 // 206. 反转链表
