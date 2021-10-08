@@ -84,6 +84,35 @@ func checkRecord(s string) bool {
 	return true
 }
 
+// 187. 重复的DNA序列
+// 所有 DNA 都由一系列缩写为 'A'，'C'，'G' 和 'T' 的核苷酸组成，例如："ACGAATTCCG"。
+// 在研究 DNA 时，识别 DNA 中的重复序列有时会对研究非常有帮助。
+// 编写一个函数来找出所有目标子串，目标子串的长度为 10，且在 DNA 字符串 s 中出现次数超过一次。
+func findRepeatedDnaSequences(s string) []string {
+	const l = 10
+	bin := map[byte]int{'A': 0, 'C': 1, 'G': 2, 'T': 3}
+
+	n := len(s)
+	if n <= l {
+		return nil
+	}
+
+	x := 0
+	for _, ch := range s[:l-1] {
+		x = x<<2 | bin[byte(ch)]
+	}
+	cnt := map[int]int{}
+	var ans []string
+	for i := 0; i <= n-l; i++ {
+		x = (x<<2 | bin[s[i+l-1]]) & (1<<(l*2) - 1)
+		cnt[x]++
+		if cnt[x] == 2 {
+			ans = append(ans, s[i:i+l])
+		}
+	}
+	return ans
+}
+
 // balancedStringSplit 1221. 分割平衡字符串
 // 在一个 平衡字符串 中，'L' 和 'R' 字符的数量是相同的。
 // 给你一个平衡字符串s，请你将它分割成尽可能多的平衡字符串。

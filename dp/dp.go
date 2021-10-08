@@ -19,7 +19,7 @@ func helpGenerateParenthesis(idx, n, sum, add int, str string, res []string) {
 	}
 
 	if idx == n*2 {
-		
+
 	}
 }
 
