@@ -1,5 +1,28 @@
 package dp
 
+func GenerateParenthesis(n int) []string {
+	var res []string
+
+	return nil
+}
+
+func helpGenerateParenthesis(idx, n, sum, add int, str string, res []string) {
+	sum += add
+	if sum < 0 {
+		return
+	}
+
+	if add == 1 {
+		str += "("
+	} else {
+		str += ")"
+	}
+
+	if idx == n*2 {
+		
+	}
+}
+
 func MinCostClimbingStairs(cost []int) int {
 	dp := make([]int, len(cost)+1)
 
