@@ -18,5 +18,5 @@ func TestHasCycle2(t *testing.T) {
 		},
 	}
 
-	assert.Equal(t, false, HasCycle2(list))
+	assert.Equal(t, false, hasCycle2(list))
 }

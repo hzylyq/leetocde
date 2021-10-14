@@ -99,8 +99,104 @@ func hasCycle(head *ListNode) bool {
 	return false
 }
 
+// LRUCache 146. LRU 缓存机制
+// 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。
+// 实现 LRUCache 类：
+//
+// LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存
+// int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。
+// void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。
+//
+//
+// 进阶：你是否可以在 O(1) 时间复杂度内完成这两种操作？
+type LRUCache struct {
+	capacity int
+	size     int
+	cache    map[int]*dLinkedList
+	head     *dLinkedList
+	tail     *dLinkedList
+}
+
+type dLinkedList struct {
+	key int
+	val int
+
+	prev *dLinkedList
+	next *dLinkedList
+}
+
+func NewDLinkedList(key, value int) *dLinkedList {
+	return &dLinkedList{
+		key: key,
+		val: value,
+	}
+}
+
+func Constructor(capacity int) LRUCache {
+	l := LRUCache{
+		cache:    make(map[int]*dLinkedList, capacity),
+		capacity: capacity,
+		head:     NewDLinkedList(0, 0),
+		tail:     NewDLinkedList(0, 0),
+	}
+	l.head.next = l.tail
+	l.tail.prev = l.head
+	return l
+}
+
+func (c *LRUCache) Get(key int) int {
+	node, ok := c.cache[key]
+	if !ok {
+		return -1
+	}
+
+	c.moveToHead(node)
+	return node.val
+}
+
+func (c *LRUCache) Put(key int, value int) {
+	node, ok := c.cache[key]
+	if ok {
+		node.val = value
+		c.moveToHead(node)
+	} else {
+		node = NewDLinkedList(key, value)
+		c.cache[key] = node
+		c.addToHead(node)
+		c.size++
+		if c.size > c.capacity {
+			tail := c.removeTail()
+			delete(c.cache, tail.key)
+			c.size--
+		}
+	}
+}
+
+func (c *LRUCache) addToHead(node *dLinkedList) {
+	node.prev = c.head
+	node.next = c.head.next
+	c.head.next.prev = node
+	c.head.next = node
+}
+
+func (c *LRUCache) removeNode(node *dLinkedList) {
+	node.prev.next = node.next
+	node.next.prev = node.prev
+}
+
+func (c *LRUCache) moveToHead(node *dLinkedList) {
+	c.removeNode(node)
+	c.addToHead(node)
+}
+
+func (c *LRUCache) removeTail() *dLinkedList {
+	node := c.tail.prev
+	c.removeNode(node)
+	return node
+}
+
 // 快慢指针
-func HasCycle2(head *ListNode) bool {
+func hasCycle2(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return false
 	}
