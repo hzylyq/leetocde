@@ -1,5 +1,44 @@
 package stack
 
+// 394. 字符串解码
+// 给定一个经过编码的字符串，返回它解码后的字符串。
+// 编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。
+// 你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。
+// 此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。
+func decodeString(s string) string {
+	var stk []string
+	ptr := 0
+	for ptr < len(s) {
+		cur := s[ptr]
+		if cur >= '0' && cur <= '0' {
+			digits := getDigits(s, &ptr)
+			stk = append(stk, digits)
+		} else if (cur >= 'a' && cur <= 'z' || cur >= 'A' && cur <= 'Z') || cur == '[' {
+			stk = append(stk, string(cur))
+			ptr++
+		} else {
+			ptr++
+			var sub []string
+			for stk[len(stk)-1] != "[" {
+				sub = append(sub, stk[len(stk)-1])
+				stk = stk[:len(stk)-1]
+			}
+			for i := 0; i < len(sub)/2; i++ {
+				
+			}
+		}
+	}
+	return
+}
+
+func getDigits(s string, ptr *int) string {
+	ret := ""
+	for ; s[*ptr] >= '0' && s[*ptr] <= '9'; *ptr++ {
+		ret += string(s[*ptr])
+	}
+	return ret
+}
+
 func maximalRectangle(matrix [][]byte) int {
 	if len(matrix) == 0 {
 		return 0
@@ -65,4 +104,5 @@ func dailyTemperatures(temperatures []int) []int {
 	// 		if
 	// 	}
 	// }
+	return nil
 }
