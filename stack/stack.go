@@ -24,10 +24,11 @@ func decodeString(s string) string {
 				stk = stk[:len(stk)-1]
 			}
 			for i := 0; i < len(sub)/2; i++ {
-				
+
 			}
 		}
 	}
+
 	return
 }
 

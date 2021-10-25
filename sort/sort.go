@@ -1,5 +1,7 @@
 package sort
 
+import "sort"
+
 // BubbleSort 冒泡排序
 func BubbleSort(array []int) []int {
 	// Write your code here.
@@ -91,6 +93,51 @@ func MaxArea(num [][]int) int {
 	}
 
 	return ans
+}
+
+// 240. 搜索二维矩阵 II
+// 编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下特性：
+// 每行的元素从左到右升序排列。
+// 每列的元素从上到下升序排列。
+// O(mn)
+func searchMatrix1(matrix [][]int, target int) bool {
+	for _, col := range matrix {
+		for _, row := range col {
+			if row == target {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// O(mlogn)
+func searchMatrix2(matrix [][]int, target int) bool {
+	for _, col := range matrix {
+		i := sort.SearchInts(col, target)
+		if i < len(col) && target == col[i] {
+			return true
+		}
+	}
+	return false
+}
+
+// O(m+n)
+func searchMatrix3(matrix [][]int, target int) bool {
+	m, n := len(matrix), len(matrix[0])
+
+	x, y := 0, n-1
+	for x < m && y >= 0 {
+		if matrix[x][y] == target {
+			return true
+		}
+		if matrix[x][y] > target {
+			y--
+		} else {
+			x++
+		}
+	}
+	return false
 }
 
 func min(a, b int) int {

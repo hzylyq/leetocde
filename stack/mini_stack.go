@@ -32,7 +32,6 @@ func (this *MinStack) Top() int {
 
 func (this *MinStack) GetMin() int {
 	return this.minStack[len(this.minStack)-1]
-
 }
 
 /**
