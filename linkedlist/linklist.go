@@ -71,19 +71,6 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	return dummy.Next
 }
 
-// 206. 反转链表
-func reverseList(head *ListNode) *ListNode {
-	var prev *ListNode
-	curr := head
-	for curr != nil {
-		next := curr.Next
-		curr.Next = prev
-		prev = curr
-		curr = next
-	}
-	return prev
-}
-
 // 141. 环形链表
 // hash表
 func hasCycle(head *ListNode) bool {
@@ -312,6 +299,19 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	return pA
 }
 
+// 206. 反转链表
+func reverseList(head *ListNode) *ListNode {
+	var prev *ListNode
+	curr := head
+	for curr != nil {
+		next := curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = next
+	}
+	return prev
+}
+
 // 234. 回文链表
 func isPalindrome(head *ListNode) bool {
 	arr := make([]int, 0)
@@ -326,4 +326,12 @@ func isPalindrome(head *ListNode) bool {
 		}
 	}
 	return true
+}
+
+// 237. 删除链表中的节点
+// 请编写一个函数，用于删除单链表中某个特定节点。在设计函数时需要注意，你无法访问链表的头节点 head，只能直接访问要被删除的节点。
+// 题目数据保证需要删除的节点不是末尾节点。
+func deleteNode(node *ListNode) {
+	node.Val = node.Next.Val
+	node.Next = node.Next.Next
 }
