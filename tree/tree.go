@@ -1285,6 +1285,26 @@ func minDiffInBST(root *TreeNode) int {
 	return 0
 }
 
+
+// 700. 二叉搜索树中的搜索
+// 给定二叉搜索树（BST）的根节点和一个值。 你需要在BST中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。
+
+func searchBST(root *TreeNode, val int) *TreeNode {
+    for root != nil {
+        if root.Val == val {
+            return root
+        }
+
+        if root.Val < val {
+            root = root.Right
+        } else {
+            root = root.Left
+        }
+    }
+
+    return root
+}
+
 // 965. 单值二叉树
 func isUnivalTree(root *TreeNode) bool {
 	if root == nil {
