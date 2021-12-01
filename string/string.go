@@ -135,6 +135,28 @@ func balancedStringSplit(s string) int {
 	return ans
 }
 
+// 1446. 连续字符 (easy)
+// 给你一个字符串s, 字符串的「能量」定义为: 只包含一种字符的最长非空子字符串的长度. 请你返回字符串的能量.
+// 输入: s = "leetcode"
+// 输出: 2
+// 解释: 子字符串 "ee" 长度为 2 ，只包含字符 'e'
+func maxPower(s string) int {
+	ans, cnt := 1, 1
+
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			cnt++
+			if cnt > ans {
+				ans = cnt
+			}
+		} else {
+			cnt = 1
+		}
+	}
+
+	return ans
+}
+
 // 1576. 替换所有的问号
 func ModifyString(s string) string {
 	temp := make([]byte, len(s))
@@ -158,7 +180,7 @@ func ModifyString(s string) string {
 	return string(temp)
 }
 
-// 1678. 设计 Goal 解析器
+// Interpret 1678. 设计 Goal 解析器
 func Interpret(command string) string {
 	var result string
 	for i := 0; i < len(command); i++ {
