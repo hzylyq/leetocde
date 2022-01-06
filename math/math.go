@@ -4,6 +4,31 @@ import (
 	"math"
 )
 
+// 66. 加一
+// 给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
+// 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+// 你可以假设除了整数 0 之外，这个整数不会以零开头。
+func plusOne(digits []int) []int {
+	var isPre bool
+
+	for i := len(digits) - 1; i >= 0; i-- {
+		if i == len(digits)-1 || isPre {
+			if digits[i] == 9 {
+				digits[i] = 0
+				isPre = true
+			} else {
+				digits[i]++
+				isPre = false
+			}
+		}
+	}
+
+	if isPre {
+		digits = append([]int{1}, digits...)
+	}
+	return digits
+}
+
 func BitwiseComplement(N int) int {
 	if N == 0 {
 		return 1
@@ -33,7 +58,7 @@ func BitwiseComplement(N int) int {
 	return res
 }
 
-// 135. 分发糖果
+// Candy 135. 分发糖果
 func Candy(rating []int) int {
 	n := len(rating)
 	// rating[i-1] < rate[i], x[i-1] < x[i]
