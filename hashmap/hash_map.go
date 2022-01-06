@@ -50,3 +50,16 @@ func SmallerNumbersThanCurrent(nums []int) []int {
 	}
 	return res
 }
+
+// 219. 存在重复元素 II
+// 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 至多为 k。
+func containsNearbyDuplicate(nums []int, k int) bool {
+	indexDiff := make(map[int]int, len(nums))
+	for i := 0; i < len(nums); i++ {
+		if val, ok := indexDiff[nums[i]]; ok && i-val <= k {
+			return true
+		}
+		indexDiff[nums[i]] = i
+	}
+	return false
+}
