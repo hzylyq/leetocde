@@ -177,3 +177,16 @@ func maximalSquare(matrix [][]byte) int {
 
 	return 0
 }
+
+// 509. 斐波那契数
+// F(0) = 0，F(1) = 1
+// F(n) = F(n - 1) + F(n - 2)，其中 n > 1
+func fib(n int) int {
+	dp := make([]int, 0, n)
+	dp = append(dp, 0, 1)
+
+	for i := 2; i <= n; i++ {
+		dp = append(dp, dp[i-1]+dp[i-2])
+	}
+	return dp[n]
+}
