@@ -421,8 +421,9 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	}
 }
 
-type Codec struct {
-}
+// 297. 二叉树的序列化与反序列化
+
+type Codec struct{}
 
 func Constructor() Codec {
 	return Codec{}
@@ -430,37 +431,22 @@ func Constructor() Codec {
 
 // Serializes a tree to a single string.
 func (this *Codec) serialize(root *TreeNode) string {
-	// 层序遍历
-	stack := []*TreeNode{root}
-	var res string
-	for len(stack) > 0 {
-		length := len(stack)
-
-		for _, node := range stack {
-			if node == nil {
-				res += "null,"
-
-			} else {
-				res += strconv.Itoa(node.Val)
-			}
-
-			if node.Left == nil {
-				res += "null"
-			} else {
-				stack = append(stack, node.Left)
-			}
-
-			if node.Right == nil {
-				res += "null"
-			} else {
-				stack = append(stack, node.Right)
-			}
+	// 深度优先搜索
+	sb := &strings.Builder{}
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			sb.WriteString("null")
+			return
 		}
-		stack = stack[length:]
-	}
 
-	res += "]"
-	return res
+		sb.WriteString(strconv.Itoa(node.Val))
+		sb.WriteString(",")
+		dfs(node.Left)
+		dfs(node.Right)
+	}
+	dfs(root)
+	return sb.String()
 }
 
 // Deserializes your encoded data to tree.
@@ -469,23 +455,23 @@ func (this *Codec) deserialize(data string) *TreeNode {
 	if len(sp) == 0 {
 		return nil
 	}
-	var helper func() *TreeNode
-	helper = func() *TreeNode {
+	var build func() *TreeNode
+	build = func() *TreeNode {
 		if sp[0] == "null" {
 			sp = sp[1:]
 			return nil
 		}
 
 		val, _ := strconv.Atoi(sp[0])
-
+		sp = sp[1:]
 		return &TreeNode{
 			Val:   val,
-			Left:  helper(),
-			Right: helper(),
+			Left:  build(),
+			Right: build(),
 		}
 	}
 
-	return helper()
+	return build()
 }
 
 type Node struct {
