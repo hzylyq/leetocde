@@ -470,6 +470,28 @@ func getMaximumGenerated(n int) int {
 	return ans
 }
 
+// 1706. 球会落何处
+func findBall(grid [][]int) []int {
+	n := len(grid[0])
+	ans := make([]int, n)
+
+	for j := range ans {
+		col := j
+		for _, row := range grid {
+			dir := row[col]
+			col += dir
+			if col < 0 || col == n || row[col] != dir {
+				col = -1
+				break
+			}
+		}
+
+		ans[j] = col
+	}
+
+	return ans
+}
+
 // 1711. 大餐计数
 func countPairs(deliciousness []int) int {
 	maxVal := deliciousness[0]
