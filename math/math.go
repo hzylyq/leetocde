@@ -1,7 +1,10 @@
 package math
 
 import (
+	"fmt"
 	"math"
+	"strconv"
+	"strings"
 )
 
 // 66. 加一
@@ -75,7 +78,9 @@ func Candy(rating []int) int {
 	right := 0
 	var res int
 
-	for i := n - 1; i >= 0; i-- {rating[i+1] {
+	for i := n - 1; i >= 0; i-- {
+		rating[i+1]
+		{
 			right++
 		} else {
 			right = 1
@@ -104,6 +109,20 @@ func checkPerfectNumber(num int) bool {
 	}
 
 	return sum == num
+}
+
+// 537. 复数乘法
+func complexNumberMultiply(num1 string, num2 string) string {
+	real1, imag1 := parseComplexNumber(num1)
+	real2, imag2 := parseComplexNumber(num2)
+	return fmt.Sprintf("%d+%di", real1*real2-imag1*imag2, real1*imag2+real2*imag1)
+}
+
+func parseComplexNumber(num string) (real, imag int) {
+	i := strings.Index(num, "+")
+	real, _ = strconv.Atoi(num[:i])
+	imag, _ = strconv.Atoi(num[i+1 : len(num)-1])
+	return
 }
 
 // 1716. 计算力扣银行的钱
