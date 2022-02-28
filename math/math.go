@@ -118,6 +118,25 @@ func complexNumberMultiply(num1 string, num2 string) string {
 	return fmt.Sprintf("%d+%di", real1*real2-imag1*imag2, real1*imag2+real2*imag1)
 }
 
+// 553. 最优除法
+func optimalDivision(nums []int) string {
+	n := len(nums)
+	if n == 1 {
+		return strconv.Itoa(nums[0])
+	}
+	if n == 2 {
+		return fmt.Sprintf("%d/%d", nums[0], nums[1])
+	}
+
+	var ans string
+	ans += fmt.Sprintf("%d/(%d", nums[0], nums[1])
+	for _, num := range nums[2:] {
+		ans += fmt.Sprintf("/%d", num)
+	}
+	ans += ")"
+	return ans
+}
+
 func parseComplexNumber(num string) (real, imag int) {
 	i := strings.Index(num, "+")
 	real, _ = strconv.Atoi(num[:i])
