@@ -141,7 +141,7 @@ func combinationSum(candidates []int, target int) [][]int {
 		}
 
 		if target == 0 {
-			ans = append(ans, comb)
+			ans = append(ans,  append([]int(nil), comb...))
 			return
 		}
 

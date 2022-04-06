@@ -182,6 +182,50 @@ func maximalSquare(matrix [][]byte) int {
 	return 0
 }
 
+// 494. 目标和
+// 回溯 2^n
+func findTargetSumWays(nums []int, target int) int {
+	var count int
+
+	var backtrack func(int, int)
+	backtrack = func(index int, sum int) {
+		if index == len(nums) {
+			if sum == target {
+				count++
+			}
+			return
+		}
+
+		backtrack(index+1, sum+nums[index])
+		backtrack(index+1, sum-nums[index])
+	}
+
+	backtrack(0, 0)
+	return count
+}
+
+// 动态规划
+func findTargetSumWays2(nums []int, target int) int {
+	var count int
+
+	var backtrack func(int, int)
+	backtrack = func(index int, sum int) {
+		if index == len(nums) {
+			if sum == target {
+				count++
+			}
+			return
+		}
+
+		backtrack(index+1, sum+nums[index])
+		backtrack(index+1, sum-nums[index])
+	}
+
+	backtrack(0, 0)
+	return count
+}
+
+
 // 509. 斐波那契数
 // F(0) = 0，F(1) = 1
 // F(n) = F(n - 1) + F(n - 2)，其中 n > 1
