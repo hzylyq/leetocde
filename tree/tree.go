@@ -288,6 +288,51 @@ func helperFlatten(root *TreeNode) []*TreeNode {
 	return res
 }
 
+// 116. 填充每个节点的下一个右侧节点指针
+// 给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
+type connectNode struct {
+	val   int
+	left  *connectNode
+	right *connectNode
+	next  *connectNode
+}
+
+// 广度遍历
+func connect(root *connectNode) *connectNode {
+	if root == nil {
+		return root
+	}
+
+	queue := []*connectNode{root}
+
+	for len(queue) > 0 {
+		length := len(queue)
+
+		tmp := queue
+		queue = nil
+
+		for i, node := range tmp {
+			if i+1 < length {
+				node.next = tmp[i+1]
+			}
+
+			if node.left != nil {
+				queue = append(queue, node.left)
+			}
+			if node.right != nil {
+				queue = append(queue, node.right)
+			}
+		}
+	}
+
+	return root
+}
+
+//
+func connect2(root *connectNode) *connectNode {
+	return nil
+}
+
 // MaxPathSum 124. 二叉树中的最大路径和
 // 路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。
 // 路径和 是路径中各节点值的总和。

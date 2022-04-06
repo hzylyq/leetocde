@@ -129,6 +129,35 @@ func removeElement(nums []int, val int) int {
 	return left
 }
 
+// 39. 组合总和
+func combinationSum(candidates []int, target int) [][]int {
+	var ans [][]int
+	var comb []int
+
+	var dfs func(target int, idx int)
+	dfs = func(target int, idx int) {
+		if idx == len(candidates) {
+			return
+		}
+
+		if target == 0 {
+			ans = append(ans, comb)
+			return
+		}
+
+		dfs(target, idx+1)
+		if target-candidates[idx] >= 0 {
+			comb = append(comb, candidates[idx])
+			dfs(target-candidates[idx], idx)
+			comb = comb[:len(comb)-1]
+		}
+	}
+
+	dfs(target, 0)
+
+	return ans
+}
+
 // 53. 最大子序和
 func maxSubArray(nums []int) int {
 	if len(nums) == 0 {
