@@ -11,5 +11,5 @@ func TestMinCostClimbingStairs(t *testing.T) {
 }
 
 func TestPaintingPlan(t *testing.T) {
-	assert.Equal(t, PaintingPlan(3, 8), 9)
+	assert.Equal(t, paintingPlan(3, 8), 9)
 }

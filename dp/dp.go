@@ -79,7 +79,7 @@ func min(x, y int) int {
 }
 
 // LCP 22. 黑白方格画
-func PaintingPlan(n int, k int) int {
+func paintingPlan(n int, k int) int {
 	if k == n*n {
 		return 1
 	}
@@ -115,6 +115,30 @@ func C(base, up int) int {
 		b *= i
 	}
 	return a / b
+}
+
+// 78. 子集
+func subsets(nums []int) [][]int {
+	var set []int
+	var ans [][]int
+
+	var dfs func(int)
+	dfs = func(i int) {
+		// 遍历结束
+		if i == len(nums) {
+			ans = append(ans, append([]int{}, set...))
+			return
+		}
+
+		// 选择当前位置
+		set = append(set, nums[i])
+		dfs(i + 1)
+		set = set[:len(set)-1]
+		dfs(i + 1)
+	}
+
+	dfs(0)
+	return ans
 }
 
 // 198. 打家劫舍 middle
@@ -204,27 +228,11 @@ func findTargetSumWays(nums []int, target int) int {
 	return count
 }
 
-// 动态规划
+// 动态规划O(n) 背包问题
 func findTargetSumWays2(nums []int, target int) int {
-	var count int
 
-	var backtrack func(int, int)
-	backtrack = func(index int, sum int) {
-		if index == len(nums) {
-			if sum == target {
-				count++
-			}
-			return
-		}
-
-		backtrack(index+1, sum+nums[index])
-		backtrack(index+1, sum-nums[index])
-	}
-
-	backtrack(0, 0)
 	return count
 }
-
 
 // 509. 斐波那契数
 // F(0) = 0，F(1) = 1
