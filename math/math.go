@@ -90,6 +90,25 @@ func Candy(rating []int) int {
 	return res
 }
 
+// 357. 统计各位数字都不同的数字个数
+func countNumbersWithUniqueDigits(n int) int {
+	if n == 0 {
+		return 1
+	}
+	if n == 1 {
+		return 10
+	}
+
+	ans, cur := 10, 9
+	for i := 0; i < n-1; i++ {
+		cur *= 9 - i
+		ans += cur
+	}
+
+	return ans
+
+}
+
 // 507. 完美数
 // 对于一个 正整数，如果它和除了它自身以外的所有 正因子 之和相等，我们称它为 「完美数」。
 // 给定一个整数n，如果是完美数，返回 true，否则返回 false
