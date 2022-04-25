@@ -416,30 +416,30 @@ func LevelOrder(root *TreeNode) [][]int {
 // WordDictionary() 初始化词典对象
 // void addWord(word) 将 word 添加到数据结构中，之后可以对它进行匹配
 // bool search(word) 如果数据结构中存在字符串与word 匹配，则返回 true；否则，返回 false 。word 中可能包含一些 '.' ，每个. 都可以表示任何一个字母。
-type trieNode struct {
-	children [26]*trieNode
-	isEnd    bool
-}
-
-func (t *trieNode) Insert(word string) {
-
-}
-
-type wordDictionary struct {
-	children [26]
-}
-
-func NewWordDictionary() wordDictionary {
-
-}
-
-func (w *wordDictionary) AddWord(word string) {
-
-}
-
-func (w *wordDictionary) Search(word string) bool {
-
-}
+// type trieNode struct {
+// 	children [26]*trieNode
+// 	isEnd    bool
+// }
+//
+// func (t *trieNode) Insert(word string) {
+//
+// }
+//
+// type wordDictionary struct {
+// 	children [26]
+// }
+//
+// func NewWordDictionary() wordDictionary {
+//
+// }
+//
+// func (w *wordDictionary) AddWord(word string) {
+//
+// }
+//
+// func (w *wordDictionary) Search(word string) bool {
+//
+// }
 
 // 226. 翻转二叉树
 func invertTree(root *TreeNode) *TreeNode {
@@ -464,6 +464,29 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 			return res
 		}
 	}
+}
+
+// 257. 二叉树的所有路径
+func binaryTreePaths(root *TreeNode) []string {
+	var paths []string
+	var constructPaths func(root *TreeNode, path string)
+	constructPaths = func(root *TreeNode, path string) {
+		if root == nil {
+			return
+		}
+
+		pathSub := path + strconv.Itoa(root.Val)
+		if root.Left == nil && root.Right == nil {
+			paths = append(paths, pathSub)
+		} else {
+			pathSub += "->"
+			constructPaths(root.Left, pathSub)
+			constructPaths(root.Right, pathSub)
+		}
+	}
+
+	constructPaths(root, "")
+	return paths
 }
 
 // 297. 二叉树的序列化与反序列化
