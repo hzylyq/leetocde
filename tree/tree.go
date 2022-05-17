@@ -593,6 +593,50 @@ func pathSumHelperFunc(node *TreeNode, targetSum int) int {
 	return sum
 }
 
+// 501 二叉搜索数的众数
+// 1 中序遍历
+func findMode(root *TreeNode) []int {
+	var res []int
+
+	var (
+		base     int
+		count    int
+		maxCount int
+	)
+
+	update := func(v int) {
+		if v == base {
+			count++
+		} else {
+			base, count = v, 1
+		}
+
+		if count == maxCount {
+			res = append(res, v)
+		} else if count > maxCount {
+			maxCount = count
+			res = []int{v}
+		}
+	}
+
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+
+		dfs(node.Left)
+		update(node.Val)
+		dfs(node.Right)
+	}
+
+	dfs(root)
+
+	return res
+}
+
+// Morris 中序遍历 重点研究
+
 // 538. 把二叉搜索树转换为累加树
 // 给出二叉搜索树的根节点，该树的节点值各不相同，请你将其转换为累加树（Greater Sum Tree），使每个节点node的新值等于原树中大于或等于node.val的值之和。
 // 提醒一下，二叉搜索树满足下列约束条件：
@@ -682,48 +726,6 @@ func listOfDepth(tree *TreeNode) []*ListNode {
 			res = append(res, head)
 		}
 		list = list[size:]
-	}
-	return res
-}
-
-// 501. 二叉搜索树中的众数
-// todo
-func findMode(root *TreeNode) []int {
-	var base, count, maxCount int
-	var res []int
-	update := func(x int) {
-		if x == base {
-			count++
-		} else {
-			base, count = x, 1
-		}
-		if count == maxCount {
-			res = append(res, base)
-		} else if count > maxCount {
-			maxCount = count
-			res = []int{base}
-		}
-	}
-
-	curr := root
-	for curr != nil {
-		if curr.Left == nil {
-			update(curr.Val)
-			curr = curr.Right
-			continue
-		}
-		pre := curr.Left
-		if pre.Right != nil && pre.Right != curr {
-			pre = pre.Right
-		}
-		if pre.Right == nil {
-			pre.Right = curr
-			curr = curr.Right
-		} else {
-			pre.Right = nil
-			update(curr.Val)
-			curr = curr.Right
-		}
 	}
 	return res
 }
