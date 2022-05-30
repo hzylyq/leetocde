@@ -55,7 +55,7 @@ func decodeString(s string) string {
 		}
 	}
 
-	return
+	return ""
 }
 
 func getDigits(s string, ptr *int) string {
@@ -132,4 +132,26 @@ func dailyTemperatures(temperatures []int) []int {
 	// 	}
 	// }
 	return nil
+}
+
+// RemoveOuterParentheses 1021. 删除最外层的括号
+func RemoveOuterParentheses(s string) string {
+	var res []rune
+	level := 0
+
+	for _, ch := range s {
+		if ch == ')' {
+			level--
+		}
+
+		if level > 0 {
+			res = append(res, ch)
+		}
+
+		if ch == '(' {
+			level++
+		}
+	}
+
+	return string(res)
 }

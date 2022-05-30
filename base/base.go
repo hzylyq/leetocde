@@ -4,6 +4,7 @@ import (
 	"math"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 func BinarySearch(array []int, target int) int {
@@ -257,13 +258,45 @@ func fizzBuzz(n int) []string {
 			res = append(res, "FizzBuzz")
 		} else if i%3 == 0 {
 			res = append(res, "Fizz")
-		} else if i%5== 0 {
+		} else if i%5 == 0 {
 			res = append(res, "Buzz")
 		} else {
 			res = append(res, strconv.Itoa(i))
 		}
 	}
 	return res
+}
+
+// 468. 验证IP地址
+func validIPAddress(queryIP string) string {
+	if ipArr := strings.Split(queryIP, "."); len(ipArr) == 4 {
+		for _, item := range ipArr {
+			if len(item) > 1 && item[0] == '0' {
+				return "Neither"
+			}
+
+			if v, err := strconv.Atoi(item); err != nil || v > 255 {
+				return "Neither"
+			}
+		}
+		return "IPv4"
+	}
+
+	if ipArr := strings.Split(queryIP, ":"); len(ipArr) == 8 {
+		for _, item := range ipArr {
+			if len(item) > 4 {
+				return "Neither"
+			}
+
+			if _, err := strconv.ParseUint(item, 16, 64); err != nil {
+				return "Neither"
+			}
+		}
+
+		return "IPv6"
+	}
+
+	return "Neither"
 }
 
 // hammingDistance 461. 汉明距离
