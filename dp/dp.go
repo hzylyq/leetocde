@@ -206,6 +206,32 @@ func maximalSquare(matrix [][]byte) int {
 	return 0
 }
 
+// 473. 火柴拼正方形
+func makeSquare(matchsticks []int) bool {
+	// 首先判断火柴总数能不能被4整除
+	var total int
+	for _, stick := range matchsticks {
+		total += stick
+	}
+
+	if total%4 != 0 {
+		return false
+	}
+
+	// 每条边的长度
+	tLen := total / 4
+	dp := make([]int, 1<<len(matchsticks))
+	for i := 1; i < len(dp); i++ {
+		dp[i] = -1
+	}
+
+	for s := 1; s < len(dp); s++ {
+
+	}
+
+	return false
+}
+
 // 494. 目标和
 // 回溯 2^n
 func findTargetSumWays(nums []int, target int) int {
