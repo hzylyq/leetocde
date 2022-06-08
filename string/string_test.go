@@ -27,3 +27,7 @@ func TestLongestPalindrome(t *testing.T) {
 	res := LongestPalindrome("ababaaaaaaa")
 	t.Log(res)
 }
+
+func TestAddStrings(t *testing.T) {
+	AddStrings("1", "123")
+}

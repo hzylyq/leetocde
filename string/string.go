@@ -1,5 +1,7 @@
 package string
 
+import "strconv"
+
 // LongestPalindrome 5. 最长回文子串
 // 给你一个字符串 s，找到 s 中最长的回文子串
 func LongestPalindrome(s string) string {
@@ -110,6 +112,28 @@ func findRepeatedDnaSequences(s string) []string {
 			ans = append(ans, s[i:i+l])
 		}
 	}
+	return ans
+}
+
+// 415. 字符串相加
+func AddStrings(num1 string, num2 string) string {
+	var add int
+	var ans string
+
+	for i, j := len(num1)-1, len(num2)-1; i >= 0 || j >= 0 || add != 0; i, j = i-1, j-1 {
+		var x, y int
+		if i >= 0 {
+			x = int(num1[i] - '0')
+		}
+		if j >= 0 {
+			y = int(num2[j] - '0')
+		}
+
+		res := x + y + add
+		add = res / 10
+		ans = strconv.Itoa(res % 10) + ans
+	}
+
 	return ans
 }
 
