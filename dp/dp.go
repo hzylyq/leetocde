@@ -1,5 +1,7 @@
 package dp
 
+import "log"
+
 // 22. 括号生成
 // 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
 func generateParenthesis(n int) []string {
@@ -9,7 +11,7 @@ func generateParenthesis(n int) []string {
 
 	var res []string
 
-	return nil
+	return res
 }
 
 func helpGenerateParenthesis(idx, n, sum, add int, str string, res []string) {
@@ -27,6 +29,35 @@ func helpGenerateParenthesis(idx, n, sum, add int, str string, res []string) {
 	if idx == n*2 {
 
 	}
+}
+
+// 62. 不同路径
+func uniquePaths(m int, n int) int {
+	dp := make([][]int, m)
+	for i := range dp {
+		dp[i] = make([]int, n)
+	}
+
+	for i := 0; i < n; i++ {
+		dp[0][i] = 1
+	}
+
+	for i := 0; i < m; i++ {
+		dp[i][0] = 1
+	}
+
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			dp[i][j] = dp[i-1][j] + dp[i][j-1]
+		}
+	}
+
+	return dp[m-1][n-1]
+}
+
+// 63. 不同路径 II
+func uniquePathsWithObstacles(obstacleGrid [][]int) int {
+	return 0
 }
 
 // 64. 最小路径和
@@ -180,28 +211,28 @@ func max(a, b int) int {
 // 221. 最大正方形
 // 在一个由 '0' 和 '1' 组成的二维矩阵内，找到只包含 '1' 的最大正方形，并返回其面积。
 func maximalSquare(matrix [][]byte) int {
-	dp := make([][]int, 0)
-	maxSide := 0
-
-	for _, row := range matrix {
-		res := make([]int, 0)
-		for _, col := range row {
-			val := int(col - '0')
-			if val == 1 {
-				maxSide = 1
-			}
-		}
-
-		dp = append(dp, res)
-	}
-
-	for i := 1; i < len(matrix); i++ {
-		for j := 1; j < len(matrix[0]); j++ {
-			if dp[i][j] == 1 {
-
-			}
-		}
-	}
+	// dp := make([][]int, 0)
+	//maxSide := 0
+	//
+	//for _, row := range matrix {
+	//	res := make([]int, 0)
+	//	for _, col := range row {
+	//		val := int(col - '0')
+	//		if val == 1 {
+	//			maxSide = 1
+	//		}
+	//	}
+	//
+	//	dp = append(dp, res)
+	//}
+	//
+	//for i := 1; i < len(matrix); i++ {
+	//	for j := 1; j < len(matrix[0]); j++ {
+	//		if dp[i][j] == 1 {
+	//
+	//		}
+	//	}
+	//}
 
 	return 0
 }
@@ -209,25 +240,25 @@ func maximalSquare(matrix [][]byte) int {
 // 473. 火柴拼正方形
 func makeSquare(matchsticks []int) bool {
 	// 首先判断火柴总数能不能被4整除
-	var total int
-	for _, stick := range matchsticks {
-		total += stick
-	}
-
-	if total%4 != 0 {
-		return false
-	}
-
-	// 每条边的长度
-	tLen := total / 4
-	dp := make([]int, 1<<len(matchsticks))
-	for i := 1; i < len(dp); i++ {
-		dp[i] = -1
-	}
-
-	for s := 1; s < len(dp); s++ {
-
-	}
+	//var total int
+	//for _, stick := range matchsticks {
+	//	total += stick
+	//}
+	//
+	//if total%4 != 0 {
+	//	return false
+	//}
+	//
+	//// 每条边的长度
+	//tLen := total / 4
+	//dp := make([]int, 1<<len(matchsticks))
+	//for i := 1; i < len(dp); i++ {
+	//	dp[i] = -1
+	//}
+	//
+	//for s := 1; s < len(dp); s++ {
+	//
+	//}
 
 	return false
 }
@@ -257,7 +288,7 @@ func findTargetSumWays(nums []int, target int) int {
 // 动态规划O(n) 背包问题
 func findTargetSumWays2(nums []int, target int) int {
 
-	return count
+	return 0
 }
 
 // 509. 斐波那契数
@@ -271,4 +302,19 @@ func fib(n int) int {
 		dp = append(dp, dp[i-1]+dp[i-2])
 	}
 	return dp[n]
+}
+
+// 1262. 可被三整除的最大和
+func maxSumDivThree(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+
+	dp := make([][3]int, len(nums))
+
+	for _, num := range nums {
+		log.Println(num)
+	}
+
+	return dp[len(nums)-1][0]
 }

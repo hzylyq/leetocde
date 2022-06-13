@@ -13,3 +13,7 @@ func TestMinCostClimbingStairs(t *testing.T) {
 func TestPaintingPlan(t *testing.T) {
 	assert.Equal(t, paintingPlan(3, 8), 9)
 }
+
+func TestUniquePaths(t *testing.T) {
+	assert.Equal(t, uniquePaths(3, 7), 28)
+}

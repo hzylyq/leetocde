@@ -141,7 +141,7 @@ func combinationSum(candidates []int, target int) [][]int {
 		}
 
 		if target == 0 {
-			ans = append(ans,  append([]int(nil), comb...))
+			ans = append(ans, append([]int(nil), comb...))
 			return
 		}
 
@@ -465,6 +465,40 @@ func reverseOnlyLetters(s string) string {
 	}
 
 	return string(ans)
+}
+
+// 1051. 高度检查器
+func heightChecker(heights []int) int {
+	var ans int
+
+	sorted := append([]int{}, heights...)
+
+	sort.Ints(sorted)
+
+	for i, v := range heights {
+		if v != sorted[i] {
+			ans++
+		}
+	}
+
+	return ans
+}
+
+// 计数排序
+func heightChecker2(heights []int) int {
+	//var ans int
+	//
+	//sorted := append([]int{}, heights...)
+	//
+	//sort.Ints(sorted)
+	//
+	//for i, v := range heights {
+	//	if v != sorted[i] {
+	//		ans++
+	//	}
+	//}
+	//
+	//return ans
 }
 
 // 1480. Running Sum of 1d Array
