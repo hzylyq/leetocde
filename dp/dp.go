@@ -202,6 +202,18 @@ func subsets(nums []int) [][]int {
 	return ans
 }
 
+// 118. 杨辉三角
+func generate(numRows int) [][]int {
+	res := make([][]int, numRows)
+	for i := 0; i < numRows; i++ {
+		for j := 0; j < i; j++ {
+
+		}
+	}
+
+	return res
+}
+
 // 198. 打家劫舍 middle
 // 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，
 // 如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
@@ -242,9 +254,9 @@ func max(a, b int) int {
 // 在一个由 '0' 和 '1' 组成的二维矩阵内，找到只包含 '1' 的最大正方形，并返回其面积。
 func maximalSquare(matrix [][]byte) int {
 	// dp := make([][]int, 0)
-	//maxSide := 0
+	// maxSide := 0
 	//
-	//for _, row := range matrix {
+	// for _, row := range matrix {
 	//	res := make([]int, 0)
 	//	for _, col := range row {
 	//		val := int(col - '0')
@@ -254,15 +266,15 @@ func maximalSquare(matrix [][]byte) int {
 	//	}
 	//
 	//	dp = append(dp, res)
-	//}
+	// }
 	//
-	//for i := 1; i < len(matrix); i++ {
+	// for i := 1; i < len(matrix); i++ {
 	//	for j := 1; j < len(matrix[0]); j++ {
 	//		if dp[i][j] == 1 {
 	//
 	//		}
 	//	}
-	//}
+	// }
 
 	return 0
 }
@@ -270,25 +282,25 @@ func maximalSquare(matrix [][]byte) int {
 // 473. 火柴拼正方形
 func makeSquare(matchsticks []int) bool {
 	// 首先判断火柴总数能不能被4整除
-	//var total int
-	//for _, stick := range matchsticks {
+	// var total int
+	// for _, stick := range matchsticks {
 	//	total += stick
-	//}
+	// }
 	//
-	//if total%4 != 0 {
+	// if total%4 != 0 {
 	//	return false
-	//}
+	// }
 	//
-	//// 每条边的长度
-	//tLen := total / 4
-	//dp := make([]int, 1<<len(matchsticks))
-	//for i := 1; i < len(dp); i++ {
+	// // 每条边的长度
+	// tLen := total / 4
+	// dp := make([]int, 1<<len(matchsticks))
+	// for i := 1; i < len(dp); i++ {
 	//	dp[i] = -1
-	//}
+	// }
 	//
-	//for s := 1; s < len(dp); s++ {
+	// for s := 1; s < len(dp); s++ {
 	//
-	//}
+	// }
 
 	return false
 }
