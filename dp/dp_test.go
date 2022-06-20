@@ -17,3 +17,7 @@ func TestPaintingPlan(t *testing.T) {
 func TestUniquePaths(t *testing.T) {
 	assert.Equal(t, uniquePaths(3, 7), 28)
 }
+
+func TestGenerate(t *testing.T) {
+	Generate(5)
+}
