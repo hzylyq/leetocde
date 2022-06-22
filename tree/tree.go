@@ -945,10 +945,6 @@ func (n *ChildNode) DepthFirstSearch(array []string) []string {
 	return nil
 }
 
-// Do not edit the class below except for
-// the insert, contains, and remove methods.
-// Feel free to add new properties and methods
-// to the class.
 func (tree *BST) Insert(value int) *BST {
 	if tree.Contains(value) {
 		return tree
@@ -1275,6 +1271,30 @@ func sumOfLeftLeaves2(root *TreeNode) int {
 	return res
 }
 
+// 513. 找树左下角的值
+func findBottomLeftValue(root *TreeNode) int {
+	// 广度优先搜索, 需要从右向左遍历
+	q := []*TreeNode{root}
+
+	var res int
+	for len(q) > 0 {
+		node := q[0]
+		q = q[1:]
+
+		if node.Right != nil {
+			q = append(q, node.Right)
+		}
+
+		if node.Left != nil {
+			q = append(q, node.Left)
+		}
+
+		res = node.Val
+	}
+
+	return res
+}
+
 // 530. Minimum Absolute Difference in BST
 func getMinimumDifference(root *TreeNode) int {
 	if root == nil {
@@ -1407,13 +1427,6 @@ func isUnivalTree(root *TreeNode) bool {
 	return isUnivalTree(root.Left) && isUnivalTree(root.Right)
 }
 
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
 // IsCousins 993. 二叉树的堂兄弟节点
 func IsCousins(root *TreeNode, x, y int) bool {
 	var xParent, yParent *TreeNode
@@ -1461,4 +1474,11 @@ func sumRootToLeaf(root *TreeNode) int {
 	}
 
 	return helper(root, 0)
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
