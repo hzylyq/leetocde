@@ -132,6 +132,22 @@ func MinCostClimbingStairs(cost []int) int {
 	return dp[len(cost)]
 }
 
+// 70. 爬楼梯
+func climbStairs(n int) int {
+	if n < 2 {
+		return n
+	}
+
+	p, q, r := 1, 1, 0
+	for i := 2; i <= n; i++ {
+		r = p + q
+		p = q
+		q = r
+	}
+
+	return r
+}
+
 // LCP 22. 黑白方格画
 func paintingPlan(n int, k int) int {
 	if k == n*n {
@@ -390,7 +406,18 @@ func fib3(n int) int {
 
 // 剑指 Offer 10- II. 青蛙跳台阶问题
 func numWays(n int) int {
+	if n < 2 {
+		return 1
+	}
 
+	p, q, r := 1, 1, 0
+	for i := 2; i <= n; i++ {
+		r = (p + q) % (1e9 + 7)
+		p = q % (1e9 + 7)
+		q = r % (1e9 + 7)
+	}
+
+	return r % (1e9 + 7)
 }
 
 // 剑指 Offer II 091. 粉刷房子
