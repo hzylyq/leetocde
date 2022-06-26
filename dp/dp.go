@@ -361,6 +361,38 @@ func maxSumDivThree(nums []int) int {
 	return dp[len(nums)-1][0]
 }
 
+// 剑指 Offer 10- I. 斐波那契数列
+func fib2(n int) int {
+	dp := make([]int, 0, n)
+	dp = append(dp, 0, 1)
+
+	for i := 2; i <= n; i++ {
+		dp = append(dp, (dp[i-1]+dp[i-2])%(1e9+7))
+	}
+	return dp[n]
+}
+
+// O(n)
+func fib3(n int) int {
+	if n < 2 {
+		return n
+	}
+
+	p, q, r := 0, 0, 1
+
+	for i := 2; i <= n; i++ {
+		p = q
+		q = r
+		r = (p + q) % (1e9 + 7)
+	}
+	return r
+}
+
+// 剑指 Offer 10- II. 青蛙跳台阶问题
+func numWays(n int) int {
+
+}
+
 // 剑指 Offer II 091. 粉刷房子
 func minCost(costs [][]int) int {
 	dp := costs[0]
