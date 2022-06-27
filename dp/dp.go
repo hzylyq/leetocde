@@ -1,6 +1,9 @@
 package dp
 
-import "log"
+import (
+	"log"
+	"math"
+)
 
 // 22. 括号生成
 // 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
@@ -450,6 +453,41 @@ func maxValue(grid [][]int) int {
 	}
 	
 	return grid[len(grid)-1][len(grid[0])-1]
+}
+
+// 剑指 Offer 63. 股票的最大利润
+func maxProfit(prices []int) int {
+	var miniVal = math.MaxInt32
+	var profit int
+	
+	for _, price := range prices {
+		if price < miniVal {
+			miniVal = price
+		} else if price-miniVal > profit {
+			profit = price - miniVal
+		}
+	}
+	
+	return profit
+}
+
+// 剑指 Offer II 088. 爬楼梯的最少成本
+func minCostClimbingStairs(cost []int) int {
+	// dp[i] = min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2])
+	
+	n := len(cost)
+	var (
+		prev int
+		curr int
+	)
+	
+	for i := 2; i <= n; i++ {
+		next := min(prev+cost[i-2], curr+cost[i-1])
+		prev = curr
+		curr = next
+	}
+	
+	return curr
 }
 
 func min(x, y int) int {
