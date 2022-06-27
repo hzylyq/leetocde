@@ -490,6 +490,28 @@ func minCostClimbingStairs(cost []int) int {
 	return curr
 }
 
+// 剑指 Offer II 089. 房屋偷盗
+func robI(nums []int) int {
+	// dp[n] = max(dp[n-2]+nums[n], dp[n-1])
+	if len(nums) < 2 {
+		return nums[0]
+	}
+	if len(nums) == 2 {
+		return max(nums[0], nums[1])
+	}
+	
+	prev := nums[0]
+	curr := max(nums[0], nums[1])
+	
+	for i := 2; i < len(nums); i++ {
+		next := max(prev+nums[i], curr)
+		prev = curr
+		curr = next
+	}
+	
+	return curr
+}
+
 func min(x, y int) int {
 	if x < y {
 		return x
