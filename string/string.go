@@ -2,6 +2,27 @@ package string
 
 import "strconv"
 
+// 3. 无重复字符的最长子串
+func lengthOfLongestSubstring(s string) int {
+	rk, ans := -1, 0
+
+	existCh := make(map[byte]bool)
+
+	for i := 0; i < len(s); i++ {
+		if i != 0 {
+			delete(existCh, s[i-1])
+		}
+		for rk+1 < len(s) && !existCh[s[rk+1]] {
+			rk++
+			existCh[s[rk]] = true
+		}
+
+		ans = max(ans, rk-i+1)
+	}
+
+	return ans
+}
+
 // LongestPalindrome 5. 最长回文子串
 // 给你一个字符串 s，找到 s 中最长的回文子串
 func LongestPalindrome(s string) string {
@@ -131,7 +152,7 @@ func AddStrings(num1 string, num2 string) string {
 
 		res := x + y + add
 		add = res / 10
-		ans = strconv.Itoa(res % 10) + ans
+		ans = strconv.Itoa(res%10) + ans
 	}
 
 	return ans
@@ -238,4 +259,12 @@ func FirstUniqChar(s string) int {
 		}
 	}
 	return -1
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+
+	return b
 }

@@ -31,3 +31,7 @@ func TestLongestPalindrome(t *testing.T) {
 func TestAddStrings(t *testing.T) {
 	AddStrings("1", "123")
 }
+
+func TestLengthOfLongestSubstring(t *testing.T) {
+	assert.Equal(t, lengthOfLongestSubstring(""), 0)
+}
