@@ -499,6 +499,7 @@ func heightChecker2(heights []int) int {
 	//}
 	//
 	//return ans
+	return 0
 }
 
 // 1480. Running Sum of 1d Array

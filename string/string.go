@@ -52,6 +52,22 @@ func expandAroundCenter(s string, left, right int) (int, int) {
 	return left + 1, right - 1
 }
 
+func LongestPalindromeDp(s string) string {
+	if len(s) <= 2 {
+		return s
+	}
+
+	dp := [][]int{}
+
+	// todo
+
+	for {
+		break
+	}
+
+	return ""
+}
+
 // 20. 有效的括号
 func isValid(s string) bool {
 	if len(s)%2 != 0 {
@@ -82,29 +98,6 @@ func isValid(s string) bool {
 //
 func longestCommonPrefix(strs []string) string {
 	return ""
-}
-
-// checkRecord 551. 学生出勤记录 I
-func checkRecord(s string) bool {
-	a, latest := 0, 0
-	for _, val := range s {
-		if val == 'A' {
-			a++
-			if a >= 2 {
-				return false
-			}
-		}
-		if val == 'L' {
-			latest++
-			if latest >= 3 {
-				return false
-			}
-		} else {
-			latest = 0
-		}
-	}
-
-	return true
 }
 
 // 187. 重复的DNA序列
@@ -156,6 +149,29 @@ func AddStrings(num1 string, num2 string) string {
 	}
 
 	return ans
+}
+
+// checkRecord 551. 学生出勤记录 I
+func checkRecord(s string) bool {
+	a, latest := 0, 0
+	for _, val := range s {
+		if val == 'A' {
+			a++
+			if a >= 2 {
+				return false
+			}
+		}
+		if val == 'L' {
+			latest++
+			if latest >= 3 {
+				return false
+			}
+		} else {
+			latest = 0
+		}
+	}
+
+	return true
 }
 
 // balancedStringSplit 1221. 分割平衡字符串
