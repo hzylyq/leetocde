@@ -1,50 +1,48 @@
 package complex
 
-import "container/list"
+// type node struct {
+// 	key   string
+// 	count int
+// }
 
-type node struct {
-	key   string
-	count int
-}
+// type AllOne struct {
+// 	nodes map[string]*node
+// }
 
-type AllOne struct {
-	nodes map[string]*node
-}
+// func Constructor() AllOne {
+// 	return AllOne{
+// 		nodes: make(map[string]*list.Element),
+// 	}
+// }
 
-func Constructor() AllOne {
-	return AllOne{
-		nodes: make(map[string]*list.Element),
-	}
-}
+// func (l *AllOne) Inc(key string) {
+// 	if node, ok := l.nodes[key]; ok {
+// 		node.count++
+// 		l.nodes[key] = node
+// 		return
+// 	}
 
-func (l *AllOne) Inc(key string) {
-	if node, ok := l.nodes[key]; ok {
-		node.count++
-		l.nodes[key] = node
-		return
-	}
+// 	l.nodes[key] = &node{
+// 		key:   key,
+// 		count: 1,
+// 	}
+// }
 
-	l.nodes[key] = &node{
-		key:   key,
-		count: 1,
-	}
-}
+// func (l *AllOne) Dec(key string) {
+// 	if node, ok := l.nodes[key]; ok {
+// 		node.count--
+// 		l.nodes[key] = node
+// 		return
+// 	}
+// }
 
-func (l *AllOne) Dec(key string) {
-	if node, ok := l.nodes[key]; ok {
-		node.count--
-		l.nodes[key] = node
-		return
-	}
-}
+// func (l *AllOne) GetMaxKey() string {
 
-func (l *AllOne) GetMaxKey() string {
+// }
 
-}
+// func (l *AllOne) GetMinKey() string {
 
-func (l *AllOne) GetMinKey() string {
-
-}
+// }
 
 /**
  * Your AllOne object will be instantiated and called as such:

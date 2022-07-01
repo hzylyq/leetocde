@@ -53,17 +53,17 @@ func expandAroundCenter(s string, left, right int) (int, int) {
 }
 
 func LongestPalindromeDp(s string) string {
-	if len(s) <= 2 {
-		return s
-	}
+	// if len(s) <= 2 {
+	// 	return s
+	// }
 
-	dp := [][]int{}
+	// dp := [][]int{}
 
-	// todo
+	// // todo
 
-	for {
-		break
-	}
+	// for {
+	// 	break
+	// }
 
 	return ""
 }

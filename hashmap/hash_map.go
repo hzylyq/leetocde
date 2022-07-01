@@ -37,18 +37,30 @@ func (this *MyHashMap) Remove(key int) {
  * obj.Remove(key);
  */
 
-// 1365. 有多少小于当前数字的数字
-// 暴力破解
-func SmallerNumbersThanCurrent(nums []int) []int {
-	res := make([]int, len(nums))
+// 128. 最长连续序列
+func longestConsecutive(nums []int) int {
+	numMap := make(map[int]bool, len(nums))
 	for i := 0; i < len(nums); i++ {
-		for j := 0; j < len(nums); j++ {
-			if nums[i] > nums[j] && j != i {
-				res[i]++
+		numMap[nums[i]] = true
+	}
+
+	var longStreak int
+	for num := range numMap {
+		if !numMap[num-1] {
+			currentNum := num
+			currentStreak := 1
+			for numMap[currentNum+1] {
+				currentNum++
+				currentStreak++
+			}
+
+			if currentStreak > longStreak {
+				longStreak = currentStreak
 			}
 		}
 	}
-	return res
+
+	return longStreak
 }
 
 // 219. 存在重复元素 II
@@ -62,4 +74,18 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 		indexDiff[nums[i]] = i
 	}
 	return false
+}
+
+// 1365. 有多少小于当前数字的数字
+// 暴力破解
+func SmallerNumbersThanCurrent(nums []int) []int {
+	res := make([]int, len(nums))
+	for i := 0; i < len(nums); i++ {
+		for j := 0; j < len(nums); j++ {
+			if nums[i] > nums[j] && j != i {
+				res[i]++
+			}
+		}
+	}
+	return res
 }

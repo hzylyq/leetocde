@@ -63,31 +63,32 @@ func BitwiseComplement(N int) int {
 
 // Candy 135. 分发糖果
 func Candy(rating []int) int {
-	n := len(rating)
-	// rating[i-1] < rate[i], x[i-1] < x[i]
-	left := make([]int, n)
+	// n := len(rating)
+	// // rating[i-1] < rate[i], x[i-1] < x[i]
+	// left := make([]int, n)
 
-	// 左规则
-	for i, val := range rating {
-		if i > 0 && val > rating[i-1] {
-			left[i] = left[i-1] + 1
-		} else {
-			left[i] = 0
-		}
-	}
-	right := 0
-	var res int
+	// // 左规则
+	// for i, val := range rating {
+	// 	if i > 0 && val > rating[i-1] {
+	// 		left[i] = left[i-1] + 1
+	// 	} else {
+	// 		left[i] = 0
+	// 	}
+	// }
+	// right := 0
+	// var res int
 
-	for i := n - 1; i >= 0; i-- {
-		rating[i+1]
-		{
-			right++
-		} else {
-			right = 1
-		}
-		res += max(left[i], right)
-	}
-	return res
+	// for i := n - 1; i >= 0; i-- {
+	// 	rating[i+1]
+	// 	{
+	// 		right++
+	// 	} else {
+	// 		right = 1
+	// 	}
+	// 	res += max(left[i], right)
+	// }
+	// return res
+	return 0
 }
 
 // 357. 统计各位数字都不同的数字个数
@@ -168,7 +169,7 @@ func parseComplexNumber(num string) (real, imag int) {
 // 最开始，他在周一的时候存入 1 块钱。从周二到周日，他每天都比前一天多存入 1 块钱。在接下来每一个周一，他都会比 前一个周一 多存入 1 块钱。
 // 给你 n ，请你返回在第 n 天结束的时候他在力扣银行总共存了多少块钱。
 func totalMoney(n int) int {
-
+	return 0
 }
 
 func max(a, b int) int {
