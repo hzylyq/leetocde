@@ -21,3 +21,7 @@ func TestUniquePaths(t *testing.T) {
 func TestGenerate(t *testing.T) {
 	Generate(5)
 }
+
+func TestWordBreak(t *testing.T) {
+	wordBreak("leetcode", []string{"leet", "code"})
+}
