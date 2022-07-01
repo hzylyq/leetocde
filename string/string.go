@@ -68,6 +68,21 @@ func LongestPalindromeDp(s string) string {
 	return ""
 }
 
+// 14. 最长公共前缀
+func longestCommonPrefix(strs []string) string {
+	if len(strs) == 0 {
+		return ""
+	}
+	for i := 0; i < len(strs[0]); i++ {
+		for j := 1; j < len(strs); j++ {
+			if i == len(strs[j]) || strs[j][i] != strs[0][i] {
+				return strs[0][:i]
+			}
+		}
+	}
+	return strs[0]
+}
+
 // 20. 有效的括号
 func isValid(s string) bool {
 	if len(s)%2 != 0 {
@@ -93,11 +108,6 @@ func isValid(s string) bool {
 	}
 
 	return len(stack) == 0
-}
-
-//
-func longestCommonPrefix(strs []string) string {
-	return ""
 }
 
 // 187. 重复的DNA序列
