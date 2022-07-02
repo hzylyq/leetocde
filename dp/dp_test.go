@@ -25,3 +25,7 @@ func TestGenerate(t *testing.T) {
 func TestWordBreak(t *testing.T) {
 	wordBreak("leetcode", []string{"leet", "code"})
 }
+
+func TestMaxSumDivThree(t *testing.T) {
+	maxSumDivThree([]int{3, 6, 5, 1, 8})
+}

@@ -1,7 +1,6 @@
 package dp
 
 import (
-	"log"
 	"math"
 )
 
@@ -378,19 +377,35 @@ func fib(n int) int {
 	return dp[n]
 }
 
+// 647. 回文子串
+func countSubstrings(s string) int {
+	size := len(s)
+	ans := 0
+
+	for i := 0; i < 2*size-1; i++ {
+		l, r := i/2, i/2+i%2
+		for l >= 0 && r < size && s[l] == s[r] {
+			l--
+			r++
+			ans++
+		}
+	}
+
+	return ans
+}
+
 // 1262. 可被三整除的最大和
 func maxSumDivThree(nums []int) int {
-	if len(nums) == 0 {
-		return 0
+	dp := [3]int{}
+
+	for i := 0; i < len(nums); i++ {
+		a, b, c := dp[0]+nums[i], dp[1]+nums[i], dp[2]+nums[i]
+		dp[a%3] = max(dp[a%3], a)
+		dp[b%3] = max(dp[b%3], b)
+		dp[c%3] = max(dp[c%3], c)
 	}
 
-	dp := make([][3]int, len(nums))
-
-	for _, num := range nums {
-		log.Println(num)
-	}
-
-	return dp[len(nums)-1][0]
+	return dp[0]
 }
 
 // 剑指 Offer 10- I. 斐波那契数列
@@ -532,6 +547,17 @@ func robI(nums []int) int {
 
 	return curr
 }
+
+//
+// func updateMatrix(mat [][]int) [][]int {
+// 	for i := 0; i < len(mat); i++ {
+// 		for j := 0; j < len(mat[i]); j++ {
+// 			if mat[]
+// 		}
+// 	}
+
+// 	return mat
+// }
 
 func min(x, y int) int {
 	if x < y {
