@@ -129,6 +129,24 @@ func removeElement(nums []int, val int) int {
 	return left
 }
 
+// 31. 下一个排列
+func nextPermutation(nums []int) {
+	n := len(nums)
+	i := n - 2
+	for i >= 0 && nums[i] >= nums[i+1] {
+		i--
+	}
+
+	for i >= 0 {
+		j := n - 1
+		for j >= 0 && nums[i] >= nums[j] {
+			j--
+		}
+		nums[i], nums[j] = nums[j], nums[i]
+	}
+	reverse(nums[i+1:])
+}
+
 // 39. 组合总和
 func combinationSum(candidates []int, target int) [][]int {
 	var ans [][]int
@@ -156,6 +174,11 @@ func combinationSum(candidates []int, target int) [][]int {
 	dfs(target, 0)
 
 	return ans
+}
+
+// 46. 全排列
+func permute(nums []int) [][]int {
+
 }
 
 // 53. 最大子序和
@@ -589,6 +612,13 @@ func peakIndexInMountainArray(arr []int) int {
 	return sort.Search(len(arr)-1, func(i int) bool {
 		return arr[i] > arr[i+1]
 	})
+}
+
+func reverse(a []int) {
+	n := len(a)
+	for i := 0; i < len(a)/2; i++ {
+		a[i], a[n-i-1] = a[n-i-1], a[i]
+	}
 }
 
 func max(a, b int) int {

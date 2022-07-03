@@ -310,6 +310,31 @@ func maximalSquare(matrix [][]byte) int {
 	return 0
 }
 
+// 416. 分割等和子集
+func canPartition(nums []int) bool {
+	if len(nums) < 2 {
+		return false
+	}
+
+	sum, max := 0, 0
+	for _, num := range nums {
+		sum += num
+		if num > max {
+			max = num
+		}
+	}
+
+	if sum%2 != 0 {
+		return false
+	}
+
+	target := sum / 2
+	if max > target {
+		return false
+	}
+
+}
+
 // 473. 火柴拼正方形
 func makeSquare(matchsticks []int) bool {
 	// 首先判断火柴总数能不能被4整除
