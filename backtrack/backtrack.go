@@ -5,18 +5,29 @@ package backtrack
 func generateParenthesis(n int) []string {
 	var res []string
 
-	var backoff func(int, string)
-	backoff = func(idx int, tmp string) {
-		if idx == n {
+	var backoff func([]byte, int, int)
+	backoff = func(tmp []byte, open, close int) {
+		if len(tmp) == n*2 {
 			curr := make([]byte, len(tmp))
 			copy(curr, []byte(tmp))
 			res = append(res, string(curr))
 			return
 		}
 
+		if open < n {
+			tmp = append(tmp, '(')
+			backoff(tmp, open+1, close)
+			tmp = tmp[:len(tmp)-1]
+		}
+		if close < open {
+			tmp = append(tmp, ')')
+			backoff(tmp, open, close+1)
+			tmp = tmp[:len(tmp)-1]
+		}
+
 	}
 
-	backoff(0, "")
+	backoff(nil, 0, 0)
 
 	return res
 }
