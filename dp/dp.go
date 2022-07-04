@@ -4,6 +4,24 @@ import (
 	"math"
 )
 
+// 53. 最大子序和
+func maxSubArray(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+
+	max := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if nums[i]+nums[i-1] > nums[i] {
+			nums[i] += nums[i-1]
+		}
+		if nums[i] > max {
+			max = nums[i]
+		}
+	}
+	return max
+}
+
 // 62. 不同路径
 func uniquePaths(m int, n int) int {
 	dp := make([][]int, m)
@@ -255,30 +273,31 @@ func rob(nums []int) int {
 // 221. 最大正方形
 // 在一个由 '0' 和 '1' 组成的二维矩阵内，找到只包含 '1' 的最大正方形，并返回其面积。
 func maximalSquare(matrix [][]byte) int {
-	// dp := make([][]int, 0)
-	// maxSide := 0
-	//
-	// for _, row := range matrix {
-	//	res := make([]int, 0)
-	//	for _, col := range row {
-	//		val := int(col - '0')
-	//		if val == 1 {
-	//			maxSide = 1
-	//		}
-	//	}
-	//
-	//	dp = append(dp, res)
-	// }
-	//
-	// for i := 1; i < len(matrix); i++ {
-	//	for j := 1; j < len(matrix[0]); j++ {
-	//		if dp[i][j] == 1 {
-	//
-	//		}
-	//	}
-	// }
+	dp := make([][]int, len(matrix))
+	maxSide := 0
 
-	return 0
+	for i, row := range matrix {
+		dp[i] = make([]int, len(matrix[i]))
+		for j, col := range row {
+			dp[i][j] = int(col - '0')
+			if dp[i][j] == 1 {
+				maxSide = 1
+			}
+		}
+	}
+
+	for i := 1; i < len(matrix); i++ {
+		for j := 1; j < len(matrix[0]); j++ {
+			if dp[i][j] == 1 {
+				dp[i][j] = min(min(dp[i-1][j], dp[i][j-1]), dp[i-1][j-1]) + 1
+				if dp[i][j] > maxSide {
+					maxSide = dp[i][j]
+				}
+			}
+		}
+	}
+
+	return maxSide * maxSide
 }
 
 // 416. 分割等和子集

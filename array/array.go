@@ -176,24 +176,6 @@ func combinationSum(candidates []int, target int) [][]int {
 	return ans
 }
 
-// 53. 最大子序和
-func maxSubArray(nums []int) int {
-	if len(nums) == 0 {
-		return 0
-	}
-
-	max := nums[0]
-	for i := 1; i < len(nums); i++ {
-		if nums[i]+nums[i-1] > nums[i] {
-			nums[i] += nums[i-1]
-		}
-		if nums[i] > max {
-			max = nums[i]
-		}
-	}
-	return max
-}
-
 // 74. 搜索二维矩阵
 func searchMatrix(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {

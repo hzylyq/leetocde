@@ -24,7 +24,6 @@ func generateParenthesis(n int) []string {
 			backoff(tmp, open, close+1)
 			tmp = tmp[:len(tmp)-1]
 		}
-
 	}
 
 	backoff(nil, 0, 0)
