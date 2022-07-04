@@ -242,6 +242,24 @@ func wordBreak(s string, wordDict []string) bool {
 	return dp[len(s)]
 }
 
+// 152. 乘积最大子数组
+func maxProduct(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+
+	maxF, minF, ans := nums[0], nums[0], nums[0]
+	for i := 1; i < len(nums); i++ {
+		mx, mn := maxF, minF
+
+		maxF = max(max(mx*nums[i], mn*nums[i]), nums[i])
+		minF = min(min(mx*nums[i], mn*nums[i]), nums[i])
+		ans = max(ans, maxF)
+	}
+
+	return ans
+}
+
 // 198. 打家劫舍 middle
 // 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，
 // 如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
@@ -298,6 +316,11 @@ func maximalSquare(matrix [][]byte) int {
 	}
 
 	return maxSide * maxSide
+}
+
+// 300. 最长递增子序列
+func lengthOfLIS(nums []int) int {
+
 }
 
 // 416. 分割等和子集
