@@ -333,6 +333,7 @@ func canPartition(nums []int) bool {
 		return false
 	}
 
+	return false
 }
 
 // 473. 火柴拼正方形

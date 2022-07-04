@@ -176,11 +176,6 @@ func combinationSum(candidates []int, target int) [][]int {
 	return ans
 }
 
-// 46. 全排列
-func permute(nums []int) [][]int {
-
-}
-
 // 53. 最大子序和
 func maxSubArray(nums []int) int {
 	if len(nums) == 0 {
