@@ -4,23 +4,23 @@ package backtrack
 func permute(nums []int) [][]int {
 	var res [][]int
 
-	var backoff func([]int, int)
+	var backoff func(int, []int)
 
-	backoff = func(tmp []int, idx int) {
+	backoff = func(idx int, tmp []int) {
 		if idx == len(nums)-1 {
-			res = append(res, tmp)
+			curr := make([]int, len(tmp))
+			copy(curr, tmp)
+			res = append(res, curr)
 			return
 		}
 
-		var before []int
-		copy(before, tmp)
-
 		for i := idx; i < len(tmp); i++ {
-			before[i], before[idx] = before[idx], before[i]
-			backoff(before, idx+1)
+			tmp[i], tmp[idx] = tmp[idx], tmp[i]
+			backoff(idx+1, tmp)
+			tmp[i], tmp[idx] = tmp[idx], tmp[i]
 		}
 	}
 
-	backoff(nums, 0)
+	backoff(0, nums)
 	return res
 }
