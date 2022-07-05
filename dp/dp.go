@@ -240,6 +240,19 @@ func maxProfit3(prices []int) int {
 	return v1
 }
 
+// 贪心解法
+func maxProfitGreedy(prices []int) int {
+	if len(prices) == 0 {
+		return 0
+	}
+	var res int
+	for i := 1; i < len(prices); i++ {
+		res += max(0, prices[i]-prices[i-1])
+	}
+
+	return res
+}
+
 // 139. 单词拆分
 func wordBreak(s string, wordDict []string) bool {
 	wordSet := make(map[string]bool, len(wordDict))
