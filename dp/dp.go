@@ -221,6 +221,25 @@ func Generate(numRows int) [][]int {
 	return res
 }
 
+// 122. 买卖股票的最佳时机 II
+func maxProfit3(prices []int) int {
+	if len(prices) == 0 {
+		return 0
+	}
+
+	// 不持有股票的利润，持有股票的利润
+	v1, v2 := 0, -prices[0]
+	for i := 1; i < len(prices); i++ {
+		currV1 := max(v1, v2+prices[i])
+		currV2 := max(v2, v1-prices[i])
+
+		v1 = currV1
+		v2 = currV2
+	}
+
+	return v1
+}
+
 // 139. 单词拆分
 func wordBreak(s string, wordDict []string) bool {
 	wordSet := make(map[string]bool, len(wordDict))
@@ -321,6 +340,26 @@ func maximalSquare(matrix [][]byte) int {
 // 300. 最长递增子序列
 func lengthOfLIS(nums []int) int {
 
+}
+
+// 309. 最佳买卖股票时机含冷冻期
+func maxProfit2(prices []int) int {
+	if len(prices) == 0 {
+		return 0
+	}
+
+	f0, f1, f2 := -prices[0], 0, 0
+	for i := 1; i < len(prices); i++ {
+		newF0 := max(f0, f2-prices[i])
+		newF1 := f0 + prices[i]
+		newF2 := max(f2, f1)
+
+		f0 = newF0
+		f1 = newF1
+		f2 = newF2
+	}
+
+	return max(max(f0, f1), f2)
 }
 
 // 416. 分割等和子集
