@@ -352,7 +352,7 @@ func maximalSquare(matrix [][]byte) int {
 
 // 300. 最长递增子序列
 func lengthOfLIS(nums []int) int {
-
+	return 0
 }
 
 // 309. 最佳买卖股票时机含冷冻期
@@ -373,6 +373,29 @@ func maxProfit2(prices []int) int {
 	}
 
 	return max(max(f0, f1), f2)
+}
+
+// 322. 零钱兑换
+func coinChange(coins []int, amount int) int {
+	n := len(coins)
+	dp := make([]int, amount+1)
+	for i := 1; i < len(dp); i++ {
+		dp[i] = amount + 1
+	}
+
+	for i := 1; i <= amount; i++ {
+		for j := 0; j < n; j++ {
+			if coins[j] <= i {
+				dp[i] = min(dp[i], dp[i-coins[j]]+1)
+			}
+		}
+	}
+
+	if dp[amount] > amount {
+		return -1
+	}
+
+	return dp[amount]
 }
 
 // 416. 分割等和子集

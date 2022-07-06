@@ -29,3 +29,7 @@ func TestWordBreak(t *testing.T) {
 func TestMaxSumDivThree(t *testing.T) {
 	maxSumDivThree([]int{3, 6, 5, 1, 8})
 }
+
+func TestCoinChange(t *testing.T) {
+	print(coinChange([]int{1, 2, 5}, 11))
+}
