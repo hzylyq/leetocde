@@ -440,6 +440,25 @@ func findMaxLength(nums []int) int {
 	return maxLength
 }
 
+// 724. 寻找数组的中心下标
+func pivotIndex(nums []int) int {
+	var total int
+
+	for _, num := range nums {
+		total += num
+	}
+
+	var helf int
+	for i := 0; i < len(nums); i++ {
+		if helf*2 == total-nums[i] {
+			return i
+		}
+		helf += nums[i]
+	}
+
+	return -1
+}
+
 // 917. 仅仅反转字母
 // 给你一个字符串 s ，根据下述规则反转字符串：
 
@@ -504,13 +523,11 @@ func heightChecker2(heights []int) int {
 
 // 1480. Running Sum of 1d Array
 func runningSum(nums []int) []int {
-	res := make([]int, len(nums))
-	var total int
-	for k, v := range nums {
-		res[k] = total + v
-		total += v
+	for i := 1; i < len(nums); i++ {
+		nums[i] += nums[i-1]
 	}
-	return res
+
+	return nums
 }
 
 // 1646. 获取生成数组中的最大值
