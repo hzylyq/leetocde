@@ -320,6 +320,21 @@ func moveZeroes(nums []int) {
 	}
 }
 
+// 392. 判断子序列
+func isSubsequence(s string, t string) bool {
+	n, m := len(s), len(t)
+
+	i, j := 0, 0
+	for i < n && j < m {
+		if s[i] == t[j] {
+			i++
+		}
+		j++
+	}
+
+	return i == n
+}
+
 // numberOfArithmeticSlices 413. 等差数列划分
 func numberOfArithmeticSlices(nums []int) int {
 	n := len(nums)

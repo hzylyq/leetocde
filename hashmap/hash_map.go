@@ -63,6 +63,25 @@ func longestConsecutive(nums []int) int {
 	return longStreak
 }
 
+// 205. 同构字符串
+func isIsomorphic(s string, t string) bool {
+	s1Map := make(map[byte]byte, len(s))
+	s2Map := make(map[byte]byte, len(t))
+
+	for i := range s {
+		x, y := s[i], t[i]
+
+		if s1Map[x] > 0 && s1Map[x] != y || s2Map[y] > 0 && s2Map[y] != x {
+			return false
+		}
+
+		s1Map[x] = y
+		s2Map[y] = x
+	}
+
+	return true
+}
+
 // 219. 存在重复元素 II
 // 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 至多为 k。
 func containsNearbyDuplicate(nums []int, k int) bool {
