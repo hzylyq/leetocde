@@ -125,6 +125,7 @@ func detectCycle(head *ListNode) *ListNode {
 			return p
 		}
 	}
+
 	return nil
 }
 

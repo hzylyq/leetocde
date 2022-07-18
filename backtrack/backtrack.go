@@ -55,3 +55,29 @@ func permute(nums []int) [][]int {
 	backoff(0, nums)
 	return res
 }
+
+// 77. 组合
+func combine(n int, k int) [][]int {
+	var res [][]int
+
+	var backoff func(int, []int)
+
+	backoff = func(idx int, tmp []int) {
+		if len(tmp) == k {
+			curr := make([]int, len(tmp))
+			copy(curr, tmp)
+			res = append(res, curr)
+			return
+		}
+
+		for i := idx + 1; i <= n; i++ {
+			tmp = append(tmp, i)
+			backoff(i, tmp)
+			tmp = tmp[:len(tmp)-1]
+		}
+	}
+
+	backoff(0, nil)
+
+	return res
+}
