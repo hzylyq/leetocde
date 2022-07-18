@@ -1,6 +1,7 @@
 package dp
 
 import (
+	"log"
 	"math"
 )
 
@@ -9,7 +10,7 @@ func maxSubArray(nums []int) int {
 	if len(nums) == 0 {
 		return 0
 	}
-
+	
 	max := nums[0]
 	for i := 1; i < len(nums); i++ {
 		if nums[i]+nums[i-1] > nums[i] {
@@ -28,21 +29,21 @@ func uniquePaths(m int, n int) int {
 	for i := range dp {
 		dp[i] = make([]int, n)
 	}
-
+	
 	for i := 0; i < n; i++ {
 		dp[0][i] = 1
 	}
-
+	
 	for i := 0; i < m; i++ {
 		dp[i][0] = 1
 	}
-
+	
 	for i := 1; i < m; i++ {
 		for j := 1; j < n; j++ {
 			dp[i][j] = dp[i-1][j] + dp[i][j-1]
 		}
 	}
-
+	
 	return dp[m-1][n-1]
 }
 
@@ -51,15 +52,15 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	if len(obstacleGrid) == 0 {
 		return 1
 	}
-
+	
 	m := len(obstacleGrid)
 	n := len(obstacleGrid[0])
-
+	
 	dp := make([][]int, m)
 	for i := range dp {
 		dp[i] = make([]int, n)
 	}
-
+	
 	for i := 0; i < m; i++ {
 		for j := 0; j < n; j++ {
 			if obstacleGrid[i][j] == 1 {
@@ -77,7 +78,7 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 			}
 		}
 	}
-
+	
 	return dp[m-1][n-1]
 }
 
@@ -88,35 +89,35 @@ func minPathSum(grid [][]int) int {
 	if len(grid) == 0 || len(grid[0]) == 0 {
 		return 0
 	}
-
+	
 	m := len(grid)
 	n := len(grid[0])
 	dp := make([][]int, m)
 	for i := 0; i < m; i++ {
 		dp[i] = make([]int, n)
 	}
-
+	
 	dp[0][0] = grid[0][0]
-
+	
 	for i := 1; i < m; i++ {
 		dp[i][0] = dp[i-1][0] + grid[i][0]
 	}
 	for i := 1; i < n; i++ {
 		dp[0][i] = dp[0][i-1] + grid[0][i]
 	}
-
+	
 	for i := 1; i < m; i++ {
 		for j := 1; j < n; j++ {
 			dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]
 		}
 	}
-
+	
 	return dp[m-1][n-1]
 }
 
 func MinCostClimbingStairs(cost []int) int {
 	dp := make([]int, len(cost)+1)
-
+	
 	for i := 2; i <= len(cost); i++ {
 		dp[i] = min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2])
 	}
@@ -128,14 +129,14 @@ func climbStairs(n int) int {
 	if n < 2 {
 		return n
 	}
-
+	
 	p, q, r := 1, 1, 0
 	for i := 2; i <= n; i++ {
 		r = p + q
 		p = q
 		q = r
 	}
-
+	
 	return r
 }
 
@@ -150,9 +151,9 @@ func paintingPlan(n int, k int) int {
 	if k < n {
 		return 0
 	}
-
+	
 	res := 0
-
+	
 	// 2. 普通情况 : 假设涂了i行,j列 那么一共涂的方块数应该是 in + j(n - i), 那么k = in + j(n - i) 可以得到 j = (k-in)/(n - i)
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
@@ -161,7 +162,7 @@ func paintingPlan(n int, k int) int {
 			}
 		}
 	}
-
+	
 	return res
 }
 
@@ -170,7 +171,7 @@ func C(base, up int) int {
 	for i := 0; i < up; i++ {
 		a *= base - i
 	}
-
+	
 	b := 1
 	for i := 1; i <= up; i++ {
 		b *= i
@@ -182,7 +183,7 @@ func C(base, up int) int {
 func subsets(nums []int) [][]int {
 	var set []int
 	var ans [][]int
-
+	
 	var dfs func(int)
 	dfs = func(i int) {
 		// 遍历结束
@@ -190,14 +191,14 @@ func subsets(nums []int) [][]int {
 			ans = append(ans, append([]int{}, set...))
 			return
 		}
-
+		
 		// 选择当前位置
 		set = append(set, nums[i])
 		dfs(i + 1)
 		set = set[:len(set)-1]
 		dfs(i + 1)
 	}
-
+	
 	dfs(0)
 	return ans
 }
@@ -217,7 +218,39 @@ func Generate(numRows int) [][]int {
 			}
 		}
 	}
+	
+	return res
+}
 
+// 120. 三角形最小路径和
+func minimumTotal(triangle [][]int) int {
+	dp := make([][]int, len(triangle))
+	for i := 0; i < len(triangle); i++ {
+		dp[i] = make([]int, len(triangle[i]))
+	}
+	
+	for i := 0; i < len(triangle); i++ {
+		for j := 0; j <= i; j++ {
+			if i == 0 && j == 0 {
+				dp[i][j] = triangle[i][j]
+			} else if j == 0 {
+				dp[i][j] = dp[i-1][j] + triangle[i][j]
+			} else if j == len(triangle[i])-1 {
+				dp[i][j] = dp[i-1][j-1] + triangle[i][j]
+			} else {
+				dp[i][j] = min(dp[i-1][j], dp[i-1][j-1]) + triangle[i][j]
+			}
+			
+			log.Println(dp[i][j], i, j)
+		}
+	}
+	
+	var res int
+	res = dp[len(dp)-1][0]
+	for i := 1; i < len(dp[len(dp)-1]); i++ {
+		res = min(res, dp[len(dp)-1][i])
+	}
+	
 	return res
 }
 
@@ -226,17 +259,17 @@ func maxProfit3(prices []int) int {
 	if len(prices) == 0 {
 		return 0
 	}
-
+	
 	// 不持有股票的利润，持有股票的利润
 	v1, v2 := 0, -prices[0]
 	for i := 1; i < len(prices); i++ {
 		currV1 := max(v1, v2+prices[i])
 		currV2 := max(v2, v1-prices[i])
-
+		
 		v1 = currV1
 		v2 = currV2
 	}
-
+	
 	return v1
 }
 
@@ -249,7 +282,7 @@ func maxProfitGreedy(prices []int) int {
 	for i := 1; i < len(prices); i++ {
 		res += max(0, prices[i]-prices[i-1])
 	}
-
+	
 	return res
 }
 
@@ -259,10 +292,10 @@ func wordBreak(s string, wordDict []string) bool {
 	for i := 0; i < len(wordDict); i++ {
 		wordSet[wordDict[i]] = true
 	}
-
+	
 	dp := make([]bool, len(s)+1)
 	dp[0] = true
-
+	
 	for i := 1; i <= len(s); i++ {
 		for j := 0; j < i; j++ {
 			if dp[j] && wordSet[s[j:i]] {
@@ -270,7 +303,7 @@ func wordBreak(s string, wordDict []string) bool {
 			}
 		}
 	}
-
+	
 	return dp[len(s)]
 }
 
@@ -279,16 +312,16 @@ func maxProduct(nums []int) int {
 	if len(nums) == 0 {
 		return 0
 	}
-
+	
 	maxF, minF, ans := nums[0], nums[0], nums[0]
 	for i := 1; i < len(nums); i++ {
 		mx, mn := maxF, minF
-
+		
 		maxF = max(max(mx*nums[i], mn*nums[i]), nums[i])
 		minF = min(min(mx*nums[i], mn*nums[i]), nums[i])
 		ans = max(ans, maxF)
 	}
-
+	
 	return ans
 }
 
@@ -307,16 +340,16 @@ func rob(nums []int) int {
 	if len(nums) == 2 {
 		return max(nums[0], nums[1])
 	}
-
+	
 	// 状态专业方程 dp[n] = max(dp[n-2]+nums[n], dp[n-1])
 	dp := make([]int, len(nums))
 	dp[0] = nums[0]
 	dp[1] = max(nums[0], nums[1])
-
+	
 	for i := 2; i < len(nums); i++ {
 		dp[i] = max(dp[i-2]+nums[i], dp[i-1])
 	}
-
+	
 	return dp[len(nums)-1]
 }
 
@@ -325,7 +358,7 @@ func rob(nums []int) int {
 func maximalSquare(matrix [][]byte) int {
 	dp := make([][]int, len(matrix))
 	maxSide := 0
-
+	
 	for i, row := range matrix {
 		dp[i] = make([]int, len(matrix[i]))
 		for j, col := range row {
@@ -335,7 +368,7 @@ func maximalSquare(matrix [][]byte) int {
 			}
 		}
 	}
-
+	
 	for i := 1; i < len(matrix); i++ {
 		for j := 1; j < len(matrix[0]); j++ {
 			if dp[i][j] == 1 {
@@ -346,7 +379,7 @@ func maximalSquare(matrix [][]byte) int {
 			}
 		}
 	}
-
+	
 	return maxSide * maxSide
 }
 
@@ -360,18 +393,18 @@ func maxProfit2(prices []int) int {
 	if len(prices) == 0 {
 		return 0
 	}
-
+	
 	f0, f1, f2 := -prices[0], 0, 0
 	for i := 1; i < len(prices); i++ {
 		newF0 := max(f0, f2-prices[i])
 		newF1 := f0 + prices[i]
 		newF2 := max(f2, f1)
-
+		
 		f0 = newF0
 		f1 = newF1
 		f2 = newF2
 	}
-
+	
 	return max(max(f0, f1), f2)
 }
 
@@ -382,7 +415,7 @@ func coinChange(coins []int, amount int) int {
 	for i := 1; i < len(dp); i++ {
 		dp[i] = amount + 1
 	}
-
+	
 	for i := 1; i <= amount; i++ {
 		for j := 0; j < n; j++ {
 			if coins[j] <= i {
@@ -390,11 +423,11 @@ func coinChange(coins []int, amount int) int {
 			}
 		}
 	}
-
+	
 	if dp[amount] > amount {
 		return -1
 	}
-
+	
 	return dp[amount]
 }
 
@@ -403,7 +436,7 @@ func canPartition(nums []int) bool {
 	if len(nums) < 2 {
 		return false
 	}
-
+	
 	sum, max := 0, 0
 	for _, num := range nums {
 		sum += num
@@ -411,16 +444,16 @@ func canPartition(nums []int) bool {
 			max = num
 		}
 	}
-
+	
 	if sum%2 != 0 {
 		return false
 	}
-
+	
 	target := sum / 2
 	if max > target {
 		return false
 	}
-
+	
 	return false
 }
 
@@ -446,7 +479,7 @@ func makeSquare(matchsticks []int) bool {
 	// for s := 1; s < len(dp); s++ {
 	//
 	// }
-
+	
 	return false
 }
 
@@ -454,7 +487,7 @@ func makeSquare(matchsticks []int) bool {
 // 回溯 2^n
 func findTargetSumWays(nums []int, target int) int {
 	var count int
-
+	
 	var backtrack func(int, int)
 	backtrack = func(index int, sum int) {
 		if index == len(nums) {
@@ -463,18 +496,18 @@ func findTargetSumWays(nums []int, target int) int {
 			}
 			return
 		}
-
+		
 		backtrack(index+1, sum+nums[index])
 		backtrack(index+1, sum-nums[index])
 	}
-
+	
 	backtrack(0, 0)
 	return count
 }
 
 // 动态规划O(n) 背包问题
 func findTargetSumWays2(nums []int, target int) int {
-
+	
 	return 0
 }
 
@@ -484,7 +517,7 @@ func findTargetSumWays2(nums []int, target int) int {
 func fib(n int) int {
 	dp := make([]int, 0, n)
 	dp = append(dp, 0, 1)
-
+	
 	for i := 2; i <= n; i++ {
 		dp = append(dp, dp[i-1]+dp[i-2])
 	}
@@ -495,7 +528,7 @@ func fib(n int) int {
 func countSubstrings(s string) int {
 	size := len(s)
 	ans := 0
-
+	
 	for i := 0; i < 2*size-1; i++ {
 		l, r := i/2, i/2+i%2
 		for l >= 0 && r < size && s[l] == s[r] {
@@ -504,21 +537,21 @@ func countSubstrings(s string) int {
 			ans++
 		}
 	}
-
+	
 	return ans
 }
 
 // 1262. 可被三整除的最大和
 func maxSumDivThree(nums []int) int {
 	dp := [3]int{}
-
+	
 	for i := 0; i < len(nums); i++ {
 		a, b, c := dp[0]+nums[i], dp[1]+nums[i], dp[2]+nums[i]
 		dp[a%3] = max(dp[a%3], a)
 		dp[b%3] = max(dp[b%3], b)
 		dp[c%3] = max(dp[c%3], c)
 	}
-
+	
 	return dp[0]
 }
 
@@ -526,7 +559,7 @@ func maxSumDivThree(nums []int) int {
 func fib2(n int) int {
 	dp := make([]int, 0, n)
 	dp = append(dp, 0, 1)
-
+	
 	for i := 2; i <= n; i++ {
 		dp = append(dp, (dp[i-1]+dp[i-2])%(1e9+7))
 	}
@@ -538,9 +571,9 @@ func fib3(n int) int {
 	if n < 2 {
 		return n
 	}
-
+	
 	p, q, r := 0, 0, 1
-
+	
 	for i := 2; i <= n; i++ {
 		p = q
 		q = r
@@ -554,31 +587,31 @@ func numWays(n int) int {
 	if n < 2 {
 		return 1
 	}
-
+	
 	p, q, r := 1, 1, 0
 	for i := 2; i <= n; i++ {
 		r = (p + q) % (1e9 + 7)
 		p = q % (1e9 + 7)
 		q = r % (1e9 + 7)
 	}
-
+	
 	return r % (1e9 + 7)
 }
 
 // 剑指 Offer II 091. 粉刷房子
 func minCost(costs [][]int) int {
 	dp := costs[0]
-
+	
 	for _, cost := range costs[1:] {
 		dpNew := make([]int, 3)
-
+		
 		for j, c := range cost {
 			dpNew[j] = min(dp[(j+1)%3], dp[(j+2)%3]) + c
 		}
-
+		
 		dp = dpNew
 	}
-
+	
 	return min(min(dp[0], dp[1]), dp[2])
 }
 
@@ -587,7 +620,7 @@ func maxValue(grid [][]int) int {
 	if len(grid) == 0 {
 		return 0
 	}
-
+	
 	for i := 0; i < len(grid); i++ {
 		for j := 0; j < len(grid[0]); j++ {
 			if i == 0 && j == 0 {
@@ -601,7 +634,7 @@ func maxValue(grid [][]int) int {
 			}
 		}
 	}
-
+	
 	return grid[len(grid)-1][len(grid[0])-1]
 }
 
@@ -609,7 +642,7 @@ func maxValue(grid [][]int) int {
 func maxProfit(prices []int) int {
 	var miniVal = math.MaxInt32
 	var profit int
-
+	
 	for _, price := range prices {
 		if price < miniVal {
 			miniVal = price
@@ -617,26 +650,26 @@ func maxProfit(prices []int) int {
 			profit = price - miniVal
 		}
 	}
-
+	
 	return profit
 }
 
 // 剑指 Offer II 088. 爬楼梯的最少成本
 func minCostClimbingStairs(cost []int) int {
 	// dp[i] = min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2])
-
+	
 	n := len(cost)
 	var (
 		prev int
 		curr int
 	)
-
+	
 	for i := 2; i <= n; i++ {
 		next := min(prev+cost[i-2], curr+cost[i-1])
 		prev = curr
 		curr = next
 	}
-
+	
 	return curr
 }
 
@@ -649,16 +682,16 @@ func robI(nums []int) int {
 	if len(nums) == 2 {
 		return max(nums[0], nums[1])
 	}
-
+	
 	prev := nums[0]
 	curr := max(nums[0], nums[1])
-
+	
 	for i := 2; i < len(nums); i++ {
 		next := max(prev+nums[i], curr)
 		prev = curr
 		curr = next
 	}
-
+	
 	return curr
 }
 
@@ -684,6 +717,6 @@ func max(a, b int) int {
 	if a > b {
 		return a
 	}
-
+	
 	return b
 }

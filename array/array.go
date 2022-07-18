@@ -274,6 +274,20 @@ func twoSum(numbers []int, target int) []int {
 	return res
 }
 
+// 189. 轮转数组
+func reverse(a []int) {
+	for i, n := 0, len(a); i < n/2; i++ {
+		a[i], a[n-1-i] = a[n-1-i], a[i]
+	}
+}
+
+func rotate(nums []int, k int) {
+	k %= len(nums)
+	reverse(nums)
+	reverse(nums[:k])
+	reverse(nums[k:])
+}
+
 // 217. 存在重复元素
 func containsDuplicate(nums []int) bool {
 	set := make(map[int]bool, len(nums))
@@ -499,6 +513,24 @@ func reverseOnlyLetters(s string) string {
 	}
 
 	return string(ans)
+}
+
+// 977. 有序数组的平方
+func sortedSquares(nums []int) []int {
+	res := make([]int, len(nums))
+	i, j := 0, len(nums)-1
+	for pos := len(nums) - 1; pos >= 0; pos-- {
+		v, w := nums[i]*nums[i], nums[j]*nums[j]
+		if v > w {
+			res[pos] = v
+			i++
+		} else {
+			res[pos] = w
+			j--
+		}
+	}
+
+	return res
 }
 
 // 1051. 高度检查器

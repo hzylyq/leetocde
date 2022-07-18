@@ -71,6 +71,26 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	return dummy.Next
 }
 
+// 21. 合并两个有序链表
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	if list1 == nil {
+		return list2
+	} else if list2 == nil {
+		return list1
+	} else if list1.Val > list2.Val {
+		list2.Next = mergeTwoLists(list1, list2.Next)
+		return list2
+	} else {
+		list1.Next = mergeTwoLists(list2, list1.Next)
+		return list1
+	}
+}
+
+func mergeTwoLists2(list1 *ListNode, list2 *ListNode) *ListNode {
+	var curr *ListNode
+
+}
+
 // 141. 环形链表
 // hash表
 func hasCycle(head *ListNode) bool {
