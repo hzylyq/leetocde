@@ -33,3 +33,7 @@ func TestMaxSumDivThree(t *testing.T) {
 func TestCoinChange(t *testing.T) {
 	print(coinChange([]int{1, 2, 5}, 11))
 }
+
+func TestMinimumTotal(t *testing.T) {
+	minimumTotal([][]int{{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}})
+}

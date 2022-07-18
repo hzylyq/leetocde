@@ -254,6 +254,38 @@ func minimumTotal(triangle [][]int) int {
 	return res
 }
 
+// 120. 三角形最小路径和
+func minimumTotal(triangle [][]int) int {
+	dp := make([][]int, len(triangle))
+	for i := 0; i < len(triangle); i++ {
+		dp[i] = make([]int, len(triangle[i]))
+	}
+
+	for i := 0; i < len(triangle); i++ {
+		for j := 0; j < len(triangle[i]); j++ {
+			if i == 0 && j == 0 {
+				dp[i][j] = triangle[i][j]
+			} else if j == 0 {
+				dp[i][j] = dp[i-1][j] + triangle[i][j]
+			} else if j == len(triangle[i])-1 {
+				dp[i][j] = dp[i-1][j-1] + triangle[i][j]
+			} else {
+				dp[i][j] = min(dp[i-1][j], dp[i-1][j-1]) + triangle[i][j]
+			}
+
+			log.Println(dp[i][j], i, j)
+		}
+	}
+
+	var res int
+	res = dp[len(dp)-1][0]
+	for i := 1; i < len(dp[len(dp)-1]); i++ {
+		res = min(res, dp[len(dp)-1][i])
+	}
+
+	return res
+}
+
 // 122. 买卖股票的最佳时机 II
 func maxProfit3(prices []int) int {
 	if len(prices) == 0 {
