@@ -6,7 +6,6 @@ import (
 	"strings"
 )
 
-// 树节点
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -1430,6 +1429,56 @@ func searchBST(root *TreeNode, val int) *TreeNode {
 	}
 
 	return root
+}
+
+// 919. 完全二叉树插入器
+type CBTInserter struct {
+	root      *TreeNode
+	candidate []*TreeNode
+}
+
+func ConstructorCBT(root *TreeNode) CBTInserter {
+	q := []*TreeNode{root}
+	var candidate []*TreeNode
+
+	for len(q) > 0 {
+		node := q[0]
+
+		q = q[1:]
+
+		if node.Left != nil {
+			q = append(q, node.Left)
+		}
+		if node.Right != nil {
+			q = append(q, node.Right)
+		}
+
+		if node.Left == nil || node.Right == nil {
+			candidate = append(candidate, node)
+		}
+	}
+
+	return CBTInserter{
+		root:      root,
+		candidate: candidate,
+	}
+}
+
+func (this *CBTInserter) Insert(val int) int {
+	child := &TreeNode{Val: val}
+	node := this.candidate[0]
+	if node.Left == nil {
+		node.Left = child
+	} else {
+		node.Right = child
+		this.candidate = this.candidate[1:]
+	}
+	this.candidate = append(this.candidate, child)
+	return node.Val
+}
+
+func (this *CBTInserter) Get_root() *TreeNode {
+	return this.root
 }
 
 // 965. 单值二叉树
