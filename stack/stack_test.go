@@ -11,5 +11,6 @@ func TestRemoveOuterParentheses(t *testing.T) {
 	assert.Equal(t, res, "()()()")
 }
 
-
-
+func TestDailyTemperatures(t *testing.T) {
+	dailyTemperatures([]int{73, 74, 75, 71, 69, 72, 76, 73})
+}
