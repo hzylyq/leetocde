@@ -552,19 +552,19 @@ func heightChecker(heights []int) int {
 
 // 计数排序
 func heightChecker2(heights []int) int {
-	//var ans int
+	// var ans int
 	//
-	//sorted := append([]int{}, heights...)
+	// sorted := append([]int{}, heights...)
 	//
-	//sort.Ints(sorted)
+	// sort.Ints(sorted)
 	//
-	//for i, v := range heights {
+	// for i, v := range heights {
 	//	if v != sorted[i] {
 	//		ans++
 	//	}
-	//}
+	// }
 	//
-	//return ans
+	// return ans
 	return 0
 }
 
@@ -642,6 +642,27 @@ func countPairs(deliciousness []int) int {
 	return res % (1e9 + 7)
 }
 
+// 1331. 数组序号转换
+func arrayRankTransform(arr []int) []int {
+	a := append([]int{}, arr...)
+
+	sort.Ints(a)
+
+	res := make([]int, 0, len(arr))
+	rankMap := make(map[int]int)
+	for _, item := range a {
+		if _, ok := rankMap[item]; !ok {
+			rankMap[item] = len(rankMap) + 1
+		}
+	}
+
+	for _, item := range arr {
+		res = append(res, rankMap[item])
+	}
+
+	return res
+}
+
 // 剑指 Offer II 069. 山峰数组的顶部
 // 符合下列属性的数组 arr 称为 山峰数组（山脉数组） ：
 // arr.length >= 3
@@ -653,13 +674,6 @@ func peakIndexInMountainArray(arr []int) int {
 	return sort.Search(len(arr)-1, func(i int) bool {
 		return arr[i] > arr[i+1]
 	})
-}
-
-func reverse(a []int) {
-	n := len(a)
-	for i := 0; i < len(a)/2; i++ {
-		a[i], a[n-i-1] = a[n-i-1], a[i]
-	}
 }
 
 func max(a, b int) int {

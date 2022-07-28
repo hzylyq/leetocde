@@ -32,3 +32,7 @@ func TestTwoSum(t *testing.T) {
 func TestIsSubsequence(t *testing.T) {
 	isSubsequence("axc", "ahbgdc")
 }
+
+func TestArrayRankTransform(t *testing.T) {
+	arrayRankTransform([]int{40, 10, 20, 30})
+}
