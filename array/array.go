@@ -663,6 +663,16 @@ func arrayRankTransform(arr []int) []int {
 	return res
 }
 
+// 1470. 重新排列数组
+func shuffle(nums []int, n int) []int {
+	res := make([]int, n*2)
+	for i, num := range nums[:n] {
+		res[i*2] = num
+		res[i*2+1] = nums[n+i]
+	}
+	return res
+}
+
 // 剑指 Offer II 069. 山峰数组的顶部
 // 符合下列属性的数组 arr 称为 山峰数组（山脉数组） ：
 // arr.length >= 3

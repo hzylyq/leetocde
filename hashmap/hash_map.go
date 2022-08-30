@@ -29,6 +29,21 @@ func (this *MyHashMap) Remove(key int) {
 	delete(this.m, key)
 }
 
+// 1.两数之和
+func twoSum(nums []int, target int) []int {
+	hashMap := make(map[int]int)
+
+	for i, num := range nums {
+		if j, ok := hashMap[target-num]; ok {
+			return []int{i, j}
+		}
+
+		hashMap[num] = i
+	}
+
+	return nil
+}
+
 /**
  * Your MyHashMap object will be instantiated and called as such:
  * obj := Constructor();

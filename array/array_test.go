@@ -36,3 +36,7 @@ func TestIsSubsequence(t *testing.T) {
 func TestArrayRankTransform(t *testing.T) {
 	arrayRankTransform([]int{40, 10, 20, 30})
 }
+
+func TestShuff(t *testing.T) {
+	shuffle([]int{2, 5, 1, 3, 4, 7}, 3)
+}
