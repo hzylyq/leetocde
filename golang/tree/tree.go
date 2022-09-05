@@ -783,6 +783,7 @@ func levelOrder(root *TreeNode) [][]int {
 
 // 687. 最长同值路径
 func longestUnivaluePath(root *TreeNode) int {
+	var res int
 	var dfs func(root *TreeNode) int
 	dfs = func(root *TreeNode) int {
 		if root == nil {
@@ -798,10 +799,14 @@ func longestUnivaluePath(root *TreeNode) int {
 			right1 = right + 1
 		}
 
+		res = max(res, left1+right1)
+
 		return max(left1, right1)
 	}
 
-	return dfs(root)
+	dfs(root)
+
+	return res
 }
 
 // 897. 递增顺序查找树
