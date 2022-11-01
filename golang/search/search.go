@@ -1,6 +1,9 @@
 package search
 
-import "sort"
+import (
+	"math"
+	"sort"
+)
 
 // 33. 搜索旋转排序数组
 func search(nums []int, target int) int {
@@ -93,4 +96,62 @@ func searchMatrix(matrix [][]int, target int) bool {
 	}
 
 	return false
+}
+
+// 153. 寻找旋转排序数组中的最小值
+func findMin(nums []int) int {
+	left, right := 0, len(nums)-1
+
+	for left < right {
+		pivot := (right-left)/2 + left
+		if nums[pivot] < nums[right] {
+			right = pivot
+		} else {
+			left = pivot + 1
+		}
+	}
+
+	return nums[left]
+}
+
+// 162. 寻找峰值 O(log n)
+func findPeakElement(nums []int) int {
+	// var idx int
+	//
+	// for i, v := range nums {
+	// 	if v > nums[idx] {
+	// 		idx = i
+	// 	}
+	// }
+	//
+	// return idx O(n)
+
+	n := len(nums)
+
+	get := func(i int) int {
+		if i == -1 || i == n {
+			return math.MinInt64
+		}
+
+		return nums[i]
+	}
+
+	left, right := 0, n-1
+
+	var mid int
+	for left < right {
+		mid = (right-left)/2 + left
+
+		if get(mid) > get(mid-1) && get(mid) > get(mid+1) {
+			return mid
+		}
+
+		if get(mid) < get(mid+1) {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+
+	return left
 }
