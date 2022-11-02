@@ -56,6 +56,42 @@ func threeSum(nums []int) [][]int {
 	return res
 }
 
+func threeSum2(nums []int) [][]int {
+	target := 0
+
+	sort.Ints(nums)
+	n := len(nums)
+
+	res := make([][]int, 0)
+
+	for first := 0; first < n; first++ {
+		if first > 0 && nums[first] == nums[first-1] {
+			continue
+		}
+
+		third := n - 1
+		for second := first + 1; second < n; second++ {
+			if second > first+1 && nums[second] == nums[second-1] {
+				continue
+			}
+
+			for second < third && nums[first]+nums[second]+nums[third] > target {
+				third--
+			}
+
+			if second == third {
+				break
+			}
+
+			if nums[first]+nums[second]+nums[third] == target {
+				res = append(res, []int{nums[first], nums[second], nums[third]})
+			}
+		}
+	}
+
+	return res
+}
+
 // LetterCombinations 17. 电话号码的字母组合
 // 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按任意顺序返回。
 // 所有组合 回溯

@@ -40,3 +40,7 @@ func TestArrayRankTransform(t *testing.T) {
 func TestShuff(t *testing.T) {
 	shuffle([]int{2, 5, 1, 3, 4, 7}, 3)
 }
+
+func TestThreeSum2(t *testing.T) {
+	threeSum2([]int{-1, 0, 1, 2, -1, -4})
+}

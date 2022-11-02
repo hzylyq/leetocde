@@ -86,9 +86,32 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	}
 }
 
-func mergeTwoLists2(list1 *ListNode, list2 *ListNode) *ListNode {
-	var curr *ListNode
+// func mergeTwoLists2(list1 *ListNode, list2 *ListNode) *ListNode {
+// 	var curr *ListNode
+//
+// }
 
+// 82. 删除排序链表中的重复元素 II
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil {
+		return head
+	}
+
+	dummy := &ListNode{0, head}
+	curr := dummy
+	for curr.Next != nil && curr.Next.Next != nil {
+		if curr.Next.Val == curr.Next.Next.Val {
+			val := curr.Next.Val
+
+			for curr.Next != nil && curr.Next.Val == val {
+				curr.Next = curr.Next.Next
+			}
+		} else {
+			curr = curr.Next
+		}
+	}
+
+	return dummy.Next
 }
 
 // 141. 环形链表
@@ -370,21 +393,21 @@ func middleNode(head *ListNode) *ListNode {
 }
 
 // 1206. 设计跳表
-type Skiplist struct {
-}
-
-func ConstructorSkipList() Skiplist {
-
-}
-
-func (this *Skiplist) Search(target int) bool {
-
-}
-
-func (this *Skiplist) Add(num int) {
-
-}
-
-func (this *Skiplist) Erase(num int) bool {
-
-}
+// type Skiplist struct {
+// }
+//
+// func ConstructorSkipList() Skiplist {
+//
+// }
+//
+// func (this *Skiplist) Search(target int) bool {
+//
+// }
+//
+// func (this *Skiplist) Add(num int) {
+//
+// }
+//
+// func (this *Skiplist) Erase(num int) bool {
+//
+// }
