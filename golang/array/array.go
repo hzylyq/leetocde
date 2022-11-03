@@ -524,6 +524,51 @@ func pivotIndex(nums []int) int {
 	return -1
 }
 
+// 844. 比较含退格的字符串
+func backspaceCompare(s string, t string) bool {
+	skipS, skipT := 0, 0
+
+	i, j := len(s)-1, len(t)-1
+	for i >= 0 || j >= 0 {
+		for i >= 0 {
+			if s[i] == '#' {
+				skipS++
+				i--
+			} else if skipS > 0 {
+				i--
+				skipS--
+			} else {
+				break
+			}
+		}
+
+		for j >= 0 {
+			if t[j] == '#' {
+				skipT++
+				j--
+			} else if skipT > 0 {
+				j--
+				skipT--
+			} else {
+				break
+			}
+		}
+
+		if i >= 0 && j >= 0 {
+			if s[i] != t[j] {
+				return false
+			}
+		} else if i >= 0 || j >= 0 {
+			return false
+		}
+
+		i--
+		j--
+	}
+
+	return true
+}
+
 // 917. 仅仅反转字母
 // 给你一个字符串 s ，根据下述规则反转字符串：
 
@@ -567,6 +612,12 @@ func sortedSquares(nums []int) []int {
 	}
 
 	return res
+}
+
+// 986. 区间列表的交集
+func intervalIntersection(firstList [][]int, secondList [][]int) [][]int {
+
+	return nil
 }
 
 // 1051. 高度检查器
