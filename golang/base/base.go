@@ -216,6 +216,28 @@ func subsets(nums []int) [][]int {
 	return ans
 }
 
+func subset2(nums []int) [][]int {
+	var res [][]int
+	var set []int
+
+	var backoff func(int)
+	backoff = func(cur int) {
+		if cur == len(nums) {
+			res = append(res, append([]int(nil), set...))
+			return
+		}
+
+		set = append(set, nums[cur])
+		backoff(cur + 1)
+		set = set[:len(set)-1]
+		backoff(cur + 1)
+	}
+
+	backoff(0)
+
+	return res
+}
+
 // 231. 2的幂
 func isPowerOfTwo(n int) bool {
 	if n == 0 {
