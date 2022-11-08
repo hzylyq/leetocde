@@ -1,5 +1,7 @@
 package backtrack
 
+import "sort"
+
 // 22. 括号生成
 // 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
 func generateParenthesis(n int) []string {
@@ -79,5 +81,34 @@ func combine(n int, k int) [][]int {
 
 	backoff(0, nil)
 
+	return res
+}
+
+// 90. 子集 II
+func subsetsWithDup(nums []int) [][]int {
+	var res [][]int
+	var set []int
+
+	sort.Ints(nums)
+
+	var backoff func(bool, int)
+	backoff = func(choosePre bool, curr int) {
+		if curr == len(nums) {
+			res = append(res, append([]int(nil), set...))
+			return
+		}
+
+		backoff(false, curr+1)
+
+		if !choosePre && curr > 0 && nums[curr] == nums[curr-1] {
+			return
+		}
+
+		set = append(set, nums[curr])
+		backoff(true, curr+1)
+		set = set[:len(set)-1]
+	}
+
+	backoff(false, 0)
 	return res
 }

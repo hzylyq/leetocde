@@ -9,3 +9,8 @@ func floodFill(image [][]int, sr int, sc int, color int) [][]int {
 
 	return image
 }
+
+// 797. 所有可能的路径
+func allPathsSourceTarget(graph [][]int) [][]int {
+	return nil
+}
