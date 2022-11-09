@@ -10,12 +10,12 @@ import (
 // 11. 盛最多水的容器
 func maxArea(height []int) int {
 	i, j := 0, len(height)-1
-	
+
 	var ans int
 	for i < j {
 		width := j - i
 		length := min(height[i], height[j])
-		
+
 		ans = max(ans, width*length)
 		if height[i] > height[j] {
 			j--
@@ -23,7 +23,7 @@ func maxArea(height []int) int {
 			i++
 		}
 	}
-	
+
 	return ans
 }
 
@@ -58,37 +58,37 @@ func threeSum(nums []int) [][]int {
 
 func threeSum2(nums []int) [][]int {
 	target := 0
-	
+
 	sort.Ints(nums)
 	n := len(nums)
-	
+
 	res := make([][]int, 0)
-	
+
 	for first := 0; first < n; first++ {
 		if first > 0 && nums[first] == nums[first-1] {
 			continue
 		}
-		
+
 		third := n - 1
 		for second := first + 1; second < n; second++ {
 			if second > first+1 && nums[second] == nums[second-1] {
 				continue
 			}
-			
+
 			for second < third && nums[first]+nums[second]+nums[third] > target {
 				third--
 			}
-			
+
 			if second == third {
 				break
 			}
-			
+
 			if nums[first]+nums[second]+nums[third] == target {
 				res = append(res, []int{nums[first], nums[second], nums[third]})
 			}
 		}
 	}
-	
+
 	return res
 }
 
@@ -110,7 +110,7 @@ func LetterCombinations(digits string) []string {
 		"9": "wxyz",
 	}
 	var combs []string
-	
+
 	type backtrack func(digits string, index int, comb string)
 	var helper backtrack
 	helper = func(digits string, index int, comb string) {
@@ -118,17 +118,17 @@ func LetterCombinations(digits string) []string {
 			combs = append(combs, comb)
 			return
 		}
-		
+
 		digit := string(digits[index])
 		letters := phoneMap[digit]
-		
+
 		for i := 0; i < len(letters); i++ {
 			helper(digits, index+1, comb+string(letters[i]))
 		}
 	}
-	
+
 	helper(digits, 0, "")
-	
+
 	return combs
 }
 
@@ -140,7 +140,7 @@ func removeDuplicates1(nums []int) int {
 	if n == 0 {
 		return 0
 	}
-	
+
 	slow := 1
 	for fast := 1; fast < n; fast++ {
 		if nums[fast] != nums[fast-1] {
@@ -172,7 +172,7 @@ func nextPermutation(nums []int) {
 	for i >= 0 && nums[i] >= nums[i+1] {
 		i--
 	}
-	
+
 	for i >= 0 {
 		j := n - 1
 		for j >= 0 && nums[i] >= nums[j] {
@@ -183,45 +183,16 @@ func nextPermutation(nums []int) {
 	reverse(nums[i+1:])
 }
 
-// 39. 组合总和
-func combinationSum(candidates []int, target int) [][]int {
-	var ans [][]int
-	var comb []int
-	
-	var dfs func(target int, idx int)
-	dfs = func(target int, idx int) {
-		if idx == len(candidates) {
-			return
-		}
-		
-		if target == 0 {
-			ans = append(ans, append([]int(nil), comb...))
-			return
-		}
-		
-		dfs(target, idx+1)
-		if target-candidates[idx] >= 0 {
-			comb = append(comb, candidates[idx])
-			dfs(target-candidates[idx], idx)
-			comb = comb[:len(comb)-1]
-		}
-	}
-	
-	dfs(target, 0)
-	
-	return ans
-}
-
 // 74. 搜索二维矩阵
 func searchMatrix(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {
 		return false
 	}
-	
+
 	// 二分查找
 	m := len(matrix)
 	n := len(matrix[0])
-	
+
 	i := sort.Search(m*n, func(i int) bool {
 		return matrix[i/n][i%n] >= target
 	})
@@ -235,7 +206,7 @@ func removeDuplicates(nums []int) int {
 	if length <= 2 {
 		return length
 	}
-	
+
 	fast, slow := 2, 2
 	for fast < length {
 		if nums[slow-2] != nums[fast] {
@@ -260,7 +231,7 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 			sorted = append(sorted, nums1[p:]...)
 			break
 		}
-		
+
 		if nums1[p] < nums2[q] {
 			sorted = append(sorted, nums1[p])
 			p++
@@ -269,7 +240,7 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 			q++
 		}
 	}
-	
+
 	copy(nums1, sorted)
 }
 
@@ -277,7 +248,7 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 func maxProfit(prices []int) int {
 	minPrice := math.MaxInt32
 	maxProfit := 0
-	
+
 	for _, price := range prices {
 		if price < minPrice {
 			minPrice = price
@@ -285,7 +256,7 @@ func maxProfit(prices []int) int {
 			maxProfit = price - minPrice
 		}
 	}
-	
+
 	return maxProfit
 }
 
@@ -306,7 +277,7 @@ func twoSum(numbers []int, target int) []int {
 			i++
 		}
 	}
-	
+
 	return res
 }
 
@@ -360,7 +331,7 @@ func summaryRanges(nums []int) []string {
 // moveZeroes 283. 移动零 双指针
 func moveZeroes(nums []int) {
 	l, r := 0, 0
-	
+
 	for r < len(nums) {
 		if nums[r] != 0 {
 			nums[l], nums[r] = nums[r], nums[l]
@@ -373,7 +344,7 @@ func moveZeroes(nums []int) {
 // 392. 判断子序列
 func isSubsequence(s string, t string) bool {
 	n, m := len(s), len(t)
-	
+
 	i, j := 0, 0
 	for i < n && j < m {
 		if s[i] == t[j] {
@@ -381,7 +352,7 @@ func isSubsequence(s string, t string) bool {
 		}
 		j++
 	}
-	
+
 	return i == n
 }
 
@@ -391,9 +362,9 @@ func numberOfArithmeticSlices(nums []int) int {
 	if n <= 1 {
 		return 0
 	}
-	
+
 	d, t := nums[0]-nums[1], 0
-	
+
 	res := 0
 	for i := 2; i < len(nums); i++ {
 		if nums[i-1]-nums[i] == d {
@@ -411,33 +382,33 @@ func findDisappearedNumbers(nums []int) []int {
 	for i, num := range nums {
 		nums[i] = (num + num - 1) % len(nums)
 	}
-	
+
 	res := make([]int, 0, len(nums))
 	for i := 1; i <= len(nums); i++ {
 		if nums[i] < len(nums) {
 			res = append(res, i)
 		}
 	}
-	
+
 	return res
 }
 
 // findDisappearedNumbers2 O(n) O(1)
 func findDisappearedNumbers2(nums []int) []int {
 	n := len(nums)
-	
+
 	for _, num := range nums {
 		num = (num - 1) % n
 		nums[num] += n
 	}
-	
+
 	res := make([]int, 0, len(nums))
 	for i, v := range nums {
 		if v <= n {
 			res = append(res, i+1)
 		}
 	}
-	
+
 	return res
 }
 
@@ -449,7 +420,7 @@ func findDisappearedNumbers2(nums []int) []int {
 // 返回艾希处于中毒状态的 总 秒数
 func findPoisonedDuration(timeSeries []int, duration int) int {
 	var ans, expired int
-	
+
 	for _, t := range timeSeries {
 		if t >= expired {
 			ans += duration
@@ -466,10 +437,10 @@ func checkSubarraySum(nums []int, k int) bool {
 	if len(nums) < 2 {
 		return false
 	}
-	
+
 	mp := map[int]int{0: -1}
 	remainer := 0
-	
+
 	for i, num := range nums {
 		remainer = (remainer + num) % k
 		if prevIdx, ok := mp[remainer]; ok {
@@ -486,7 +457,7 @@ func checkSubarraySum(nums []int, k int) bool {
 // 525. 连续数组 前缀和 + 哈希表
 func findMaxLength(nums []int) int {
 	counter := 0
-	
+
 	mp := map[int]int{0: -1}
 	var maxLength int
 	for i, num := range nums {
@@ -495,7 +466,7 @@ func findMaxLength(nums []int) int {
 		} else {
 			counter++
 		}
-		
+
 		if preIdx, ok := mp[counter]; ok {
 			maxLength = max(maxLength, i-preIdx)
 		} else {
@@ -508,11 +479,11 @@ func findMaxLength(nums []int) int {
 // 724. 寻找数组的中心下标
 func pivotIndex(nums []int) int {
 	var total int
-	
+
 	for _, num := range nums {
 		total += num
 	}
-	
+
 	var helf int
 	for i := 0; i < len(nums); i++ {
 		if helf*2 == total-nums[i] {
@@ -520,14 +491,14 @@ func pivotIndex(nums []int) int {
 		}
 		helf += nums[i]
 	}
-	
+
 	return -1
 }
 
 // 844. 比较含退格的字符串
 func backspaceCompare(s string, t string) bool {
 	skipS, skipT := 0, 0
-	
+
 	i, j := len(s)-1, len(t)-1
 	for i >= 0 || j >= 0 {
 		for i >= 0 {
@@ -541,7 +512,7 @@ func backspaceCompare(s string, t string) bool {
 				break
 			}
 		}
-		
+
 		for j >= 0 {
 			if t[j] == '#' {
 				skipT++
@@ -553,7 +524,7 @@ func backspaceCompare(s string, t string) bool {
 				break
 			}
 		}
-		
+
 		if i >= 0 && j >= 0 {
 			if s[i] != t[j] {
 				return false
@@ -561,11 +532,11 @@ func backspaceCompare(s string, t string) bool {
 		} else if i >= 0 || j >= 0 {
 			return false
 		}
-		
+
 		i--
 		j--
 	}
-	
+
 	return true
 }
 
@@ -587,12 +558,12 @@ func reverseOnlyLetters(s string) string {
 			right--
 			continue
 		}
-		
+
 		ans[left], ans[right] = ans[right], ans[left]
 		left++
 		right--
 	}
-	
+
 	return string(ans)
 }
 
@@ -610,7 +581,7 @@ func sortedSquares(nums []int) []int {
 			j--
 		}
 	}
-	
+
 	return res
 }
 
@@ -618,39 +589,39 @@ func sortedSquares(nums []int) []int {
 func intervalIntersection(firstList [][]int, secondList [][]int) [][]int {
 	ans := make([][]int, 0)
 	var i, j int
-	
+
 	for i < len(firstList) && j < len(secondList) {
 		lo := max(firstList[i][0], secondList[j][0])
 		hi := min(firstList[i][1], secondList[j][1])
-		
+
 		if lo < hi {
 			ans = append(ans, []int{lo, hi})
 		}
-		
+
 		if firstList[i][1] < secondList[j][1] {
 			i++
 		} else {
 			j++
 		}
 	}
-	
+
 	return ans
 }
 
 // 1051. 高度检查器
 func heightChecker(heights []int) int {
 	var ans int
-	
+
 	sorted := append([]int{}, heights...)
-	
+
 	sort.Ints(sorted)
-	
+
 	for i, v := range heights {
 		if v != sorted[i] {
 			ans++
 		}
 	}
-	
+
 	return ans
 }
 
@@ -677,7 +648,7 @@ func runningSum(nums []int) []int {
 	for i := 1; i < len(nums); i++ {
 		nums[i] += nums[i-1]
 	}
-	
+
 	return nums
 }
 
@@ -686,19 +657,19 @@ func getMaximumGenerated(n int) int {
 	if n == 0 {
 		return 0
 	}
-	
+
 	res := make([]int, n+1)
 	res[1] = 1
-	
+
 	for i := 2; i <= n; i++ {
 		res[i] = res[i/2] + i%2*res[(i+1)/2]
 	}
-	
+
 	var ans int
 	for _, val := range res {
 		ans = max(val, ans)
 	}
-	
+
 	return ans
 }
 
@@ -706,7 +677,7 @@ func getMaximumGenerated(n int) int {
 func findBall(grid [][]int) []int {
 	n := len(grid[0])
 	ans := make([]int, n)
-	
+
 	for j := range ans {
 		col := j
 		for _, row := range grid {
@@ -717,10 +688,10 @@ func findBall(grid [][]int) []int {
 				break
 			}
 		}
-		
+
 		ans[j] = col
 	}
-	
+
 	return ans
 }
 
@@ -732,10 +703,10 @@ func countPairs(deliciousness []int) int {
 			maxVal = val
 		}
 	}
-	
+
 	maxSum := maxVal * 2
 	cnt := make(map[int]int)
-	
+
 	var res int
 	for _, val := range deliciousness {
 		for sum := 1; sum <= maxSum; sum <<= 1 {
@@ -749,9 +720,9 @@ func countPairs(deliciousness []int) int {
 // 1331. 数组序号转换
 func arrayRankTransform(arr []int) []int {
 	a := append([]int{}, arr...)
-	
+
 	sort.Ints(a)
-	
+
 	res := make([]int, 0, len(arr))
 	rankMap := make(map[int]int)
 	for _, item := range a {
@@ -759,11 +730,11 @@ func arrayRankTransform(arr []int) []int {
 			rankMap[item] = len(rankMap) + 1
 		}
 	}
-	
+
 	for _, item := range arr {
 		res = append(res, rankMap[item])
 	}
-	
+
 	return res
 }
 

@@ -33,6 +33,41 @@ func generateParenthesis(n int) []string {
 	return res
 }
 
+// 39. 组合总和
+func combinationSum(candidates []int, target int) [][]int {
+	var ans [][]int
+	var comb []int
+
+	var backoff func(target int, idx int)
+	backoff = func(target int, idx int) {
+		if idx == len(candidates) {
+			return
+		}
+
+		if target == 0 {
+			ans = append(ans, append([]int(nil), comb...))
+			return
+		}
+
+		backoff(target, idx+1)
+		if target-candidates[idx] >= 0 {
+			comb = append(comb, candidates[idx])
+			backoff(target-candidates[idx], idx)
+			comb = comb[:len(comb)-1]
+		}
+	}
+
+	backoff(target, 0)
+
+	return ans
+}
+
+// 40. 组合总和 II
+func combinationSum2(candidates []int, target int) [][]int {
+
+	return nil
+}
+
 // 46. 全排列
 func permute(nums []int) [][]int {
 	var res [][]int
@@ -55,6 +90,37 @@ func permute(nums []int) [][]int {
 	}
 
 	backoff(0, nums)
+	return res
+}
+
+// 47. 全排列 II
+func permuteUnique(nums []int) [][]int {
+	sort.Ints(nums)
+
+	var res [][]int
+	var set []int
+	vis := make([]bool, len(nums))
+	var backoff func(int)
+	backoff = func(cur int) {
+		if cur == len(nums) {
+			res = append(res, append([]int(nil), set...))
+			return
+		}
+
+		for i, v := range nums {
+			if vis[i] || (i > 0 && !vis[i-1] && v == nums[i-1]) {
+				continue
+			}
+
+			set = append(set, v)
+			vis[i] = true
+			backoff(cur + 1)
+			vis[i] = false
+			set = set[:len(set)-1]
+		}
+	}
+
+	backoff(0)
 	return res
 }
 
