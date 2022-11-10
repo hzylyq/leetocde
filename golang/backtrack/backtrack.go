@@ -46,29 +46,28 @@ func LetterCombinations(digits string) []string {
 // 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
 func generateParenthesis(n int) []string {
 	var res []string
+	var tmp []byte
 
-	var backoff func([]byte, int, int)
-	backoff = func(tmp []byte, open, close int) {
+	var backoff func(int, int)
+	backoff = func(open, close int) {
 		if len(tmp) == n*2 {
-			curr := make([]byte, len(tmp))
-			copy(curr, []byte(tmp))
-			res = append(res, string(curr))
+			res = append(res, string(append([]byte(nil), tmp...)))
 			return
 		}
 
 		if open < n {
 			tmp = append(tmp, '(')
-			backoff(tmp, open+1, close)
+			backoff(open+1, close)
 			tmp = tmp[:len(tmp)-1]
 		}
 		if close < open {
 			tmp = append(tmp, ')')
-			backoff(tmp, open, close+1)
+			backoff(open, close+1)
 			tmp = tmp[:len(tmp)-1]
 		}
 	}
 
-	backoff(nil, 0, 0)
+	backoff(0, 0)
 
 	return res
 }
@@ -188,6 +187,37 @@ func combine(n int, k int) [][]int {
 	backoff(0, nil)
 
 	return res
+}
+
+// 79. 单词搜索
+func exist(board [][]byte, word string) bool {
+	type pair struct {
+		x int
+		y int
+	}
+
+	var directions = []pair{
+		{-1, 0},
+		{1, 0},
+		{0, -1},
+		{0, 1},
+	}
+
+	var check func(i, j, k int) bool
+	check = func(i, j, k int) bool {
+		if board[i][j] != word[k] {
+			return false
+		}
+
+	}
+
+	for i, row := range board {
+		for j := range row {
+			check(i, j)
+		}
+	}
+
+	return false
 }
 
 // 90. 子集 II
