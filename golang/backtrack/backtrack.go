@@ -2,6 +2,46 @@ package backtrack
 
 import "sort"
 
+// LetterCombinations 17. 电话号码的字母组合
+// 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按任意顺序返回。
+// 所有组合 回溯
+func LetterCombinations(digits string) []string {
+	if len(digits) == 0 {
+		return []string{}
+	}
+	var phoneMap = map[string]string{
+		"2": "abc",
+		"3": "def",
+		"4": "ghi",
+		"5": "jkl",
+		"6": "mno",
+		"7": "pqrs",
+		"8": "tuv",
+		"9": "wxyz",
+	}
+	var combs []string
+
+	var backtrack func(digits string, index int, comb string)
+
+	backtrack = func(digits string, index int, comb string) {
+		if index == len(digits) {
+			combs = append(combs, comb)
+			return
+		}
+
+		digit := string(digits[index])
+		letters := phoneMap[digit]
+
+		for i := 0; i < len(letters); i++ {
+			backtrack(digits, index+1, comb+string(letters[i]))
+		}
+	}
+
+	backtrack(digits, 0, "")
+
+	return combs
+}
+
 // 22. 括号生成
 // 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
 func generateParenthesis(n int) []string {
