@@ -23,6 +23,20 @@ func maxSubArray(nums []int) int {
 	return max
 }
 
+// 55. 跳跃游戏
+func canJump(nums []int) bool {
+	var k = 0
+	for i, num := range nums {
+		if i > k {
+			return false
+		}
+
+		k = max(k, i+num)
+	}
+
+	return true
+}
+
 // 62. 不同路径
 func uniquePaths(m int, n int) int {
 	dp := make([][]int, m)
@@ -383,6 +397,29 @@ func rob(nums []int) int {
 	}
 
 	return dp[len(nums)-1]
+}
+
+// 213. 打家劫舍 II
+func rob2(nums []int) int {
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+
+	if n == 2 {
+		return max(nums[0], nums[1])
+	}
+
+	var robHelper func(nums []int) int
+	robHelper = func(nums []int) int {
+		first, second := nums[0], max(nums[0], nums[1])
+		for _, v := range nums[2:] {
+			first, second = second, max(second, first+v)
+		}
+		return second
+	}
+
+	return max(robHelper(nums[1:]), robHelper(nums[:n-1]))
 }
 
 // 221. 最大正方形

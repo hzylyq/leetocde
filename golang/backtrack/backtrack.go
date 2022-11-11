@@ -1,6 +1,9 @@
 package backtrack
 
-import "sort"
+import (
+	"log"
+	"sort"
+)
 
 // LetterCombinations 17. 电话号码的字母组合
 // 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按任意顺序返回。
@@ -203,17 +206,32 @@ func exist(board [][]byte, word string) bool {
 		{0, 1},
 	}
 
+	log.Println(directions)
+
+	vis := make([][]bool, len(board))
+	for i := range board {
+		vis[i] = make([]bool, len(board[i]))
+	}
+
 	var check func(i, j, k int) bool
 	check = func(i, j, k int) bool {
 		if board[i][j] != word[k] {
 			return false
 		}
 
+		if k == len(word)-1 {
+			return true
+		}
+
+		vis[i][j] = true
+
+		vis[i][j] = false
+		return false
 	}
 
 	for i, row := range board {
 		for j := range row {
-			check(i, j)
+			check(i, j, 0)
 		}
 	}
 
