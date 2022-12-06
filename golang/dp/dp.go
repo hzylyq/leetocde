@@ -5,6 +5,19 @@ import (
 	"math"
 )
 
+// 45. 跳跃游戏 II
+func jump(nums []int) int {
+	// length := len(nums)
+	// end := 0
+	// steps := 0
+	//
+	// for i := 0; i < length-1; i++ {
+	// 	i + nums[i]
+	// }
+
+	return 0
+}
+
 // 53. 最大子序和
 func maxSubArray(nums []int) int {
 	if len(nums) == 0 {
@@ -523,6 +536,15 @@ func canPartition(nums []int) bool {
 		return false
 	}
 
+	dp := make([][]bool, len(nums))
+	for i := range dp {
+		dp[i] = make([]bool, target+1)
+	}
+
+	for i := 0; i < len(nums); i++ {
+		dp[i][0] = true
+	}
+
 	return false
 }
 
@@ -572,6 +594,22 @@ func findTargetSumWays(nums []int, target int) int {
 
 	backtrack(0, 0)
 	return count
+}
+
+// 279. 完全平方数
+func numSquares(n int) int {
+	f := make([]int, n+1)
+
+	for i := 1; i <= n; i++ {
+		minn := math.MaxInt32
+		for j := 1; j*j <= i; j++ {
+			minn = min(minn, f[i-j*j])
+		}
+
+		f[i] = minn + 1
+	}
+
+	return f[n]
 }
 
 // 动态规划O(n) 背包问题

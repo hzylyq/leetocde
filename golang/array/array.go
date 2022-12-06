@@ -143,6 +143,20 @@ func nextPermutation(nums []int) {
 	reverse(nums[i+1:])
 }
 
+// 56. 合并区间
+func mergeSpace(intervals [][]int) [][]int {
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+
+	for _, item := range intervals {
+
+	}
+
+	return intervals
+
+}
+
 // 74. 搜索二维矩阵
 func searchMatrix(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {

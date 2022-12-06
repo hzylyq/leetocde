@@ -106,8 +106,23 @@ func combinationSum(candidates []int, target int) [][]int {
 
 // 40. 组合总和 II
 func combinationSum2(candidates []int, target int) [][]int {
+	var res [][]int
+	var comb []int
+	var visist []bool
 
-	return nil
+	var backoff func(target, idx int)
+	backoff = func(target, idx int) {
+		// 遍历结束
+		if idx == len(candidates) {
+			res = append(res, append([]int(nil), comb...))
+			return
+		}
+
+	}
+
+	backoff(target, 0)
+
+	return res
 }
 
 // 46. 全排列
