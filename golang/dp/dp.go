@@ -465,9 +465,44 @@ func maximalSquare(matrix [][]byte) int {
 	return maxSide * maxSide
 }
 
+// 279. 完全平方数
+func numSquares(n int) int {
+	f := make([]int, n+1)
+
+	for i := 1; i <= n; i++ {
+		minn := math.MaxInt32
+		for j := 1; j*j <= i; j++ {
+			minn = min(minn, f[i-j*j])
+		}
+
+		f[i] = minn + 1
+	}
+
+	return f[n]
+}
+
 // 300. 最长递增子序列
 func lengthOfLIS(nums []int) int {
-	return 0
+	if len(nums) == 0 {
+		return 0
+	}
+
+	dp := make([]int, len(nums))
+	dp[0] = 1
+
+	var res = 1
+	for i := 1; i < len(nums); i++ {
+		dp[i] = 1
+		for j := 0; j < i; j++ {
+			if nums[i] > nums[j] {
+				dp[i] = max(dp[j]+1, dp[i])
+			}
+		}
+
+		res = max(res, dp[i])
+	}
+
+	return res
 }
 
 // 309. 最佳买卖股票时机含冷冻期
@@ -594,22 +629,6 @@ func findTargetSumWays(nums []int, target int) int {
 
 	backtrack(0, 0)
 	return count
-}
-
-// 279. 完全平方数
-func numSquares(n int) int {
-	f := make([]int, n+1)
-
-	for i := 1; i <= n; i++ {
-		minn := math.MaxInt32
-		for j := 1; j*j <= i; j++ {
-			minn = min(minn, f[i-j*j])
-		}
-
-		f[i] = minn + 1
-	}
-
-	return f[n]
 }
 
 // 动态规划O(n) 背包问题
