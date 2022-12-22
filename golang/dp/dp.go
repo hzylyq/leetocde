@@ -579,8 +579,19 @@ func canPartition(nums []int) bool {
 	for i := 0; i < len(nums); i++ {
 		dp[i][0] = true
 	}
+	dp[0][nums[0]] = true
+	for i := 1; i < len(nums); i++ {
+		v := nums[i]
+		for j := 1; j <= target; j++ {
+			if j >= v {
+				dp[i][j] = dp[i-1][j] || dp[i-1][j-v]
+			} else {
+				dp[i][j] = dp[i-1][j]
+			}
+		}
+	}
 
-	return false
+	return dp[len(nums)-1][target]
 }
 
 // 473. 火柴拼正方形
