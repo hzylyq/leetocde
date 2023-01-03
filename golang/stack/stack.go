@@ -13,7 +13,7 @@ import "strings"
 // 返回简化后得到的 规范路径 。
 func simplifyPath(path string) string {
 	stack := make([]string, 0)
-	
+
 	for _, name := range strings.Split(path, "/") {
 		if name == ".." {
 			if len(stack) > 0 {
@@ -50,11 +50,14 @@ func decodeString(s string) string {
 				stk = stk[:len(stk)-1]
 			}
 			for i := 0; i < len(sub)/2; i++ {
-			
+				sub[i], sub[len(sub)-i-1] = sub[len(sub)-i-1], sub[i]
 			}
+
+			stk = stk[:len(stk)-1]
+
 		}
 	}
-	
+
 	return ""
 }
 
@@ -70,7 +73,7 @@ func maximalRectangle(matrix [][]byte) int {
 	if len(matrix) == 0 {
 		return 0
 	}
-	
+
 	m, n := len(matrix), len(matrix[0])
 	left := make([][]int, m)
 	for i, row := range matrix {
@@ -86,7 +89,7 @@ func maximalRectangle(matrix [][]byte) int {
 			}
 		}
 	}
-	
+
 	var ans int
 	for i, row := range matrix {
 		for j, v := range row {
@@ -102,7 +105,7 @@ func maximalRectangle(matrix [][]byte) int {
 			ans = max(ans, area)
 		}
 	}
-	
+
 	return ans
 }
 
@@ -125,17 +128,17 @@ func max(a, b int) int {
 // 单调栈
 func dailyTemperatures(temperatures []int) []int {
 	res := make([]int, len(temperatures))
-	
+
 	stack := make([]int, 0, len(temperatures))
-	
+
 	for i := 0; i < len(temperatures); i++ {
 		temp := temperatures[i]
-		
+
 		for len(stack) > 0 && temp > temperatures[stack[len(stack)-1]] {
 			preIdx := stack[len(stack)-1]
-			
+
 			stack = stack[:len(stack)-1]
-			
+
 			res[preIdx] = i - preIdx
 		}
 		stack = append(stack, i)
@@ -145,18 +148,18 @@ func dailyTemperatures(temperatures []int) []int {
 
 // 946
 func validateStackSequences(pushed []int, popped []int) bool {
-	
+
 	var st []int
 	var j int
 	for _, val := range pushed {
 		st = append(st, val)
-		
+
 		for len(st) > 0 && st[len(st)-1] == popped[j] {
 			st = st[:len(st)-1]
 			j++
 		}
 	}
-	
+
 	return len(st) == 0
 }
 
@@ -164,20 +167,20 @@ func validateStackSequences(pushed []int, popped []int) bool {
 func RemoveOuterParentheses(s string) string {
 	var res []rune
 	level := 0
-	
+
 	for _, ch := range s {
 		if ch == ')' {
 			level--
 		}
-		
+
 		if level > 0 {
 			res = append(res, ch)
 		}
-		
+
 		if ch == '(' {
 			level++
 		}
 	}
-	
+
 	return string(res)
 }

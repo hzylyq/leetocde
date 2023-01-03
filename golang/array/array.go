@@ -722,6 +722,31 @@ func shuffle(nums []int, n int) []int {
 	return res
 }
 
+// 2042. 检查句子中的数字是否递增
+func areNumbersAscending(s string) bool {
+	var pre, i int
+
+	for i < len(s) {
+		if unicode.IsDigit(rune(s[i])) {
+			cur := 0
+			for i < len(s) && unicode.IsDigit(rune(s[i])) {
+				cur = cur*10 + int(s[i]-'0')
+				i++
+			}
+
+			if pre > cur {
+				return false
+			}
+			pre = cur
+
+		} else {
+			i++
+		}
+	}
+
+	return true
+}
+
 // 剑指 Offer II 069. 山峰数组的顶部
 // 符合下列属性的数组 arr 称为 山峰数组（山脉数组） ：
 // arr.length >= 3
