@@ -747,6 +747,20 @@ func areNumbersAscending(s string) bool {
 	return true
 }
 
+func numberOfPairs(nums []int) []int {
+	var res int
+
+	cnt := map[int]bool{}
+	for _, num := range nums {
+		cnt[num] = !cnt[num]
+		if !cnt[num] {
+			res++
+		}
+	}
+
+	return []int{res, len(nums) - res*2}
+}
+
 // 剑指 Offer II 069. 山峰数组的顶部
 // 符合下列属性的数组 arr 称为 山峰数组（山脉数组） ：
 // arr.length >= 3

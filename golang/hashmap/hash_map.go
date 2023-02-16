@@ -123,3 +123,28 @@ func SmallerNumbersThanCurrent(nums []int) []int {
 	}
 	return res
 }
+
+// 2325. 解密消息
+func decodeMessage(key string, message string) string {
+	var keyMap = map[rune]byte{}
+
+	curr := byte('a')
+
+	for _, c := range key {
+		if _, ok := keyMap[c]; ok || c == ' ' {
+			continue
+		}
+
+		keyMap[c] = curr
+		curr++
+	}
+
+	res := []byte(message)
+	for i, c := range message {
+		if c != ' ' {
+			res[i] = keyMap[c]
+		}
+	}
+
+	return string(res)
+}
