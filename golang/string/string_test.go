@@ -35,3 +35,7 @@ func TestAddStrings(t *testing.T) {
 func TestLengthOfLongestSubstring(t *testing.T) {
 	assert.Equal(t, lengthOfLongestSubstring(""), 0)
 }
+
+func TestReverseLeftWords(t *testing.T) {
+	reverseLeftWords("abcd", 2)
+}

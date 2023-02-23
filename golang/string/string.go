@@ -287,6 +287,17 @@ func FirstUniqChar(s string) int {
 	return -1
 }
 
+// 剑指 Offer 58 - II. 左旋转字符串
+func reverseLeftWords(s string, n int) string {
+	curr := []byte(s)
+
+	var res []byte
+	res = append(res, curr[n:]...)
+	res = append(res, curr[:n]...)
+
+	return string(res)
+}
+
 func max(a, b int) int {
 	if a > b {
 		return a
