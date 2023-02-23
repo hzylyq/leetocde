@@ -411,3 +411,19 @@ func middleNode(head *ListNode) *ListNode {
 // func (this *Skiplist) Erase(num int) bool {
 //
 // }
+
+// 剑指 Offer 06. 从尾到头打印链表
+func reversePrint(head *ListNode) []int {
+	var stack []int
+	for head != nil {
+		stack = append(stack, head.Val)
+		head = head.Next
+	}
+
+	res := make([]int, len(stack))
+	for i := range res {
+		res[i] = stack[len(stack)-i-1]
+	}
+
+	return res
+}

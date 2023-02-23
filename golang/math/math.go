@@ -164,6 +164,16 @@ func parseComplexNumber(num string) (real, imag int) {
 	return
 }
 
+// 1238. 循环码排列
+func circularPermutation(n int, start int) []int {
+	ans := make([]int, 1<<n)
+	for i := range ans {
+		ans[i] = (i >> 1) ^ i ^ start
+	}
+
+	return ans
+}
+
 // 1716. 计算力扣银行的钱
 // Hercy 想要为购买第一辆车存钱。他 每天 都往力扣银行里存钱。
 // 最开始，他在周一的时候存入 1 块钱。从周二到周日，他每天都比前一天多存入 1 块钱。在接下来每一个周一，他都会比 前一个周一 多存入 1 块钱。
