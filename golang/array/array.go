@@ -761,6 +761,45 @@ func numberOfPairs(nums []int) []int {
 	return []int{res, len(nums) - res*2}
 }
 
+// 2357. 使数组中所有元素都等于零
+func minimumOperations(nums []int) int {
+	var res int
+
+	boolMap := make(map[int]bool, len(nums))
+	for _, num := range nums {
+		if num != 0 && !boolMap[num] {
+			res++
+		}
+		boolMap[num] = true
+	}
+
+	return res
+}
+
+// 2383. 赢得比赛需要的最少训练时长
+func minNumberOfHours(initialEnergy int, initialExperience int, energy []int, experience []int) int {
+	sum := 0
+	for _, v := range energy {
+		sum += v
+	}
+
+	var res int
+	if initialEnergy <= sum {
+		res = sum + 1 - initialEnergy
+	}
+
+	for _, v := range experience {
+		if initialExperience <= v {
+			res += (v + 1) - initialExperience
+			initialExperience += (v + 1) - initialExperience + v
+		} else {
+			initialExperience += v
+		}
+	}
+
+	return res
+}
+
 // 剑指 Offer II 069. 山峰数组的顶部
 // 符合下列属性的数组 arr 称为 山峰数组（山脉数组） ：
 // arr.length >= 3
