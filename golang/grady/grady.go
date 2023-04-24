@@ -2,6 +2,23 @@ package grady
 
 import "math"
 
+// 45. 跳跃游戏 II
+func jump(nums []int) int {
+	var res int
+
+	var maxPosition int
+	var end int
+	for i := 0; i < len(nums)-1; i++ {
+		maxPosition = max(maxPosition, i+nums[i])
+		if i == end {
+			end = maxPosition
+			res++
+		}
+	}
+
+	return res
+}
+
 // 55. 跳跃游戏
 func canJump(nums []int) bool {
 	var rightMax int
