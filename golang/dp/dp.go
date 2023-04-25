@@ -465,6 +465,26 @@ func maximalSquare(matrix [][]byte) int {
 	return maxSide * maxSide
 }
 
+// 238. 除自身以外数组的乘积
+func productExceptSelf(nums []int) []int {
+	length := len(nums)
+
+	l, r, answer := make([]int, length), make([]int, length), make([]int, length)
+	l[0], r[length-1] = 1, 1
+	for i := 1; i < length; i++ {
+		l[i] = l[i-1] * nums[i-1]
+	}
+	for i := length - 1; i >= 0; i-- {
+		r[i] = r[i+1] * nums[i+1]
+	}
+
+	for i := 0; i < length; i++ {
+		answer[i] = l[i] * r[i]
+	}
+
+	return answer
+}
+
 // 279. 完全平方数
 func numSquares(n int) int {
 	f := make([]int, n+1)

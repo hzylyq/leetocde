@@ -2,4 +2,5 @@
 .idea/
 rust/src/target/
 rust/src/grady/target
+rust/src/dp/target
 rust/target
