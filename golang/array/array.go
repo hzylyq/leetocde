@@ -4,6 +4,7 @@ import (
 	"math"
 	"sort"
 	"strconv"
+	"strings"
 	"unicode"
 )
 
@@ -234,8 +235,38 @@ func maxProfit(prices []int) int {
 	return maxProfit
 }
 
+// 125. 验证回文串
+func isPalindrome(s string) bool {
+	var sgood string
+	for i := 0; i < len(s); i++ {
+		if isalnum(s[i]) {
+			sgood += string(s[i])
+		}
+	}
+
+	sgood = strings.ToLower(sgood)
+
+	for n := 0; n < len(sgood)/2; n++ {
+		if sgood[n] != sgood[len(sgood)-1-n] {
+			return false
+		}
+	}
+
+	return true
+}
+
+func isalnum(ch byte) bool {
+	return (ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')
+}
+
 // 134. 加油站
 func canCompleteCircuit(gas []int, cost []int) int {
+	for i, n := 0, len(gas); i < n; {
+		sumOfGas, sumOfCost, cnt := 0, 0, 0
+		for cnt < n {
+
+		}
+	}
 	return 0
 }
 
