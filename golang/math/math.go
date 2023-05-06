@@ -7,6 +7,22 @@ import (
 	"strings"
 )
 
+// 9. 回文数
+func isPalindrome(x int) bool {
+	// 负数
+	if x < 0 || (x%10 == 0 && x != 0) {
+		return false
+	}
+
+	revertNum := 0
+	for x > revertNum {
+		revertNum = revertNum*10 + x%10
+		x /= 10
+	}
+
+	return x == revertNum || x == revertNum/10
+}
+
 // 66. 加一
 // 给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
 // 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。

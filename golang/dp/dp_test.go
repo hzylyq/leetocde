@@ -43,3 +43,8 @@ func TestNumSquares(t *testing.T) {
 	res := numSquares(13)
 	log.Print(res)
 }
+
+func TestIsInterleave(t *testing.T) {
+	res := isInterleave("", "", "")
+	assert.Equal(t, true, res)
+}
