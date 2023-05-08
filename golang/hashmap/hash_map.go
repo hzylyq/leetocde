@@ -44,6 +44,32 @@ func twoSum(nums []int, target int) []int {
 	return nil
 }
 
+// 13. 罗马数字转整数
+func romanToInt(s string) int {
+	resMap := map[byte]int{
+		'I': 1,
+		'V': 5,
+		'X': 10,
+		'L': 50,
+		'C': 100,
+		'D': 500,
+		'M': 1000,
+	}
+
+	n := len(s)
+	var res int
+	for i, ch := range s {
+		val := resMap[byte(ch)]
+
+		if i < n-1 && val < resMap[byte(s[i+1])] {
+			res -= val
+		} else {
+			res += val
+		}
+	}
+	return res
+}
+
 /**
  * Your MyHashMap object will be instantiated and called as such:
  * obj := Constructor();

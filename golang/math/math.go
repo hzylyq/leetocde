@@ -48,6 +48,12 @@ func plusOne(digits []int) []int {
 	return digits
 }
 
+func mySqrt(x int) int {
+	for i := 0; i*i <= x; i++ {
+
+	}
+}
+
 func BitwiseComplement(N int) int {
 	if N == 0 {
 		return 1
