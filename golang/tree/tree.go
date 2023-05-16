@@ -29,7 +29,7 @@ func (tree *BST) PreOrderTraverse(array []int) []int {
 	array = append(array, tree.Value)
 	array = tree.Left.PreOrderTraverse(array)
 	array = tree.Right.PreOrderTraverse(array)
-	
+
 	return array
 }
 
@@ -40,7 +40,7 @@ func (tree *BST) PostOrderTraverse(array []int) []int {
 	array = tree.Left.PostOrderTraverse(array)
 	array = tree.Right.PostOrderTraverse(array)
 	array = append(array, tree.Value)
-	
+
 	return array
 }
 
@@ -84,14 +84,14 @@ func preorderTraversal(root *TreeNode) []int {
 // 94. Binary Tree Inorder Traversal
 func inorderTraversal(root *TreeNode) []int {
 	array := make([]int, 0)
-	
+
 	if root == nil {
 		return array
 	}
 	array = append(array, inorderTraversal(root.Left)...)
 	array = append(array, root.Val)
 	array = append(array, inorderTraversal(root.Right)...)
-	
+
 	return array
 }
 
@@ -100,7 +100,7 @@ func GenerateTrees(n int) []*TreeNode {
 	if n <= 0 {
 		return []*TreeNode{}
 	}
-	
+
 	return dfs(1, n)
 }
 
@@ -109,13 +109,13 @@ func GenerateTrees(n int) []*TreeNode {
 func NumTrees(n int) int {
 	dp := make([]int, n+1)
 	dp[0], dp[1] = 1, 1
-	
+
 	for i := 2; i <= n; i++ {
 		for j := 1; j <= i; j++ {
 			dp[i] += dp[j-1] * dp[i-j]
 		}
 	}
-	
+
 	return dp[n]
 }
 
@@ -123,7 +123,7 @@ func dfs(left, right int) []*TreeNode {
 	if left > right {
 		return []*TreeNode{nil}
 	}
-	
+
 	res := make([]*TreeNode, 0)
 	for i := left; i <= right; i++ {
 		leftTrees := dfs(left, i-1)
@@ -154,7 +154,7 @@ func isHelperValidBST(node *TreeNode, lower, upper int) bool {
 	if node.Val <= lower || node.Val >= upper {
 		return false
 	}
-	
+
 	return isHelperValidBST(node.Left, lower, node.Val) && isHelperValidBST(node.Right, node.Val, upper)
 }
 
@@ -174,7 +174,7 @@ func isSymmetric(root *TreeNode) bool {
 	if root == nil {
 		return true
 	}
-	
+
 	type helperFunc func(*TreeNode, *TreeNode) bool
 	var helper helperFunc
 	helper = func(p *TreeNode, q *TreeNode) bool {
@@ -194,11 +194,11 @@ func buildTree(preorder []int, inorder []int) *TreeNode {
 	if len(preorder) < 1 {
 		return nil
 	}
-	
+
 	root := &TreeNode{
 		Val: preorder[0],
 	}
-	
+
 	var index int
 	// 记录下第一个val的idx
 	for idx, val := range inorder {
@@ -217,14 +217,14 @@ func buildTree2(preorder []int, inorder []int) *TreeNode {
 	if len(preorder) == 0 {
 		return nil
 	}
-	
+
 	root := &TreeNode{
 		Val: preorder[0],
 	}
-	
+
 	stack := []*TreeNode{root}
 	var inorderIndex int
-	
+
 	for i := 1; i < len(preorder); i++ {
 		preOrderVal := preorder[i]
 		node := stack[len(stack)-1]
@@ -255,7 +255,7 @@ func sortedArrayToBST(numList []int) *TreeNode {
 	if len(numList) == 0 {
 		return nil
 	}
-	
+
 	mid := len(numList) / 2
 	node := &TreeNode{
 		Val:   numList[mid],
@@ -268,7 +268,7 @@ func sortedArrayToBST(numList []int) *TreeNode {
 // flatten 114. 二叉树展开为链表
 func flatten(root *TreeNode) {
 	list := helperFlatten(root)
-	
+
 	for i := 1; i < len(list); i++ {
 		prev, curr := list[i-1], list[i]
 		prev.Left, prev.Right = nil, curr
@@ -279,7 +279,7 @@ func helperFlatten(root *TreeNode) []*TreeNode {
 	if root == nil {
 		return nil
 	}
-	
+
 	res := make([]*TreeNode, 0)
 	res = append(res, root)
 	res = append(res, helperFlatten(root.Left)...)
@@ -301,20 +301,20 @@ func connect(root *connectNode) *connectNode {
 	if root == nil {
 		return root
 	}
-	
+
 	queue := []*connectNode{root}
-	
+
 	for len(queue) > 0 {
 		length := len(queue)
-		
+
 		tmp := queue
 		queue = nil
-		
+
 		for i, node := range tmp {
 			if i+1 < length {
 				node.next = tmp[i+1]
 			}
-			
+
 			if node.left != nil {
 				queue = append(queue, node.left)
 			}
@@ -323,7 +323,7 @@ func connect(root *connectNode) *connectNode {
 			}
 		}
 	}
-	
+
 	return root
 }
 
@@ -338,24 +338,24 @@ func connect2(root *connectNode) *connectNode {
 // 给你一个二叉树的根节点root, 返回其最大路径和.
 func MaxPathSum(root *TreeNode) int {
 	maxSum := math.MinInt32
-	
+
 	var helperFunc func(root *TreeNode) int
 	helperFunc = func(node *TreeNode) int {
 		if node == nil {
 			return 0
 		}
-		
+
 		leftMax := max(helperFunc(node.Left), 0)
 		rightMax := max(helperFunc(node.Right), 0)
-		
+
 		newMaxVal := leftMax + node.Val + rightMax
 		maxSum = max(newMaxVal, maxSum)
-		
+
 		return node.Val + max(leftMax, rightMax)
 	}
-	
+
 	helperFunc(root)
-	
+
 	return maxSum
 }
 
@@ -364,7 +364,7 @@ func SumNumbers(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	
+
 	return helper(0, root)
 }
 
@@ -388,7 +388,7 @@ func LevelOrder(root *TreeNode) [][]int {
 	if root == nil {
 		return nil
 	}
-	
+
 	queue := []*TreeNode{root}
 	res := make([][]int, 0)
 	for len(queue) > 0 {
@@ -473,7 +473,7 @@ func binaryTreePaths(root *TreeNode) []string {
 		if root == nil {
 			return
 		}
-		
+
 		pathSub := path + strconv.Itoa(root.Val)
 		if root.Left == nil && root.Right == nil {
 			paths = append(paths, pathSub)
@@ -483,7 +483,7 @@ func binaryTreePaths(root *TreeNode) []string {
 			constructPaths(root.Right, pathSub)
 		}
 	}
-	
+
 	constructPaths(root, "")
 	return paths
 }
@@ -506,7 +506,7 @@ func (this *Codec) serialize(root *TreeNode) string {
 			sb.WriteString("null")
 			return
 		}
-		
+
 		sb.WriteString(strconv.Itoa(node.Val))
 		sb.WriteString(",")
 		dfs(node.Left)
@@ -528,7 +528,7 @@ func (this *Codec) deserialize(data string) *TreeNode {
 			sp = sp[1:]
 			return nil
 		}
-		
+
 		val, _ := strconv.Atoi(sp[0])
 		sp = sp[1:]
 		return &TreeNode{
@@ -537,7 +537,7 @@ func (this *Codec) deserialize(data string) *TreeNode {
 			Right: build(),
 		}
 	}
-	
+
 	return build()
 }
 
@@ -553,7 +553,7 @@ func ChildLevelOrder(root *Node) [][]int {
 	}
 	queue := []*Node{root}
 	res := make([][]int, 0)
-	
+
 	for len(queue) > 0 {
 		n := len(queue)
 		r := make([]int, 0)
@@ -581,14 +581,14 @@ func pathSumHelperFunc(node *TreeNode, targetSum int) int {
 	if node == nil {
 		return 0
 	}
-	
+
 	var sum int
 	if node.Val == targetSum {
 		sum++
 	}
 	sum += pathSumHelperFunc(node.Left, targetSum-node.Val)
 	sum += pathSumHelperFunc(node.Right, targetSum-node.Val)
-	
+
 	return sum
 }
 
@@ -596,20 +596,20 @@ func pathSumHelperFunc(node *TreeNode, targetSum int) int {
 // 1 中序遍历
 func findMode(root *TreeNode) []int {
 	var res []int
-	
+
 	var (
 		base     int
 		count    int
 		maxCount int
 	)
-	
+
 	update := func(v int) {
 		if v == base {
 			count++
 		} else {
 			base, count = v, 1
 		}
-		
+
 		if count == maxCount {
 			res = append(res, v)
 		} else if count > maxCount {
@@ -617,31 +617,31 @@ func findMode(root *TreeNode) []int {
 			res = []int{v}
 		}
 	}
-	
+
 	var dfs func(node *TreeNode)
 	dfs = func(node *TreeNode) {
 		if node == nil {
 			return
 		}
-		
+
 		dfs(node.Left)
 		update(node.Val)
 		dfs(node.Right)
 	}
-	
+
 	dfs(root)
-	
+
 	return res
 }
 
 // Morris 中序遍历 重点研究
 func findMode2(root *TreeNode) []int {
 	//
-	
+
 	for root != nil {
-	
+
 	}
-	
+
 	return nil
 }
 
@@ -665,7 +665,7 @@ func convertBST(root *TreeNode) *TreeNode {
 		helperFunc(node.Left)
 	}
 	helperFunc(root)
-	
+
 	return root
 }
 
@@ -673,7 +673,7 @@ func isSubTree(root *TreeNode, subRoot *TreeNode) bool {
 	if root == nil {
 		return false
 	}
-	
+
 	return isSubTreeCheck(root, subRoot) || isSubTree(root.Left, subRoot) || isSubTree(root.Right, subRoot)
 }
 
@@ -681,15 +681,15 @@ func isSubTreeCheck(a, b *TreeNode) bool {
 	if a == nil && b == nil {
 		return true
 	}
-	
+
 	if a == nil || b == nil {
 		return false
 	}
-	
+
 	if a.Val == b.Val {
 		return isSubTreeCheck(a.Left, b.Left) && isSubTreeCheck(a.Right, b.Right)
 	}
-	
+
 	return false
 }
 
@@ -700,7 +700,7 @@ func findSecondMinimumValue(root *TreeNode) int {
 	}
 	ans := -1
 	rootVal := root.Val
-	
+
 	var dfs func(node *TreeNode)
 	dfs = func(node *TreeNode) {
 		if node == nil || ans != -1 && node.Val >= ans {
@@ -726,14 +726,14 @@ func listOfDepth(tree *TreeNode) []*ListNode {
 	if tree == nil {
 		return nil
 	}
-	
+
 	res := make([]*ListNode, 0)
 	list := make([]*TreeNode, 0)
 	list = append(list, tree)
-	
+
 	for len(list) > 0 {
 		size := len(list)
-		
+
 		var node, head *ListNode
 		for i := 0; i < size; i++ {
 			if i == 0 {
@@ -767,11 +767,39 @@ func preorder(root *Node) []int {
 	if root == nil {
 		return []int{}
 	}
-	
+
 	var res []int
 	res = append(res, root.Val)
 	for _, child := range root.Children {
 		res = append(res, preorder(child)...)
+	}
+	return res
+}
+
+// 637. 二叉树的层平均值
+func averageOfLevels2(root *TreeNode) []float64 {
+	if root == nil {
+		return nil
+	}
+
+	res := make([]float64, 0)
+
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		sum := 0
+		length := len(queue)
+		for _, node := range queue {
+			sum += node.Val
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+
+		queue = queue[length:]
+		res = append(res, float64(sum)/float64(length))
 	}
 	return res
 }
@@ -781,17 +809,17 @@ func levelOrder(root *TreeNode) [][]int {
 	if root == nil {
 		return [][]int{}
 	}
-	
+
 	var list []*TreeNode
 	list = append(list, root)
-	
+
 	res := make([][]int, 0)
 	for len(list) > 0 {
 		size := len(list)
 		var data []int
 		for i := 0; i < size; i++ {
 			data = append(data, list[i].Val)
-			
+
 			if list[i].Left != nil {
 				list = append(list, list[i].Left)
 			}
@@ -813,7 +841,7 @@ func longestUnivaluePath(root *TreeNode) int {
 		if root == nil {
 			return 0
 		}
-		
+
 		left, right := dfs(root.Left), dfs(root.Right)
 		left1, right1 := 0, 0
 		if root.Left != nil && root.Left.Val == root.Val {
@@ -822,14 +850,14 @@ func longestUnivaluePath(root *TreeNode) int {
 		if root.Right != nil && root.Right.Val == root.Val {
 			right1 = right + 1
 		}
-		
+
 		res = max(res, left1+right1)
-		
+
 		return max(left1, right1)
 	}
-	
+
 	dfs(root)
-	
+
 	return res
 }
 
@@ -851,7 +879,7 @@ func inOrder(root *TreeNode) []int {
 	if root == nil {
 		return []int{}
 	}
-	
+
 	res := make([]int, 0)
 	res = append(res, inOrder(root.Left)...)
 	res = append(res, root.Val)
@@ -862,7 +890,7 @@ func inOrder(root *TreeNode) []int {
 // 剑指 Offer 54. 二叉搜索树的第k大节点
 func KthLargest(root *TreeNode, k int) int {
 	var ans, count int
-	
+
 	type helperFunc func(*TreeNode, int)
 	var helper helperFunc
 	helper = func(root *TreeNode, k int) {
@@ -870,7 +898,7 @@ func KthLargest(root *TreeNode, k int) int {
 			helper(root.Right, k)
 		}
 		count++
-		
+
 		if count == k {
 			ans = root.Val
 			return
@@ -878,7 +906,7 @@ func KthLargest(root *TreeNode, k int) int {
 		if root.Left != nil {
 			helper(root.Left, k)
 		}
-		
+
 		return
 	}
 	helper(root, k)
@@ -888,7 +916,7 @@ func KthLargest(root *TreeNode, k int) int {
 // find closest val in BST
 type BST struct {
 	Value int
-	
+
 	Left  *BST
 	Right *BST
 }
@@ -898,13 +926,13 @@ func (tree *BST) FindClosestValue(target int) int {
 	if tree == nil {
 		return -1
 	}
-	
+
 	return tree.findCloseValue(target, tree.Value)
 }
 
 func (tree *BST) findCloseValue(target, closest int) int {
 	currentNode := tree
-	
+
 	for currentNode != nil {
 		if abs(target, closest) > abs(target, currentNode.Value) {
 			closest = currentNode.Value
@@ -917,7 +945,7 @@ func (tree *BST) findCloseValue(target, closest int) int {
 			break
 		}
 	}
-	
+
 	return closest
 }
 
@@ -937,12 +965,12 @@ func NodeDepths(root *BinaryTree) int {
 	if root == nil {
 		return -1
 	}
-	
+
 	var sum, depth int
 	queue := []*BinaryTree{
 		root,
 	}
-	
+
 	for len(queue) > 0 {
 		length := len(queue)
 		sum += len(queue) * depth
@@ -957,7 +985,7 @@ func NodeDepths(root *BinaryTree) int {
 		queue = queue[length:]
 		depth++
 	}
-	
+
 	// Write your code here.
 	return sum
 }
@@ -973,7 +1001,7 @@ func calculationBranchSums(node *BinaryTree, runningSum int, sums *[]int) {
 	if node == nil {
 		return
 	}
-	
+
 	newRunningSum := runningSum + node.Value
 	if node.Left == nil && node.Right == nil {
 		*sums = append(*sums, newRunningSum)
@@ -1000,7 +1028,7 @@ func (tree *BST) Insert(value int) *BST {
 	if tree.Contains(value) {
 		return tree
 	}
-	
+
 	if value < tree.Value {
 		if tree.Left == nil {
 			tree.Left = &BST{Value: value}
@@ -1021,11 +1049,11 @@ func (tree *BST) Contains(value int) bool {
 	if tree == nil {
 		return false
 	}
-	
+
 	if tree.Value == value {
 		return true
 	}
-	
+
 	if tree.Value > value {
 		return tree.Left.Contains(value)
 	} else {
@@ -1037,7 +1065,7 @@ func (tree *BST) Remove(value int) *BST {
 	if !tree.Contains(value) {
 		return tree
 	}
-	
+
 	tree.remove(value, nil)
 	return tree
 }
@@ -1096,20 +1124,20 @@ func RangeSumBST(root *TreeNode, low int, high int) int {
 	if root.Val >= low && root.Val <= high {
 		sum += root.Val
 	}
-	
+
 	if root.Val > low {
 		sum += RangeSumBST(root.Left, low, high)
 	}
 	if root.Val < high {
 		sum += RangeSumBST(root.Right, low, high)
 	}
-	
+
 	return sum
 }
 
 func MinDiffInBST(root *TreeNode) int {
 	list := inOrder(root)
-	
+
 	res := math.MaxInt32
 	for i := 1; i < len(list); i++ {
 		mini := list[i] - list[i-1]
@@ -1125,7 +1153,7 @@ func maxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	
+
 	return max(maxDepth(root.Left)+1, maxDepth(root.Right)+1)
 }
 
@@ -1140,12 +1168,12 @@ func averageOfLevels(root *TreeNode) []float64 {
 	if root == nil {
 		return nil
 	}
-	
+
 	var res []float64
 	queue := []*TreeNode{root}
-	
+
 	currNum, nextLevelNum, count, sum := 1, 0, 1, 0
-	
+
 	for len(queue) > 0 {
 		if currNum > 0 {
 			node := queue[0]
@@ -1166,7 +1194,7 @@ func averageOfLevels(root *TreeNode) []float64 {
 			currNum, count, sum, nextLevelNum = nextLevelNum, nextLevelNum, 0, 0
 		}
 	}
-	
+
 	return res
 }
 
@@ -1180,20 +1208,20 @@ func minDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	
+
 	if root.Left == nil && root.Right == nil {
 		return 1
 	}
-	
+
 	miniDepth := math.MaxInt32
 	if root.Left != nil {
 		miniDepth = min(minDepth(root.Left), miniDepth)
 	}
 	if root.Right != nil {
 		miniDepth = min(minDepth(root.Right), miniDepth)
-		
+
 	}
-	
+
 	return miniDepth + 1
 }
 
@@ -1201,7 +1229,7 @@ func HeightAndIsBalanced(root *TreeNode) (int, bool) {
 	if root == nil {
 		return 0, true
 	}
-	
+
 	lf, bf := HeightAndIsBalanced(root.Left)
 	if !bf {
 		return 0, false
@@ -1210,7 +1238,7 @@ func HeightAndIsBalanced(root *TreeNode) (int, bool) {
 	if !br {
 		return 0, false
 	}
-	
+
 	return max(lf, lr) + 1, abs(lf, lr) <= 1
 }
 
@@ -1219,7 +1247,7 @@ func MinDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	
+
 	if root.Left == nil && root.Right == nil {
 		return 1
 	}
@@ -1228,25 +1256,25 @@ func MinDepth(root *TreeNode) int {
 	}
 	if root.Right == nil {
 		return MinDepth(root.Left) + 1
-		
+
 	}
-	
+
 	return min(MinDepth(root.Left), MinDepth(root.Right)) + 1
 }
 
 // 230. 二叉搜索树中第K小的元素
 func kthSmallest(root *TreeNode, k int) int {
 	var count, res int
-	
+
 	type helperFunc func(root *TreeNode, k int)
 	var helper helperFunc
 	helper = func(root *TreeNode, k int) {
 		if root == nil {
 			return
 		}
-		
+
 		helper(root.Left, k)
-		
+
 		count++
 		if count == k {
 			res = root.Val
@@ -1271,7 +1299,7 @@ func robDfs(node *TreeNode) []int {
 	if node == nil {
 		return []int{0, 0}
 	}
-	
+
 	l, r := robDfs(node.Left), robDfs(node.Right)
 	selectVal := node.Val + l[1] + r[1]
 	notSelectVal := max(l[0], l[1]) + max(r[0], r[1])
@@ -1288,7 +1316,7 @@ func sumOfLeftLeaves(root *TreeNode) int {
 		if node == nil {
 			continue
 		}
-		
+
 		if node.Left != nil {
 			queue = append(queue, node.Left)
 			if node.Left.Left == nil && node.Left.Right == nil {
@@ -1306,7 +1334,7 @@ func sumOfLeftLeaves2(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	
+
 	var res int
 	if root.Left != nil {
 		if root.Left.Left == nil && root.Left.Right == nil {
@@ -1318,7 +1346,7 @@ func sumOfLeftLeaves2(root *TreeNode) int {
 	if root.Right != nil && !(root.Right.Left == nil && root.Right.Right == nil) {
 		res += sumOfLeftLeaves2(root.Right)
 	}
-	
+
 	return res
 }
 
@@ -1326,23 +1354,23 @@ func sumOfLeftLeaves2(root *TreeNode) int {
 func findBottomLeftValue(root *TreeNode) int {
 	// 广度优先搜索, 需要从右向左遍历
 	q := []*TreeNode{root}
-	
+
 	var res int
 	for len(q) > 0 {
 		node := q[0]
 		q = q[1:]
-		
+
 		if node.Right != nil {
 			q = append(q, node.Right)
 		}
-		
+
 		if node.Left != nil {
 			q = append(q, node.Left)
 		}
-		
+
 		res = node.Val
 	}
-	
+
 	return res
 }
 
@@ -1357,7 +1385,7 @@ func findBottomLeftValueDFs(root *TreeNode) int {
 		if node == nil {
 			return
 		}
-		
+
 		height++
 		dfs(node.Left, height)
 		dfs(node.Right, height)
@@ -1375,7 +1403,7 @@ func getMinimumDifference(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	
+
 	res := inOrder(root)
 	tmp := math.MaxInt32
 	for i := 1; i <= len(res)-1; i++ {
@@ -1395,7 +1423,7 @@ func mergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
 	if root2 == nil {
 		return root1
 	}
-	
+
 	tree := &TreeNode{
 		Val: root1.Val + root2.Val,
 	}
@@ -1417,15 +1445,15 @@ func getTreeInfo(node *TreeNode) TreeInfo {
 	if node == nil {
 		return TreeInfo{}
 	}
-	
+
 	leftTreeInfo := getTreeInfo(node.Left)
 	rightTreeInfo := getTreeInfo(node.Right)
-	
+
 	longPath := leftTreeInfo.Height + rightTreeInfo.Height
 	maxDiameter := max(leftTreeInfo.Diameter, rightTreeInfo.Diameter)
 	currentMaxDiameter := max(maxDiameter, longPath)
 	currentHeight := max(leftTreeInfo.Height, rightTreeInfo.Height) + 1
-	
+
 	return TreeInfo{Diameter: currentMaxDiameter, Height: currentHeight}
 }
 
@@ -1433,21 +1461,21 @@ func diameterOfBinaryTree2(root *TreeNode) int {
 	var ans int
 	type helperFunc func(node *TreeNode) int
 	var helper helperFunc
-	
+
 	helper = func(node *TreeNode) int {
 		if node == nil {
 			return 0
 		}
-		
+
 		l := helper(node.Left)
 		r := helper(node.Right)
-		
+
 		ans = max(ans, l+r+1)
-		
+
 		return max(l, r) + 1
 	}
 	helper(root)
-	
+
 	return helper(root)
 }
 
@@ -1472,14 +1500,14 @@ func searchBST(root *TreeNode, val int) *TreeNode {
 		if root.Val == val {
 			return root
 		}
-		
+
 		if root.Val < val {
 			root = root.Right
 		} else {
 			root = root.Left
 		}
 	}
-	
+
 	return root
 }
 
@@ -1492,24 +1520,24 @@ type CBTInserter struct {
 func ConstructorCBT(root *TreeNode) CBTInserter {
 	q := []*TreeNode{root}
 	var candidate []*TreeNode
-	
+
 	for len(q) > 0 {
 		node := q[0]
-		
+
 		q = q[1:]
-		
+
 		if node.Left != nil {
 			q = append(q, node.Left)
 		}
 		if node.Right != nil {
 			q = append(q, node.Right)
 		}
-		
+
 		if node.Left == nil || node.Right == nil {
 			candidate = append(candidate, node)
 		}
 	}
-	
+
 	return CBTInserter{
 		root:      root,
 		candidate: candidate,
@@ -1548,7 +1576,7 @@ func isUnivalTree(root *TreeNode) bool {
 			return false
 		}
 	}
-	
+
 	return isUnivalTree(root.Left) && isUnivalTree(root.Right)
 }
 
@@ -1557,7 +1585,7 @@ func IsCousins(root *TreeNode, x, y int) bool {
 	var xParent, yParent *TreeNode
 	var xDepth, yDepth int
 	var xFound, yFound bool
-	
+
 	var dfs func(node, parent *TreeNode, depth int)
 	dfs = func(node, parent *TreeNode, depth int) {
 		if node == nil {
@@ -1568,7 +1596,7 @@ func IsCousins(root *TreeNode, x, y int) bool {
 		} else if node.Val == y {
 			yParent, yDepth, yFound = parent, depth, true
 		}
-		
+
 		if xFound && yFound {
 			return
 		}
@@ -1603,7 +1631,7 @@ func insertIntoMaxTree(root *TreeNode, val int) *TreeNode {
 		}
 		parent = curr
 	}
-	
+
 	parent.Right = &TreeNode{Val: val}
 	return root
 }
@@ -1612,7 +1640,7 @@ func insertIntoMaxTree(root *TreeNode, val int) *TreeNode {
 func sumRootToLeaf(root *TreeNode) int {
 	type helperFunc func(root *TreeNode, sum int) int
 	var helper helperFunc
-	
+
 	helper = func(root *TreeNode, sum int) int {
 		if root == nil {
 			return 0
@@ -1623,7 +1651,7 @@ func sumRootToLeaf(root *TreeNode) int {
 		}
 		return helper(root.Left, sum) + helper(root.Right, sum)
 	}
-	
+
 	return helper(root, 0)
 }
 
