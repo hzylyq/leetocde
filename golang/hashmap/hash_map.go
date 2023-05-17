@@ -1,5 +1,7 @@
 package hashmap
 
+import "strings"
+
 type MyHashMap struct {
 	m map[int]int
 }
@@ -134,6 +136,28 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 		indexDiff[nums[i]] = i
 	}
 	return false
+}
+
+// 290. 单词规律
+func wordPattern(pattern string, s string) bool {
+	words := strings.Split(s, " ")
+	if len(pattern) != len(words) {
+		return false
+	}
+
+	word2ch := make(map[string]byte)
+	ch2word := make(map[byte]string)
+
+	for i, word := range words {
+		ch := pattern[i]
+		if (word2ch[word] > 0 && word2ch[word] != ch) || (ch2word[ch] != "" && ch2word[ch] != word) {
+			return false
+		}
+		word2ch[word] = ch
+		ch2word[ch] = word
+	}
+
+	return true
 }
 
 // 383. 赎金信
