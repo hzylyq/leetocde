@@ -110,6 +110,24 @@ func isValid(s string) bool {
 	return len(stack) == 0
 }
 
+// 58. 最后一个单词的长度
+func lengthOfLastWord(s string) int {
+	var res int
+
+	length := len(s)
+	for i := length - 1; i >= 0; i-- {
+		if s[i] == ' ' && res == 0 {
+			continue
+		} else if s[i] != ' ' {
+			res++
+		} else {
+			return res
+		}
+	}
+
+	return res
+}
+
 // 187. 重复的DNA序列
 // 所有 DNA 都由一系列缩写为 'A'，'C'，'G' 和 'T' 的核苷酸组成，例如："ACGAATTCCG"。
 // 在研究 DNA 时，识别 DNA 中的重复序列有时会对研究非常有帮助。

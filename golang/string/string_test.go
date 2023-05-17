@@ -23,6 +23,9 @@ func TestIsValid(t *testing.T) {
 	assert.Equal(t, isValid("()"), true)
 }
 
+func TestLengthOfLastWord(t *testing.T) {
+	lengthOfLastWord("Hello World")
+}
 func TestLongestPalindrome(t *testing.T) {
 	res := LongestPalindrome("ababaaaaaaa")
 	t.Log(res)
