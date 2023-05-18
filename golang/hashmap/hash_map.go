@@ -138,6 +138,24 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 	return false
 }
 
+// 242. 有效的字母异位词
+func isAnagram(s string, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+
+	a := [26]int{}
+	b := [26]int{}
+
+	for _, ch := range s {
+		a[ch-'a']++
+	}
+	for _, ch := range t {
+		b[ch-'a']++
+	}
+	return a == b
+}
+
 // 290. 单词规律
 func wordPattern(pattern string, s string) bool {
 	words := strings.Split(s, " ")
