@@ -20,11 +20,6 @@ func TestCheckSubarraySum(t *testing.T) {
 	assert.Equal(t, res, true)
 }
 
-func TestLetterCombinations(t *testing.T) {
-	res := LetterCombinations("")
-	t.Log(res)
-}
-
 func TestTwoSum(t *testing.T) {
 	twoSum([]int{2, 7, 11, 15}, 9)
 }
@@ -43,4 +38,9 @@ func TestShuff(t *testing.T) {
 
 func TestThreeSum2(t *testing.T) {
 	threeSum2([]int{-1, 0, 1, 2, -1, -4})
+}
+
+func TestApplyOperations(t *testing.T) {
+	res := applyOperations([]int{0, 1})
+	assert.Equal(t, res, []int{1, 0})
 }

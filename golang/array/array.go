@@ -150,9 +150,9 @@ func mergeSpace(intervals [][]int) [][]int {
 		return intervals[i][0] < intervals[j][0]
 	})
 
-	for _, item := range intervals {
+	// for _, item := range intervals {
 
-	}
+	// }
 
 	return intervals
 
@@ -261,12 +261,12 @@ func isalnum(ch byte) bool {
 
 // 134. 加油站
 func canCompleteCircuit(gas []int, cost []int) int {
-	for i, n := 0, len(gas); i < n; {
-		sumOfGas, sumOfCost, cnt := 0, 0, 0
-		for cnt < n {
+	// for i, n := 0, len(gas); i < n; {
+	// 	sumOfGas, sumOfCost, cnt := 0, 0, 0
+	// 	for cnt < n {
 
-		}
-	}
+	// 	}
+	// }
 	return 0
 }
 
@@ -834,6 +834,23 @@ func minNumberOfHours(initialEnergy int, initialExperience int, energy []int, ex
 	}
 
 	return res
+}
+
+// 2460. 对数组执行操作
+func applyOperations(nums []int) []int {
+	var j int
+	for i := 0; i < len(nums); i++ {
+		if i+1 < len(nums) && nums[i] == nums[i+1] {
+			nums[i] *= 2
+			nums[i+1] = 0
+		}
+		if nums[i] != 0 {
+			nums[i], nums[j] = nums[j], nums[i]
+			j++
+		}
+	}
+
+	return nums
 }
 
 // 剑指 Offer II 069. 山峰数组的顶部
