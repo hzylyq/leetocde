@@ -454,7 +454,7 @@ func rob(nums []int) int {
 		return max(nums[0], nums[1])
 	}
 
-	// 状态专业方程 dp[n] = max(dp[n-2]+nums[n], dp[n-1])
+	// 状态专业方程 Dp[n] = max(Dp[n-2]+nums[n], Dp[n-1])
 	dp := make([]int, len(nums))
 	dp[0] = nums[0]
 	dp[1] = max(nums[0], nums[1])
@@ -682,12 +682,12 @@ func makeSquare(matchsticks []int) bool {
 	//
 	// // 每条边的长度
 	// tLen := total / 4
-	// dp := make([]int, 1<<len(matchsticks))
-	// for i := 1; i < len(dp); i++ {
-	//	dp[i] = -1
+	// Dp := make([]int, 1<<len(matchsticks))
+	// for i := 1; i < len(Dp); i++ {
+	//	Dp[i] = -1
 	// }
 	//
-	// for s := 1; s < len(dp); s++ {
+	// for s := 1; s < len(Dp); s++ {
 	//
 	// }
 
@@ -867,7 +867,7 @@ func maxProfit(prices []int) int {
 
 // 剑指 Offer II 088. 爬楼梯的最少成本
 func minCostClimbingStairs(cost []int) int {
-	// dp[i] = min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2])
+	// Dp[i] = min(Dp[i-1]+cost[i-1], Dp[i-2]+cost[i-2])
 
 	n := len(cost)
 	var (
@@ -886,7 +886,7 @@ func minCostClimbingStairs(cost []int) int {
 
 // 剑指 Offer II 089. 房屋偷盗
 func robI(nums []int) int {
-	// dp[n] = max(dp[n-2]+nums[n], dp[n-1])
+	// Dp[n] = max(Dp[n-2]+nums[n], Dp[n-1])
 	if len(nums) < 2 {
 		return nums[0]
 	}

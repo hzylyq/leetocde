@@ -2,6 +2,7 @@ mod array;
 mod stack;
 mod map;
 mod grady;
+mod dp;
 
 pub struct Solution;
 
