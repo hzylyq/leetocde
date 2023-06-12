@@ -4,16 +4,12 @@ mod tests {
     fn it_works() {
         let result = 2 + 2;
         assert_eq!(result, 4);
-
-        use super::Solution;
-
-        let res = Solution::jump(vec![1,3,4]);
     }
 }
 
-pub struct Solution;
+pub struct Grady;
 
-impl Solution {
+impl Grady {
     pub fn jump(nums: Vec<i32>) -> i32 {
         use std::cmp::max;
 
@@ -22,7 +18,7 @@ impl Solution {
         let mut max_position = 0;
 
         for i in 0..(nums.len() - 1) {
-            max_position = max(max_position, i + nums[i]);
+            max_position = max(max_position, i + nums[i] as usize);
             if i == end {
                 end = max_position;
                 step += 1;

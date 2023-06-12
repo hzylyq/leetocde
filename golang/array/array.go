@@ -1,6 +1,7 @@
 package array
 
 import (
+	"fmt"
 	"math"
 	"sort"
 	"strconv"
@@ -795,6 +796,28 @@ func numberOfPairs(nums []int) []int {
 	}
 
 	return []int{res, len(nums) - res*2}
+}
+
+// 2352. 相等行列对
+func equalPairs(grid [][]int) int {
+	n := len(grid)
+	cntMap := make(map[string]int, n)
+	for _, row := range grid {
+		cntMap[fmt.Sprint(row)]++
+	}
+
+	var res int
+	for j := 0; j < n; j++ {
+		var arr []int
+		for i := 0; i < n; i++ {
+			arr = append(arr, grid[i][j])
+		}
+		if val, ok := cntMap[fmt.Sprint(arr)]; ok {
+			res += val
+		}
+	}
+
+	return res
 }
 
 // 2357. 使数组中所有元素都等于零
