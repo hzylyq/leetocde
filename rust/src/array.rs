@@ -1,4 +1,11 @@
-use core::num;
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        let result = 2 + 2;
+        assert_eq!(result, 4);
+    }
+}
 
 pub struct Array;
 
@@ -30,7 +37,7 @@ impl Array {
         for i in 0..nums.len() {
             if nums[i] != val {
                 nums[j] = nums[i];
-                j += 1;            
+                j += 1;
             }
         }
         return j as i32;

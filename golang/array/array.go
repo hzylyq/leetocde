@@ -876,6 +876,20 @@ func applyOperations(nums []int) []int {
 	return nums
 }
 
+// 2475. 数组中不等三元组的数目
+func unequalTriplets(nums []int) int {
+	countMap := make(map[int]int, len(nums))
+	for _, num := range nums {
+		countMap[num]++
+	}
+
+	res, n, t := 0, len(nums), 0
+	for _, v := range countMap {
+		res, t = res+t*v*(n-t-v), t+v
+	}
+	return res
+}
+
 // 剑指 Offer II 069. 山峰数组的顶部
 // 符合下列属性的数组 arr 称为 山峰数组（山脉数组） ：
 // arr.length >= 3
