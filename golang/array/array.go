@@ -101,8 +101,8 @@ func removeDuplicates1(nums []int) int {
 	var slow int
 	for i := 0; i < len(nums); i++ {
 		if nums[i] != nums[slow] {
-			nums[slow] = nums[i]
 			slow++
+			nums[slow] = nums[i]
 		}
 	}
 	return slow + 1

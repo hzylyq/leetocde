@@ -5,8 +5,8 @@ impl TwoPointer {
         let mut slow = 0;
         for i in 0..nums.len() {
             if nums[i] != nums[slow as usize] {
-                nums[slow as usize] = nums[i];
                 slow += 1;
+                nums[slow as usize] = nums[i];
             }
         }
 
@@ -22,7 +22,7 @@ mod tests {
     #[test]
     fn it_works() {
         use super::TwoPointer;
-        let mut vec=vec![1,1,2];
+        let mut vec = vec![1, 1, 2];
 
         let res = TwoPointer::remove_duplicates(&mut vec);
         println!("{}", res);
