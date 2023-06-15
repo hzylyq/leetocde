@@ -3,6 +3,7 @@ mod stack;
 mod map;
 mod grady;
 mod dp;
+mod two_pointer;
 
 pub struct Solution;
 
