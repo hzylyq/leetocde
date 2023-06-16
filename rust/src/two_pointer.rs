@@ -12,6 +12,28 @@ impl TwoPointer {
 
         return slow + 1;
     }
+
+    pub fn remove_duplicates2(nums: &mut Vec<i32>) -> i32 {
+        let mut slow = 0;
+        for i in 0..nums.len() {
+            if slow < 2 || nums[i] != nums[slow - 2 as usize] {
+                nums[slow] = nums[i];
+                slow += 1;
+            }
+        }
+        return slow as i32;
+    }
+
+    pub fn remove_duplicates_n(nums: &mut Vec<i32>, k :i32) -> i32 {
+        let mut u = 0;
+        for i in 0..nums.len() {
+            if u < k || nums[i] != nums[u - k as usize] {
+                nums[u] = nums[i];
+                u += 1;
+            }
+        }
+        return u as i32;
+    }
 }
 
 

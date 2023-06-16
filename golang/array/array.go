@@ -189,6 +189,17 @@ func removeDuplicates(nums []int) int {
 	return slow
 }
 
+func removeDuplicateN(nums []int, k int) int {
+	var u int
+	for _, v := range nums {
+		if u < k || v != nums[u-k] {
+			nums[u] = v
+			u++
+		}
+	}
+	return u
+}
+
 // 88. 合并两个有序数组
 func merge(nums1 []int, m int, nums2 []int, n int) {
 	sorted := make([]int, 0, m+n)
