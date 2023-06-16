@@ -42,4 +42,19 @@ impl Array {
         }
         return j as i32;
     }
+
+    // 169. 多数元素
+    pub fn majority_element(nums: Vec<i32>) -> i32 {
+        let mut count = 0;
+        let mut candidate = 0;
+
+        for n in nums {
+            if count == 0 {
+                candidate = n;
+            }
+            count += if n == candidate { 1 } else { -1 };
+        }
+
+        return candidate;
+    }
 }

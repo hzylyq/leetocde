@@ -298,6 +298,27 @@ func twoSum(numbers []int, target int) []int {
 	return res
 }
 
+// 169. 多数元素
+func majorityElement(nums []int) int {
+	var (
+		count     int
+		candidate int
+	)
+
+	for _, v := range nums {
+		if count == 0 {
+			candidate = v
+		}
+		if candidate == v {
+			count += 1
+		} else {
+			count -= 1
+		}
+	}
+
+	return candidate
+}
+
 // 189. 轮转数组
 func reverse(a []int) {
 	for i, n := 0, len(a); i < n/2; i++ {
