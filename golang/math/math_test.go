@@ -18,3 +18,8 @@ func TestCheckPerfectNumber(t *testing.T) {
 func TestPlusOne(t *testing.T) {
 	assert.Equal(t, plusOne([]int{1, 2, 3}), []int{1, 2, 4})
 }
+
+func TestPivotInteger(t *testing.T) {
+	res := pivotInteger(8)
+	t.Log(res)
+}

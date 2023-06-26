@@ -52,6 +52,8 @@ func mySqrt(x int) int {
 	for i := 0; i*i <= x; i++ {
 
 	}
+
+	return 0
 }
 
 func BitwiseComplement(N int) int {
@@ -196,12 +198,31 @@ func circularPermutation(n int, start int) []int {
 	return ans
 }
 
+// 1401. 圆和矩形是否有重叠
+// func checkOverlap(radius int, xCenter int, yCenter int, x1 int, y1 int, x2 int, y2 int) bool {
+// 	var dist float64
+// 	if xCenter
+//
+// 	return false
+// }
+
 // 1716. 计算力扣银行的钱
 // Hercy 想要为购买第一辆车存钱。他 每天 都往力扣银行里存钱。
 // 最开始，他在周一的时候存入 1 块钱。从周二到周日，他每天都比前一天多存入 1 块钱。在接下来每一个周一，他都会比 前一个周一 多存入 1 块钱。
 // 给你 n ，请你返回在第 n 天结束的时候他在力扣银行总共存了多少块钱。
 func totalMoney(n int) int {
 	return 0
+}
+
+// 2485. 找出中枢整数 数学公式
+func pivotInteger(n int) int {
+	t := (n*n + n) / 2
+	res := int(math.Sqrt(float64(t)))
+	if res*res == t {
+		return res
+	}
+
+	return -1
 }
 
 func max(a, b int) int {
