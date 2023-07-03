@@ -380,6 +380,48 @@ func deleteNode(node *ListNode) {
 	node.Next = node.Next.Next
 }
 
+// 445. 两数相加 II
+func addTwoNumbers445(l1 *ListNode, l2 *ListNode) *ListNode {
+	var stack1 []int
+	var stack2 []int
+
+	for l1 != nil {
+		stack1 = append(stack1, l1.Val)
+		l1 = l1.Next
+	}
+	for l2 != nil {
+		stack2 = append(stack2, l2.Val)
+		l2 = l2.Next
+	}
+
+	var carry int
+	var ans *ListNode
+	for len(stack1) > 0 || len(stack2) > 0 || carry != 0 {
+		var (
+			a int
+			b int
+		)
+		if len(stack1) > 0 {
+			a = stack1[len(stack1)-1]
+			stack1 = stack1[:len(stack1)-1]
+		}
+		if len(stack2) > 0 {
+			b = stack2[len(stack2)-1]
+			stack2 = stack2[:len(stack2)-1]
+		}
+
+		curr := a + b + carry
+		carry = curr / 10
+		curr = curr % 10
+		currNode := &ListNode{
+			Val:  curr,
+			Next: ans,
+		}
+		ans = currNode
+	}
+	return ans
+}
+
 // 876. 链表的中间结点
 func middleNode(head *ListNode) *ListNode {
 	slow, fast := head, head
