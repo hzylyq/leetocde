@@ -198,6 +198,23 @@ func canConstruct(ransomNote string, magazine string) bool {
 	return true
 }
 
+// 771. 宝石与石头
+func numJewelsInStones(jewels string, stones string) int {
+	chMap := make(map[int32]struct{}, len(jewels))
+	for _, c := range jewels {
+		chMap[c] = struct{}{}
+	}
+
+	var res int
+	for _, c := range stones {
+		if _, ok := chMap[c]; ok {
+			res++
+		}
+	}
+
+	return res
+}
+
 // 1365. 有多少小于当前数字的数字
 // 暴力破解
 func SmallerNumbersThanCurrent(nums []int) []int {

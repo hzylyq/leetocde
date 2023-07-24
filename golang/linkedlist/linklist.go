@@ -438,7 +438,7 @@ func middleNode(head *ListNode) *ListNode {
 // type Skiplist struct {
 // }
 //
-// func ConstructorSkipList() Skiplist {
+// func ConstructorSkipList() Skiplist {0
 //
 // }
 //
