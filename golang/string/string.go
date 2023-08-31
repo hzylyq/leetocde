@@ -1,6 +1,8 @@
 package string
 
-import "strconv"
+import (
+	"strconv"
+)
 
 // 3. 无重复字符的最长子串
 func lengthOfLongestSubstring(s string) int {
@@ -108,6 +110,38 @@ func isValid(s string) bool {
 	}
 
 	return len(stack) == 0
+}
+
+// 28. 找出字符串中第一个匹配项的下标
+func strStr(haystack string, needle string) int {
+	n, m := len(haystack), len(needle)
+	if m == 0 {
+		return 0
+	}
+
+	pi := make([]int, m)
+	for i, j := 1, 0; i < m; i++ {
+		for j > 0 && needle[i] != needle[j] {
+			j = pi[j-1]
+		}
+		if needle[i] == needle[j] {
+			j++
+		}
+		pi[i] = j
+	}
+	for i, j := 0, 0; i < n; i++ {
+		for j > 0 && haystack[i] != needle[j] {
+			j = pi[j-1]
+		}
+		if haystack[i] == needle[j] {
+			j++
+		}
+		if j == m {
+			return i - m + 1
+		}
+	}
+
+	return -1
 }
 
 // 58. 最后一个单词的长度
