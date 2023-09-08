@@ -198,6 +198,22 @@ func reverse(x int) int {
 	return rev
 }
 
+// 66. 加一
+func plusOne(digits []int) []int {
+	for i := len(digits) - 1; i >= 0; i-- {
+		if digits[i] == 9 {
+			digits[i] = 0
+		} else {
+			digits[i] += 1
+			return digits
+		}
+	}
+
+	digits = make([]int, len(digits)+1)
+	digits[0] = 1
+	return digits
+}
+
 // 78. 子集
 // 给你一个整数数组 nums ，数组中的元素 互不相同。返回该数组所有可能的子集（幂集）。
 // 解集不能包含重复的子集。你可以按任意顺序返回解集。
@@ -365,4 +381,45 @@ func decode(encoded []int, first int) []int {
 		res[i+1] = res[i] ^ e
 	}
 	return res
+}
+
+// 2605. 从两个数字数组里生成最小数字
+func minNumber(nums1 []int, nums2 []int) int {
+	var same = func() int {
+		s := make(map[int]bool)
+		x := 10
+		for _, num := range nums1 {
+			s[num] = true
+		}
+		for _, num := range nums2 {
+			if _, ok := s[num]; ok {
+				x = min(x, num)
+			}
+		}
+		if x == 10 {
+			return -1
+		}
+		return x
+	}
+
+	if x := same(); x != -1 {
+		return x
+	}
+
+	x, y := nums1[0], nums2[0]
+	for _, num := range nums1 {
+		x = min(x, num)
+	}
+	for _, num := range nums2 {
+		y = min(y, num)
+	}
+
+	return min(x*10+y, x+y*10)
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
