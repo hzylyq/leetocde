@@ -16,14 +16,14 @@ func BinarySearch(array []int, target int) int {
 		if target == numMid {
 			return mid
 		}
-
+		
 		if target < numMid {
 			high = mid
 		} else {
 			low = mid
 		}
 	}
-
+	
 	return -1
 }
 
@@ -37,7 +37,7 @@ func NonConstructibleChange(coins []int) int {
 		}
 		currentChangeCreated += coin
 	}
-
+	
 	return currentChangeCreated + 1
 }
 
@@ -46,14 +46,14 @@ func GetNthFib(n int) int {
 	if n < 0 {
 		return -1
 	}
-
+	
 	if n == 1 {
 		return 0
 	}
 	if n == 2 {
 		return 1
 	}
-
+	
 	return GetNthFib(n-1) + GetNthFib(n-2)
 }
 
@@ -63,7 +63,7 @@ func GetNthFib2(n int) int {
 		1: 0,
 		2: 1,
 	}
-
+	
 	return helper(n, memoize)
 }
 
@@ -141,14 +141,14 @@ func SortedSquaredArray(array []int) []int {
 
 func SortedSquaredArray2(array []int) []int {
 	res := make([]int, 0)
-
+	
 	smallValIdx := 0
 	largerValIdx := len(array) - 1
-
+	
 	for idx := len(array) - 1; idx >= 0; idx-- {
 		smallVal := array[smallValIdx]
 		largeVal := array[largerValIdx]
-
+		
 		if abs(smallVal) > abs(largeVal) {
 			res[idx] = smallVal * smallVal
 			smallValIdx++
@@ -157,7 +157,7 @@ func SortedSquaredArray2(array []int) []int {
 			largerValIdx--
 		}
 	}
-
+	
 	return res
 }
 
@@ -214,6 +214,40 @@ func plusOne(digits []int) []int {
 	return digits
 }
 
+// 67. 二进制求和
+func addBinary(a string, b string) string {
+	carry := 0
+	lenA, lenB := len(a), len(b)
+	n := max(lenA, len(b))
+	
+	var ans string
+	for i := 0; i < n; i++ {
+		if i < lenA {
+			carry += int(a[lenA-i-1] - '0')
+		}
+		if i < lenB {
+			carry += int(b[lenB-i-1] - '0')
+		}
+		
+		ans = strconv.Itoa(carry%2) + ans
+		carry /= 2
+	}
+	
+	if carry > 0 {
+		ans = strconv.Itoa(carry) + ans
+	}
+	
+	return ans
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	
+	return b
+}
+
 // 78. 子集
 // 给你一个整数数组 nums ，数组中的元素 互不相同。返回该数组所有可能的子集（幂集）。
 // 解集不能包含重复的子集。你可以按任意顺序返回解集。
@@ -235,22 +269,22 @@ func subsets(nums []int) [][]int {
 func subset2(nums []int) [][]int {
 	var res [][]int
 	var set []int
-
+	
 	var backoff func(int)
 	backoff = func(cur int) {
 		if cur == len(nums) {
 			res = append(res, append([]int(nil), set...))
 			return
 		}
-
+		
 		set = append(set, nums[cur])
 		backoff(cur + 1)
 		set = set[:len(set)-1]
 		backoff(cur + 1)
 	}
-
+	
 	backoff(0)
-
+	
 	return res
 }
 
@@ -259,7 +293,7 @@ func isPowerOfTwo(n int) bool {
 	if n == 0 {
 		return false
 	}
-
+	
 	return n&(n-1) == 0
 }
 
@@ -312,28 +346,28 @@ func validIPAddress(queryIP string) string {
 			if len(item) > 1 && item[0] == '0' {
 				return "Neither"
 			}
-
+			
 			if v, err := strconv.Atoi(item); err != nil || v > 255 {
 				return "Neither"
 			}
 		}
 		return "IPv4"
 	}
-
+	
 	if ipArr := strings.Split(queryIP, ":"); len(ipArr) == 8 {
 		for _, item := range ipArr {
 			if len(item) > 4 {
 				return "Neither"
 			}
-
+			
 			if _, err := strconv.ParseUint(item, 16, 64); err != nil {
 				return "Neither"
 			}
 		}
-
+		
 		return "IPv6"
 	}
-
+	
 	return "Neither"
 }
 
@@ -343,7 +377,7 @@ func hammingDistance(x int, y int) int {
 	for s := x ^ y; s > 0; s >>= 1 {
 		res += s & 1
 	}
-
+	
 	return res
 }
 
@@ -352,11 +386,11 @@ func tribonacci(n int) int {
 	if n == 0 {
 		return 0
 	}
-
+	
 	if n <= 2 {
 		return 1
 	}
-
+	
 	first, second, third, s := 0, 0, 1, 1
 	for i := 3; i <= n; i++ {
 		first = second
@@ -369,7 +403,7 @@ func tribonacci(n int) int {
 
 // 1442. 形成两个异或相等数组的三元组数目
 func countTriplets(arr []int) int {
-
+	
 	return 0
 }
 
