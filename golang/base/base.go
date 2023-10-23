@@ -208,7 +208,7 @@ func plusOne(digits []int) []int {
 			return digits
 		}
 	}
-
+	
 	digits = make([]int, len(digits)+1)
 	digits[0] = 1
 	return digits
@@ -435,11 +435,11 @@ func minNumber(nums1 []int, nums2 []int) int {
 		}
 		return x
 	}
-
+	
 	if x := same(); x != -1 {
 		return x
 	}
-
+	
 	x, y := nums1[0], nums2[0]
 	for _, num := range nums1 {
 		x = min(x, num)
@@ -447,8 +447,23 @@ func minNumber(nums1 []int, nums2 []int) int {
 	for _, num := range nums2 {
 		y = min(y, num)
 	}
-
+	
 	return min(x*10+y, x+y*10)
+}
+
+// 2678. 老人的数目
+func countSeniors(details []string) int {
+	var res int
+	for _, item := range details {
+		age := item[11:13]
+		println(age)
+		n, _ := strconv.ParseInt(age, 10, 64)
+		if n > 60 {
+			res++
+		}
+	}
+	
+	return res
 }
 
 func min(a, b int) int {

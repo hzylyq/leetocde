@@ -2,13 +2,13 @@ package base
 
 import (
 	"testing"
-
+	
 	"github.com/stretchr/testify/assert"
 )
 
 func TestBinarySearch(t *testing.T) {
 	array := []int{0, 1, 21, 33, 45, 45, 61, 71, 72, 73}
-
+	
 	t.Log(BinarySearch(array, 33))
 }
 
@@ -28,4 +28,8 @@ func TestFindThreeLargestNumbers(t *testing.T) {
 
 func TestHammingDistance(t *testing.T) {
 	assert.Equal(t, hammingDistance(1, 4), 2)
+}
+
+func TestCountSeniors(t *testing.T) {
+	countSeniors([]string{"7868190130M7522", "5303914400F9211", "9273338290F4010"})
 }
