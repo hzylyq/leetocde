@@ -417,6 +417,19 @@ func decode(encoded []int, first int) []int {
 	return res
 }
 
+// 2520. 统计能整除数字的位数
+func countDigits(num int) int {
+	t, res := num, 0
+	for t != 0 {
+		if num%(t%10) == 0 {
+			res++
+		}
+		
+		t /= 10
+	}
+	return res
+}
+
 // 2605. 从两个数字数组里生成最小数字
 func minNumber(nums1 []int, nums2 []int) int {
 	var same = func() int {
